@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import AppBar from 'material-ui/AppBar';
+import AppBar from 'material-ui/AppBar'
 import { List, ListItem } from 'material-ui/List'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -16,7 +16,7 @@ export class Confirm extends Component {
   }
 
   render() {
-    const { values: { firstName, lastName, email, occupation, city, birth } } = this.props
+    const { values: { name, telephone, birth, gender, email, city, healthLevel } } = this.props
 
     return (
       <MuiThemeProvider>
@@ -24,28 +24,32 @@ export class Confirm extends Component {
           <AppBar title="Confirme seus dados" />
           <List>
             <ListItem
-              primaryText="Primeiro Nome"
-              secondaryText={firstName}
+              primaryText="Nome Completo"
+              secondaryText={name}
             />
             <ListItem
-              primaryText="Sobrenome"
-              secondaryText={lastName}
+              primaryText="Telefone"
+              secondaryText={telephone}
+            />
+            <ListItem
+              primaryText="Data de Nascimento"
+              secondaryText={birth}
+            />
+            <ListItem
+              primaryText="Gênero"
+              secondaryText={gender}
             />
             <ListItem
               primaryText="E-mail"
               secondaryText={email}
             />
             <ListItem
-              primaryText="Ocupação"
-              secondaryText={occupation}
-            />
-            <ListItem
               primaryText="Cidade"
               secondaryText={city}
             />
             <ListItem
-              primaryText="Data de Nascimento"
-              secondaryText={birth}
+              primaryText="Nível de Saúde"
+              secondaryText={healthLevel}
             />
           </List>
 

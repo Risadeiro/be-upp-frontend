@@ -1,18 +1,32 @@
 import React, { Component } from 'react'
 import FormUserDetails from './FormUserDetails'
-import FormPersonalDetails from './FormPersonalDetails'
+import FormHealthDetails from './FormHealthDetails'
 import Confirm from './Confirm'
 import Success from './Success'
 
 export class UserForm extends Component {
   state = {
     step: 1,
-    firstName: '',
-    lastName: '',
+
+    // UserDetails
+    name: '',
+    telephone: '',
+    birth: '',
+    gender: '',
     email: '',
-    occupation: '',
     city: '',
-    birth: ''
+
+    // HealthDetails
+    healthLevel: 1,
+
+    diabetes: false,
+    highColesterol: false,
+    hypertension: false,
+    rheumaticDisease: false,
+    lungDisease: false,
+    thyroidism: false,
+    otherDisease: false,
+    noDiseases: false
   }
 
   nextStep = () => {
@@ -42,8 +56,8 @@ export class UserForm extends Component {
 
   render() {
     const { step } = this.state
-    const { firstName, lastName, email, occupation, city, birth } = this.state
-    const values = { firstName, lastName, email, occupation, city, birth }
+    const { name, telephone, birth, gender, email, city, healthLevel } = this.state
+    const values = { name, telephone, birth, gender, email, city, healthLevel }
 
     switch (step) {
       case 1:
@@ -58,7 +72,7 @@ export class UserForm extends Component {
 
       case 2:
         return (
-          <FormPersonalDetails
+          <FormHealthDetails
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}
