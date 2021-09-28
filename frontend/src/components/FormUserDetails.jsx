@@ -7,19 +7,20 @@ import ReactInputMask from 'react-input-mask'
 import {
   Select,
   MenuItem,
-  InputLabel,
-  FormControl
+  FormControl,
+  FormLabel
 } from '@material-ui/core'
 
 export class FormUserDetails extends Component {
   continue = (e) => {
     e.preventDefault()
     console.log(this.props.values.firstName)
+    this.props.nextStep()
 
-    if (this.props.values.firstName == 'a')
-      this.props.skip()
-    else
-      this.props.nextStep()
+    // if (this.props.values.firstName === 'a')
+    //   this.props.skip()
+    // else
+    //   this.props.nextStep()
   }
 
   render() {
@@ -74,7 +75,7 @@ export class FormUserDetails extends Component {
           <br />
 
           <FormControl style={styles.boxForm}>
-            <InputLabel> Gênero </InputLabel>
+            <FormLabel Component="legend"> Gênero </FormLabel>
             <Select
               onChange={handleChange('gender')}
               defaultValue={values.gender}
@@ -85,16 +86,8 @@ export class FormUserDetails extends Component {
           </FormControl>
           <br />
 
-          {/* <div>
-            Assinale qual(is) doenças você apresenta
-            <div className="desease">
-              <input type="checkbox" id="desease" name="desease" value="Diabetes" />
-              Diabetes
-              <br />
-              <input type="checkbox" id="desease" name="desease" value="Colesterol" />
-              Colesterol alto
-            </div>
-          </div> */}
+          {/* {values.name === 'Marcos' && (
+            <h1>Teste</h1>)} */}
 
           <RaisedButton
             label="Continuar"

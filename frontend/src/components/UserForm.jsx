@@ -3,10 +3,13 @@ import FormUserDetails from './FormUserDetails'
 import FormHealthDetails from './FormHealthDetails'
 import Confirm from './Confirm'
 import Success from './Success'
+import { FormUserNutrition } from './FormUserNutrition'
+import { FormUserFitness } from './FormUserFitness'
+import { FormUserSleep } from './FormUserSleep'
 
 export class UserForm extends Component {
   state = {
-    step: 1,
+    step: 3,
 
     // UserDetails
     name: '',
@@ -26,7 +29,9 @@ export class UserForm extends Component {
     lungDisease: false,
     thyroidism: false,
     otherDisease: false,
-    noDiseases: false
+    noDiseases: false,
+
+    medicine: ''
   }
 
   nextStep = () => {
@@ -47,24 +52,16 @@ export class UserForm extends Component {
     this.setState({ [input]: e.target.value })
   }
 
-  skip = () => {
-    const { step } = this.state
-    this.setState({
-      step: step + 2
-    })
-  }
-
   render() {
     const { step } = this.state
-    const { name, telephone, birth, gender, email, city, healthLevel } = this.state
-    const values = { name, telephone, birth, gender, email, city, healthLevel }
+    const { name, telephone, birth, gender, email, city, healthLevel, medicine } = this.state
+    const values = { name, telephone, birth, gender, email, city, healthLevel, medicine }
 
     switch (step) {
       case 1:
         return (
           <FormUserDetails
             nextStep={this.nextStep}
-            skip={this.skip}
             handleChange={this.handleChange}
             values={values}
           />
@@ -82,6 +79,36 @@ export class UserForm extends Component {
 
       case 3:
         return (
+          <FormUserNutrition
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+        )
+
+      case 4:
+        return (
+          <FormUserFitness
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+        )
+
+      case 5:
+        return (
+          <FormUserSleep
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleChange}
+            values={values}
+          />
+        )
+
+      case 6:
+        return (
           <Confirm
             nextStep={this.nextStep}
             prevStep={this.prevStep}
@@ -89,7 +116,7 @@ export class UserForm extends Component {
           />
         )
 
-      case 4:
+      case 7:
         return (
           <Success />
         )
