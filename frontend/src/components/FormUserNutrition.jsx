@@ -24,19 +24,6 @@ export class FormUserNutrition extends Component {
   }
 
   render() {
-    const rows = [
-      { id: 6, name: "user", label: "Você se alimenta? (quantidade de refeições, incluindo café da manhã, almoço, jantar e lanches intermediários)" },
-      { id: 5, name: "manager", label: "Você consome frutas e vegetais?" },
-      { id: 4, name: "owner", label: "Você ingere fontes de proteínas (carnes vermelhas, frango, pescados, leite e derivados, ovos ou suplementos como Whey Protein)?" }
-    ];
-
-    const cols = [
-      { id: 1, name: "none", label: "1" },
-      { id: 11, name: "editor", label: "2" },
-      { id: 10, name: "viewer", label: "3" },
-      { id: 9, name: "aaaa", label: "4" }
-    ];
-
     const { values, handleChange } = this.props
     const customMarks = [
       {
@@ -108,7 +95,7 @@ export class FormUserNutrition extends Component {
         <br />
 
         <FormControl component="fieldset" style={styles.questionContainer}>
-          <FormLabel component="legend" style={styles.labelText}> Em relação à sua alimentação, assinale a opção que você mais se identifica </FormLabel>
+          <FormLabel component="legend" style={styles.labelText}> Em relação à sua alimentação, assinale a opção que você mais se identifica: </FormLabel>
           <RadioGroup>
             <FormControlLabel value="1" control={<Radio />} label="Não penso em mudar minha alimentação" />
             <FormControlLabel value="2" control={<Radio />} label="Estou pensando em mudar minha alimentação, mas ainda não estou muito certo disso" />
@@ -121,8 +108,9 @@ export class FormUserNutrition extends Component {
         <FormControl component="fieldset" style={styles.questionContainer}>
           <FormLabel component="legend" style={styles.labelText}> Quantas vezes por dia: </FormLabel>
           <Choices
-            cols={cols}
-            rows={rows}
+            cols={values.nutritionInfoCol}
+            rows={values.nutritionInfoRow}
+            onSubmit={values => console.log(values)}
           />
         </FormControl>
 

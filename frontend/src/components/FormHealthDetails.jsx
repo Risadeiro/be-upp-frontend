@@ -103,8 +103,8 @@ export class FormHealthDetails extends Component {
           <FormControlLabel control={<Checkbox />} label="Diabetes" />
           <FormControlLabel control={<Checkbox />} label="Alto Colesterol" />
           <FormControlLabel control={<Checkbox />} label="Hipertensão" />
-          <FormControlLabel control={<Checkbox />} label="Doenças reumatológicas" />
-          <FormControlLabel control={<Checkbox />} label="Doenças pulmonares crônicas" />
+          <FormControlLabel control={<Checkbox />} label="Doenças reumatológicas (ex: artrite reumatoide, lupus)" />
+          <FormControlLabel control={<Checkbox />} label="Doenças pulmonares crônicas (ex: bronquite, asma, enfisema)" />
           <FormControlLabel control={<Checkbox />} label="Hipotireoidismo/hipertireoidismo" />
           <FormControlLabel control={<Checkbox />} label="Outra" />
           <FormControlLabel control={<Checkbox />} label="Nenhuma" />
@@ -125,7 +125,7 @@ export class FormHealthDetails extends Component {
         <br />
 
         {values.medicine === 'medicinePositive' && (
-          <TextField style={styles.floatingText} label="Se sim, quais?" variant="standard" />
+          <TextField style={styles.floatingText} label="Quais medicações?" variant="standard" />
         )}
         <br />
 
@@ -162,7 +162,7 @@ export class FormHealthDetails extends Component {
           <FormLabel component="legend" style={styles.labelText}> Instrução de medida: de preferência, ao acordar antes de levantar ou, em outra ocasião, após 5 min em deitado, fazer 2 medidas </FormLabel>
           <TextField style={{ alignSelf: 'center' }} label="Frequência cardíaca de repouso" variant="standard" />
         </FormControl>
-        <br /> <br /> <br />
+        <br />
 
         <FormControl component="fieldset" style={styles.questionContainer}>
           <FormLabel component="legend" style={styles.labelText}> Com relação ao cigarro: </FormLabel>
@@ -186,14 +186,13 @@ export class FormHealthDetails extends Component {
 
         <FormControl component="fieldset" style={styles.questionContainer}>
           <FormLabel component="legend" style={styles.labelText}> Em relação à qualidade de vida, quais das opções abaixo, você escolheria para melhorar? Escolha no máximo 3: </FormLabel>
-          <FormControlLabel control={<Checkbox />} label="Não penso em mudar" />
-          <FormControlLabel control={<Checkbox />} label="Alto Colesterol" />
-          <FormControlLabel control={<Checkbox />} label="Hipertensão" />
-          <FormControlLabel control={<Checkbox />} label="Doenças reumatológicas" />
-          <FormControlLabel control={<Checkbox />} label="Doenças pulmonares crônicas" />
-          <FormControlLabel control={<Checkbox />} label="Hipotireoidismo/hipertireoidismo" />
-          <FormControlLabel control={<Checkbox />} label="Outra" />
-          <FormControlLabel control={<Checkbox />} label="Nenhuma" />
+          <FormControlLabel control={<Checkbox />} label="Sono" />
+          <FormControlLabel control={<Checkbox />} label="Atividade Física" />
+          <FormControlLabel control={<Checkbox />} label="Alimentação" />
+          <FormControlLabel control={<Checkbox />} label="Saúde Mental" />
+          <FormControlLabel control={<Checkbox />} label="Peso Corporal" />
+          <FormControlLabel control={<Checkbox />} label="Tabagismo / Etilismo / Uso de drogas" />
+          <FormControlLabel control={<Checkbox />} label="Nada para melhorar" />
         </FormControl>
         <br />
 

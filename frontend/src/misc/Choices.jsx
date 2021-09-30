@@ -9,12 +9,18 @@ import {
   Radio
 } from '@material-ui/core'
 
+// https://codesandbox.io/s/react-hook-form-basic-forked-ztx04?file=/src/index.js:745-785
+// https://redux-form.com/7.3.0/docs/faq/handlevson.md/
+
 const Choices = ({ cols, rows }) => {
-  const { control } = useForm()
+  const { control, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Table>
           <TableHead>
             <TableRow>

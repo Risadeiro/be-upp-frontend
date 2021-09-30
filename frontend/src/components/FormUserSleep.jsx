@@ -10,6 +10,7 @@ import {
   Button,
   Typography,
   AppBar,
+  TextField
 } from '@material-ui/core'
 
 export class FormUserSleep extends Component {
@@ -49,17 +50,6 @@ export class FormUserSleep extends Component {
             <FormControlLabel value="5" control={<Radio />} label="Já estou mudando minha rotina de sono e com sucesso" />
           </RadioGroup>
         </FormControl>
-
-        <FormControl component="fieldset" style={styles.questionContainer}>
-          <FormLabel component="legend" style={styles.labelText}> Em relação ao seu sono, assinale a opção que você mais se identifica: </FormLabel>
-          <RadioGroup>
-            <FormControlLabel value="1" control={<Radio />} label="Não penso em mudar minha rotina de sono (meus hábitos relacionados ao sono)" />
-            <FormControlLabel value="2" control={<Radio />} label="Estou pensando em mudar minha rotina de sono, mas não estou bem certo disso" />
-            <FormControlLabel value="3" control={<Radio />} label="Decidi mudar minha rotina de sono e só estou pensando em como fazer" />
-            <FormControlLabel value="4" control={<Radio />} label="Já estou mudando minha rotina de sono, mas estou com dificuldades" />
-            <FormControlLabel value="5" control={<Radio />} label="Já estou mudando minha rotina de sono e com sucesso" />
-          </RadioGroup>
-        </FormControl>
         <br />
 
         <FormLabel component="legend" style={styles.labelText}> Você dorme bem? </FormLabel>
@@ -76,7 +66,7 @@ export class FormUserSleep extends Component {
         <br />
 
         <FormControl component="fieldset" style={styles.questionContainer}>
-          <FormLabel component="legend" style={styles.labelText}>Pensando no seu dia a dia, você classifica o seu nível de atividade física:</FormLabel>
+          <FormLabel component="legend" style={styles.labelText}> Quantas horas por noite? </FormLabel>
           <RadioGroup style={{
             justifyContent: 'center',
             alignItems: 'center',
@@ -100,7 +90,7 @@ export class FormUserSleep extends Component {
         </FormControl>
         <br />
 
-        <FormLabel component="legend" style={styles.labelText}> Você acorda cansado? </FormLabel>
+        <FormLabel component="legend" style={styles.labelText}> Você acorda se sentindo cansado? </FormLabel>
         <br />
         <FormControl style={styles.boxForm}>
           <Select
@@ -111,6 +101,24 @@ export class FormUserSleep extends Component {
             <MenuItem value="medicineNegative"> Não </MenuItem>
           </Select>
         </FormControl>
+        <br />
+
+        <FormLabel component="legend" style={styles.labelText}> Você toma algo para dormir? (remédio, chá, etc.) </FormLabel>
+        <br />
+        <FormControl style={styles.boxForm}>
+          <Select
+            onChange={handleChange('medicine')}
+            defaultValue={values.medicine}
+          >
+            <MenuItem value="medicinePositive"> Sim </MenuItem>
+            <MenuItem value="medicineNegative"> Não </MenuItem>
+          </Select>
+        </FormControl>
+        <br />
+
+        {values.medicine === 'medicinePositive' && (
+          <TextField style={styles.floatingText} label="O que você toma?" variant="standard" />
+        )}
 
         <br />
         <Button
@@ -127,7 +135,7 @@ export class FormUserSleep extends Component {
           onClick={this.continue}
         > Continuar </Button>
 
-      </React.Fragment>
+      </React.Fragment >
     )
   }
 }
@@ -163,6 +171,9 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
+  },
+  floatingText: {
+    marginBottom: 50
   }
 }
 
