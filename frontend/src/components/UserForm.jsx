@@ -1,155 +1,125 @@
-import React, { Component } from 'react'
-import FormUserDetails from './FormUserDetails'
-import FormHealthDetails from './FormHealthDetails'
-import Confirm from './Confirm'
-import Success from './Success'
-import { FormUserNutrition } from './FormUserNutrition'
-import { FormUserFitness } from './FormUserFitness'
-import { FormUserSleep } from './FormUserSleep'
-import { FormMentalHealth } from './FormMentalHealth'
+import React, { useState, useEffect } from 'react'
+import questionJSON from '../questions.json'
+import RenderElements from '../renderQuestions/RenderElements'
+import { FormContext } from '../renderQuestions/FormContext'
+import {
+  Typography,
+  AppBar,
+  Button,
+} from '@material-ui/core'
 
-export class UserForm extends Component {
-  state = {
-    step: 3,
+const UserForm = () => {
+  const [steps, setSteps] = useState(0)
+  const [elements, setElements] = useState(null)
+  const { questions, pageLabel } = elements ?? {}
 
-    // UserDetails
-    name: '',
-    telephone: '',
-    birth: '',
-    gender: '',
-    email: '',
-    city: '',
+  useEffect(() => {
+    setElements(questionJSON.pages[steps])
+  }, [steps, elements])
 
-    // HealthDetails
-    healthLevel: 1,
-
-    diabetes: false,
-    highColesterol: false,
-    hypertension: false,
-    rheumaticDisease: false,
-    lungDisease: false,
-    thyroidism: false,
-    otherDisease: false,
-    noDiseases: false,
-
-    medicine: '',
-
-    // Nutrition
-    nutritionInfoCol: [
-      { id: 1, name: "1", label: "1" },
-      { id: 2, name: "2", label: "2" },
-      { id: 3, name: "3", label: "3" },
-      { id: 4, name: "4", label: "4" },
-      { id: 5, name: "5", label: "5" },
-      { id: 6, name: "6", label: "6 ou mais" }
-    ],
-
-    nutritionInfoRow: [
-      { id: 1, name: "1", label: "Você se alimenta? (quantidade de refeições, incluindo café da manhã, almoço, jantar e lanches intermediários)" },
-      { id: 2, name: "2", label: "Você consome frutas e vegetais?" },
-      { id: 3, name: "3", label: "Você ingere fontes de proteínas (carnes vermelhas, frango, pescados, leite e derivados, ovos ou suplementos como Whey Protein)?" },
-      { id: 4, name: "4", label: "Você come pães, biscoitos, bolos, chocolate ou doces?" },
-      { id: 5, name: "5", label: "Você ingere fontes de gorduras? (óleos, manteigas, queijos, embutidos, carne vermelha e ovo)" },
-      { id: 6, name: "6", label: "Bebe água?" }
-    ]
+  const nextStep = () => {
+    setSteps(steps + 1)
   }
 
-  nextStep = () => {
-    const { step } = this.state
-    this.setState({
-      step: step + 1
-    })
+  const prevStep = () => {
+    setSteps(steps - 1)
   }
 
-  prevStep = () => {
-    const { step } = this.state
-    this.setState({
-      step: step - 1
-    })
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(elements)
   }
 
-  handleChange = input => e => {
-    this.setState({ [input]: e.target.value })
+  const handleChange = (questionID, event) => {
+    const newElements = { ...elements }
+
+    console.log(questionID)
+    console.log(event.target)
+
+    newElements.questions.forEach(question => {
+      const { id, type } = question;
+
+      if (questionID === id) {
+        switch (type) {
+          case 'table':
+
+
+            break;
+
+          case 'checkbox':
+            if (event.target.checked)
+              question['value'].push(event.target.value)
+            else {
+              const index = question['value'].indexOf(event.target.value);
+              if (index > -1) {
+                question['value'].splice(index, 1);
+              }
+            }
+            break;
+
+          default:
+            question['value'] = event.target.value;
+            break;
+        }
+      }
+
+      setElements(newElements)
+    });
+
+    // console.log(elements)
   }
 
-  render() {
-    const { step } = this.state
-    const { name, telephone, birth, gender, email, city, healthLevel, medicine, nutritionInfoCol, nutritionInfoRow } = this.state
-    const values = { name, telephone, birth, gender, email, city, healthLevel, medicine, nutritionInfoCol, nutritionInfoRow }
+  // console.log(questions)
 
-    switch (step) {
-      case 1:
-        return (
-          <FormUserDetails
-            nextStep={this.nextStep}
-            handleChange={this.handleChange}
-            values={values}
-          />
-        )
+  return (
+    <FormContext.Provider value={{ handleChange }}>
+      <AppBar style={{ marginBottom: 20 }} position='sticky'>
+        <Typography
+          variant="h4"
+          component="div"
+          sx={{ flexGrow: 1 }}
+        >
+          {pageLabel}
+        </Typography>
+      </AppBar>
 
-      case 2:
-        return (
-          <FormHealthDetails
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={values}
-          />
-        )
+      <form>
+        {questions ? questions.map((questions, i) => <RenderElements key={i} questions={questions} />) : null}
+        <br />
 
-      case 3:
-        return (
-          <FormUserNutrition
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={values}
-          />
-        )
+        {/* <button type="submit" className="btn btn-primary" onClick={(e) => handleSubmit(e)}> Submit </button> */}
+      </form>
 
-      case 4:
-        return (
-          <FormUserFitness
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={values}
-          />
-        )
+      <Button
+        color="secondary"
+        variant="contained"
+        style={styles.buttonBack}
+        onClick={prevStep}
+      > Voltar </Button>
 
-      case 5:
-        return (
-          <FormUserSleep
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            handleChange={this.handleChange}
-            values={values}
-          />
-        )
+      <Button
+        color="primary"
+        variant="contained"
+        style={styles.buttonContinue}
+        onClick={nextStep}
+      > Continuar </Button>
+    </FormContext.Provider>
+  )
+}
 
-      case 6:
-        return (
-          <FormMentalHealth
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            values={values}
-          />
-        )
-
-      case 7:
-        return (
-          <Confirm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            values={values}
-          />
-        )
-
-      case 8:
-        return (
-          <Success />
-        )
-    }
+const styles = {
+  buttonContinue: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
+    backgroundColor: "#21b6ae",
+  },
+  buttonBack: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginBottom: 15,
+    backgroundColor: '#999999',
+    color: '#FFFFFF'
   }
 }
 

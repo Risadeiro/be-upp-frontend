@@ -20,7 +20,7 @@ const Choices = ({ cols, rows }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Table>
           <TableHead>
             <TableRow>
@@ -42,10 +42,12 @@ const Choices = ({ cols, rows }) => {
                   render={({ field: { value, ...field } }) =>
                     cols.map(({ id, name: optionName }) => (
                       <TableCell style={{ textAlign: 'center' }} key={id}>
+                        {console.log(value)}
                         <Radio
                           {...field}
                           checked={value === optionName}
                           value={optionName}
+                        //onChange={event => handleChange(id, event)}
                         />
                       </TableCell>
                     ))
@@ -55,6 +57,7 @@ const Choices = ({ cols, rows }) => {
             ))}
           </TableBody>
         </Table>
+        <button type="submit"> Submit </button>
       </form>
     </div>
   )
