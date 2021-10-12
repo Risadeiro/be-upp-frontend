@@ -13,9 +13,11 @@ const Text = ({ id, label, value, options }) => {
   return (
     <React.Fragment>
       <TextField
+        key={id}
         style={styles.floatingText}
         label={label}
         variant="standard"
+        defaultValue={value}
         onChange={event => handleChange(id, event)} />
       <br />
     </React.Fragment>

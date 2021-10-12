@@ -12,12 +12,25 @@ import {
   FormLabel,
 } from '@material-ui/core'
 
-const Table = ({ idQuestion, label, row, col }) => {
-  const { control, handleSubmit } = useForm()
+const Table = ({ idQuestion, label, row, col, value }) => {
+  const { control } = useForm()
   const { handleChange } = useContext(FormContext)
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const allValues = value
+
+  const persistentData = (value, optionName, index) => {
+    if (typeof value !== "undefined") {
+      if (value === optionName)
+        return true
+    }
+
+    else {
+      for (var i = 0; i < allValues.length; i++)
+        if (allValues[i].numRow === index && allValues[i].optionValue === optionName)
+          return true
+    }
+
+    return false
+  }
 
   return (
     <FormControl component="fieldset" style={styles.questionContainer}>
@@ -26,29 +39,27 @@ const Table = ({ idQuestion, label, row, col }) => {
         <TableHead>
           <TableRow>
             <TableCell />
-            {col.map(({ id, label }) => (
-              <TableCell key={id} align="center">
+            {col.map(({ label }, i) => (
+              <TableCell key={`${idQuestion}-col1-${i}`} align="center">
                 {label}
               </TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody onChange={event => handleChange(idQuestion, event)}>
-          {row.map(({ id, name, label }) => (
-            <TableRow key={id}>
+        <TableBody>
+          {row.map(({ name, label }, i) => (
+            <TableRow key={`${idQuestion}-row-${i}`} onChange={event => handleChange(idQuestion, event, i)}>
               <TableCell>{label}</TableCell>
               <Controller
                 name={name}
                 control={control}
                 render={({ field: { value, ...field } }) =>
-                  col.map(({ id, name: optionName }) => (
-                    <TableCell style={{ textAlign: 'center' }} key={id}>
-
+                  col.map(({ name: optionName }, j) => (
+                    <TableCell key={`${idQuestion}-col2-${j}`} style={{ textAlign: 'center' }}>
                       <Radio
                         {...field}
-                        checked={value === optionName}
+                        checked={persistentData(value, optionName, i)}
                         value={optionName}
-                      //onChange={event => handleChange(idQuestion, event)}
                       />
                     </TableCell>
                   ))

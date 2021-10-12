@@ -17,6 +17,7 @@ const Select = ({ id, label, value, options }) => {
 
       <FormControl style={styles.selectBox}>
         <SelectUI
+          key={id}
           onChange={event => handleChange(id, event)}
           defaultValue={value}
         >

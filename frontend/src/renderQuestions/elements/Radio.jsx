@@ -16,10 +16,10 @@ const Radio = ({ id, label, value, options }) => {
 
       <FormControl component="fieldset" style={styles.questionContainer}>
         <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
-        <RadioGroup onChange={event => handleChange(id, event)}>
+        <RadioGroup onChange={event => handleChange(id, event)} defaultValue={value}>
           {options.length > 0 && options.map((option, i) =>
             <FormControlLabel
-              key={i}
+              key={`${id}-${i}`}
               value={option.optionLabel}
               control={<RadioUI />}
               label={option.optionLabel}

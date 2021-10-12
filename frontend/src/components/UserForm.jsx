@@ -1,49 +1,57 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import questionJSON from '../questions.json'
 import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
 import {
   Typography,
   AppBar,
-  Button,
+  Button
 } from '@material-ui/core'
 
 const UserForm = () => {
+  const [allElements, setAllElements] = useState(questionJSON)
   const [steps, setSteps] = useState(0)
-  const [elements, setElements] = useState(null)
-  const { questions, pageLabel } = elements ?? {}
+  const [nPages] = useState(questionJSON.pages.length)
+  const { questions, pageLabel } = allElements.pages[steps] ?? {}
 
-  useEffect(() => {
-    setElements(questionJSON.pages[steps])
-  }, [steps, elements])
-
-  const nextStep = () => {
+  const nextStep = () =>
     setSteps(steps + 1)
-  }
 
-  const prevStep = () => {
+  const prevStep = () =>
     setSteps(steps - 1)
-  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(elements)
-  }
+  const handleChange = (questionID, event, tableRowIndex) => {
+    const newElements = allElements
 
-  const handleChange = (questionID, event) => {
-    const newElements = { ...elements }
+    // console.log(questionID)
+    // console.log(event.target)
+    // console.log("tableRowIndex", tableRowIndex)
 
-    console.log(questionID)
-    console.log(event.target)
-
-    newElements.questions.forEach(question => {
+    newElements.pages[steps].questions.forEach(question => {
       const { id, type } = question;
 
       if (questionID === id) {
         switch (type) {
           case 'table':
+            const newTable = question.value
+            var found = false
 
+            for (var i = 0; i < newTable.length; i++) {
+              if (newTable[i].name === event.target.name) {
+                newTable[i].optionValue = event.target.value
+                found = true
+                break
+              }
+            }
 
+            if (!found) {
+              const obj = {}
+              obj.numRow = tableRowIndex
+              obj.name = event.target.name
+              obj.optionValue = event.target.value
+
+              question['value'].push(obj)
+            }
             break;
 
           case 'checkbox':
@@ -63,13 +71,9 @@ const UserForm = () => {
         }
       }
 
-      setElements(newElements)
+      setAllElements(newElements)
     });
-
-    // console.log(elements)
   }
-
-  // console.log(questions)
 
   return (
     <FormContext.Provider value={{ handleChange }}>
@@ -84,25 +88,30 @@ const UserForm = () => {
       </AppBar>
 
       <form>
-        {questions ? questions.map((questions, i) => <RenderElements key={i} questions={questions} />) : null}
+        {questions ?
+          questions.map((questions, i) =>
+            <RenderElements key={i} questions={questions} />)
+          : null}
         <br />
-
-        {/* <button type="submit" className="btn btn-primary" onClick={(e) => handleSubmit(e)}> Submit </button> */}
       </form>
 
-      <Button
-        color="secondary"
-        variant="contained"
-        style={styles.buttonBack}
-        onClick={prevStep}
-      > Voltar </Button>
+      {steps > 0 &&
+        <Button
+          color="secondary"
+          variant="contained"
+          style={styles.buttonBack}
+          onClick={() => prevStep()}
+        > Voltar </Button>
+      }
 
-      <Button
-        color="primary"
-        variant="contained"
-        style={styles.buttonContinue}
-        onClick={nextStep}
-      > Continuar </Button>
+      {steps < nPages - 1 &&
+        <Button
+          color="primary"
+          variant="contained"
+          style={styles.buttonContinue}
+          onClick={() => nextStep()}
+        > Continuar </Button>
+      }
     </FormContext.Provider>
   )
 }

@@ -57,6 +57,7 @@ const Select = ({ id, label, value }) => {
       <br />
 
       <Slider
+        key={id}
         style={styles.sliderStyle}
         marks={customMarks}
         valueLabelDisplay='auto'
@@ -80,7 +81,7 @@ const styles = {
   sliderStyle: {
     width: 500,
     marginTop: 10,
-    marginBottom: 80
+    marginBottom: 80,
   },
 }
 

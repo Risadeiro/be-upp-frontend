@@ -17,9 +17,14 @@ const Checkbox = ({ id, label, value, options }) => {
         <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
         {options.length > 0 && options.map((option, i) =>
           <FormControlLabel
-            key={i}
+            key={`${id}-${i}`}
             value={option.optionLabel}
-            control={<CheckboxUI onClick={event => handleChange(id, event)} />}
+            control={
+              <CheckboxUI
+                onClick={event => handleChange(id, event)}
+                defaultChecked={value.includes(option.optionLabel)}
+              />
+            }
             label={option.optionLabel}
           />
         )}
