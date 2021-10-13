@@ -5,9 +5,26 @@ import Checkbox from './elements/Checkbox'
 import Radio from './elements/Radio'
 import Text from './elements/Text'
 import Table from './elements/Table'
+import PureText from './elements/PureText'
+import Image from './elements/Image'
 
 const RenderElements = ({ questions: { id, label, value, options, type, row, col } }) => {
   switch (type) {
+    
+    case 'pureText':
+      return (
+        <PureText
+          id={id}
+          label={label}
+        />
+      )
+      case 'image':
+        return (
+          <Image
+            id={id}
+            label={label}
+          />
+        )
     case 'select':
       return (
         <Select
