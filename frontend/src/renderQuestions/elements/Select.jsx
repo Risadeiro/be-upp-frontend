@@ -7,22 +7,22 @@ import {
   FormLabel,
 } from '@material-ui/core'
 
-const Select = ({ id, label, value, options }) => {
+const Select = ({ questionId, questionLabel, options, answer}) => {
   const { handleChange } = useContext(FormContext)
 
   return (
     <React.Fragment>
-      <FormLabel Component="legend" style={styles.labelText}> {label} </FormLabel>
+      <FormLabel Component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <br /> <br />
 
       <FormControl style={styles.selectBox}>
         <SelectUI
-          key={id}
-          onChange={event => handleChange(id, event)}
-          defaultValue={value}
+          key={questionId}
+          onChange={event => handleChange(questionId, event)}
+          defaultValue={answer}
         >
-          {options.length > 0 && options.map((option, i) =>
-            <MenuItem key={i} value={option.optionLabel}> {option.optionLabel} </MenuItem>
+          {Object.entries(options).map(([optionId, option]) =>
+            <MenuItem key={optionId} value={option}> {option} </MenuItem>
           )}
         </SelectUI>
       </FormControl>

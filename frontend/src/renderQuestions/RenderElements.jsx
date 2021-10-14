@@ -8,49 +8,59 @@ import Table from './elements/Table'
 import PureText from './elements/PureText'
 import Image from './elements/Image'
 
-const RenderElements = ({ questions: { id, label, value, options, type, row, col } }) => {
+const RenderElements = ({ props: {
+  questionId, questionLabel, type,  // Mandatory fields 
+  maxValue, minValue, step,         // Scale only
+  options,                          // Checkbox, radio, select only
+  row, col,                         // Table only
+} }) => {
+
+  const answer = "0"; // TODO: persist val
+
   switch (type) {
     case 'pureText':
       return (
         <PureText
-          id={id}
-          label={label}
+          id={questionId}
+          label={questionLabel}
         />
       )
 
     case 'image':
       return (
         <Image
-          id={id}
-          label={label}
+          id={questionId}
+          label={questionLabel}
         />
       )
 
     case 'select':
       return (
         <Select
-          id={id}
-          label={label}
-          value={value}
+          questionId={questionId}
+          questionLabel={questionLabel}
           options={options}
+          answer={answer}
         />
       )
 
     case 'scale':
       return (
         <Scale
-          id={id}
-          label={label}
-          value={value}
+          questionId={questionId}
+          questionLabel={questionLabel}
+          maxValue={maxValue}
+          minValue={minValue}
+          step={step}
+          answer={answer}
         />
       )
 
     case 'checkbox':
       return (
         <Checkbox
-          id={id}
-          label={label}
-          value={value}
+          questionId={questionId}
+          questionLabel={questionLabel}
           options={options}
         />
       )
@@ -58,9 +68,8 @@ const RenderElements = ({ questions: { id, label, value, options, type, row, col
     case 'radio':
       return (
         <Radio
-          id={id}
-          label={label}
-          value={value}
+          questionId={questionId}
+          questionLabel={questionLabel}
           options={options}
         />
       )
@@ -68,18 +77,17 @@ const RenderElements = ({ questions: { id, label, value, options, type, row, col
     case 'text':
       return (
         <Text
-          id={id}
-          label={label}
-          value={value}
+          questionId={questionId}
+          questionLabel={questionLabel}
+          answer={answer}
         />
       )
 
     case 'table':
       return (
         <Table
-          idQuestion={id}
-          label={label}
-          value={value}
+          questionIdQuestion={questionId}
+          questionLabel={questionLabel}
           row={row}
           col={col}
         />

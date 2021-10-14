@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import questionJSON from '../questions.json'
+import questionJSON from '../new-questions.json'
 import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
 import Confirm from '../components/Confirm'
@@ -13,6 +13,7 @@ const UserForm = () => {
   const [allElements, setAllElements] = useState(questionJSON)
   const [steps, setSteps] = useState(0)
   const [nPages] = useState(questionJSON.pages.length)
+
   const { questions, pageLabel } = allElements.pages[steps] ?? {}
 
   const nextStep = () =>
@@ -28,6 +29,8 @@ const UserForm = () => {
     // console.log(event.target)
     // console.log("tableRowIndex", tableRowIndex)
 
+    // To do: refactor handleChange
+    /*
     newElements.pages[steps].questions.forEach(question => {
       const { id, type } = question;
 
@@ -74,6 +77,7 @@ const UserForm = () => {
 
       setAllElements(newElements)
     });
+    */
   }
 
   // console.log(allElements.pages[steps].questions)
@@ -93,8 +97,8 @@ const UserForm = () => {
 
         <form>
           {questions ?
-            questions.map((questions, i) =>
-              <RenderElements key={i} questions={questions} />)
+            Object.entries(questions).map(([questionId, questionInfo]) =>
+              <RenderElements key={questionId} props={{ questionId: questionId, ...questionInfo }} />)
             : null}
           <br />
         </form>

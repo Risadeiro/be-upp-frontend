@@ -7,25 +7,25 @@ import {
   Checkbox as CheckboxUI
 } from '@material-ui/core'
 
-const Checkbox = ({ id, label, value, options }) => {
+const Checkbox = ({ questionId, questionLabel, options, answer }) => {
   const { handleChange } = useContext(FormContext)
 
   return (
     <React.Fragment>
 
       <FormControl component="fieldset" style={styles.questionContainer}>
-        <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
-        {options.length > 0 && options.map((option, i) =>
+        <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
+        {Object.entries(options).map(([optionId, optionLabel]) =>
           <FormControlLabel
-            key={`${id}-${i}`}
-            value={option.optionLabel}
+            key={`${questionId}-${optionId}`}
+            value={optionLabel}
             control={
               <CheckboxUI
-                onClick={event => handleChange(id, event)}
-                defaultChecked={value.includes(option.optionLabel)}
+                onClick={event => handleChange(questionId, event)}
+                defaultChecked={Array.isArray(answer) ? answer.includes(optionLabel) : false}
               />
             }
-            label={option.optionLabel}
+            label={optionLabel}
           />
         )}
       </FormControl>
@@ -43,10 +43,10 @@ const styles = {
   },
   questionContainer: {
     flex: 1,
-    border: '2px solid gray',
+    border: '2px solquestionId gray',
     borderRadius: 15,
     padding: 20,
-    width: '50%',
+    wquestionIdth: '50%',
     marginBottom: 50,
   },
 }

@@ -8,21 +8,21 @@ import {
   Radio as RadioUI,
 } from '@material-ui/core'
 
-const Radio = ({ id, label, value, options }) => {
+const Radio = ({ questionId, questionLabel, options, answer }) => {
   const { handleChange } = useContext(FormContext)
 
   return (
     <React.Fragment>
 
       <FormControl component="fieldset" style={styles.questionContainer}>
-        <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
-        <RadioGroup onChange={event => handleChange(id, event)} defaultValue={value}>
-          {options.length > 0 && options.map((option, i) =>
+        <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
+        <RadioGroup onChange={event => handleChange(questionId, event)} defaultValue={answer}>
+          {Object.entries(options).map(([optionId, optionLabel]) =>
             <FormControlLabel
-              key={`${id}-${i}`}
-              value={option.optionLabel}
+              key={`${questionId}-${optionId}`}
+              value={optionLabel}
               control={<RadioUI />}
-              label={option.optionLabel}
+              label={optionLabel}
             />
           )}
         </RadioGroup>
