@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 questions.json
+templateSend.json
+newQuestions.json

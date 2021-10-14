@@ -10,7 +10,6 @@ import Image from './elements/Image'
 
 const RenderElements = ({ questions: { id, label, value, options, type, row, col } }) => {
   switch (type) {
-    
     case 'pureText':
       return (
         <PureText
@@ -18,13 +17,15 @@ const RenderElements = ({ questions: { id, label, value, options, type, row, col
           label={label}
         />
       )
-      case 'image':
-        return (
-          <Image
-            id={id}
-            label={label}
-          />
-        )
+
+    case 'image':
+      return (
+        <Image
+          id={id}
+          label={label}
+        />
+      )
+
     case 'select':
       return (
         <Select
