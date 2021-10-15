@@ -13,9 +13,8 @@ const RenderElements = ({ props: {
   maxValue, minValue, step,         // Scale only
   options,                          // Checkbox, radio, select only
   row, col,                         // Table only
+  answer
 } }) => {
-
-  const answer = "0"; // TODO: persist val
 
   switch (type) {
     case 'pureText':
@@ -62,6 +61,7 @@ const RenderElements = ({ props: {
           questionId={questionId}
           questionLabel={questionLabel}
           options={options}
+          answer={answer}
         />
       )
 
@@ -71,6 +71,7 @@ const RenderElements = ({ props: {
           questionId={questionId}
           questionLabel={questionLabel}
           options={options}
+          answer={answer}
         />
       )
 
@@ -86,10 +87,11 @@ const RenderElements = ({ props: {
     case 'table':
       return (
         <Table
-          questionIdQuestion={questionId}
+          questionId={questionId}
           questionLabel={questionLabel}
           row={row}
           col={col}
+          answer={answer}
         />
       )
 

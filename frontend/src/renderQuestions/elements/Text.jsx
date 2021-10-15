@@ -1,24 +1,27 @@
 import React, { useContext } from 'react'
 import { FormContext } from '../FormContext';
 import {
-  FormControl,
-  FormquestionLabe,
-  FormControlquestionLabe,
-  TextField,
+  TextField
 } from '@material-ui/core'
 
-const Text = ({ questionId, questionLabe, answer }) => {
+const Text = ({ questionId, questionLabel, answer }) => {
   const { handleChange } = useContext(FormContext)
+
+  const updateAnswer = (answer) => {
+    return {
+      value: answer
+    }
+  }
 
   return (
     <React.Fragment>
       <TextField
         key={questionId}
         style={styles.floatingText}
-        questionLabe={questionLabe}
+        label={questionLabel}
         variant="standard"
-        defaultValue={answer}
-        onChange={event => handleChange(questionId, event)} />
+        defaultValue={answer?.value}
+        onChange={event => handleChange(questionId, updateAnswer(event.target.value))} />
       <br />
     </React.Fragment>
   )

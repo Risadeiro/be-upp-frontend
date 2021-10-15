@@ -6,8 +6,8 @@ import {
 } from '@material-ui/core'
 
 const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) => {
-  const marks = [{}]
-  for (var i = minValue; i < maxValue; i += step) {
+  const marks = []
+  for (var i = minValue; i <= maxValue; i += step) {
     marks.push({
       value: i, 
       label: i.toString()
@@ -16,6 +16,12 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) 
 
   const { handleChange } = useContext(FormContext)
 
+  const updateAnswer = (event) => {
+    return {
+      value: event.target.value
+    }
+  }
+  
   return (
     <React.Fragment>
       <FormLabel style={styles.labelText}> {questionLabel} </FormLabel>
@@ -28,8 +34,8 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) 
         valueLabelDisplay='auto'
         min={minValue}
         max={maxValue}
-        onChange={event => handleChange(questionId, event)}
-        defaultValue={answer}
+        onChange={(event) => handleChange(questionId, updateAnswer(event))}
+        defaultValue={answer?.value}
       />
 
       <br />

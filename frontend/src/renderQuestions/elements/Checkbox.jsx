@@ -10,6 +10,21 @@ import {
 const Checkbox = ({ questionId, questionLabel, options, answer }) => {
   const { handleChange } = useContext(FormContext)
 
+  const updateAnswer = (optionId, optionLabel, checked) => {
+    if (typeof answer === "undefined") {
+      answer = {
+        value: {}
+      }
+    }
+
+    if (checked)
+      answer.value[optionId] = optionLabel
+    else
+      delete answer.value[optionId]
+
+    return answer;
+  }
+
   return (
     <React.Fragment>
 
@@ -18,11 +33,11 @@ const Checkbox = ({ questionId, questionLabel, options, answer }) => {
         {Object.entries(options).map(([optionId, optionLabel]) =>
           <FormControlLabel
             key={`${questionId}-${optionId}`}
-            value={optionLabel}
+            value={[optionLabel]}
             control={
               <CheckboxUI
-                onClick={event => handleChange(questionId, event)}
-                defaultChecked={Array.isArray(answer) ? answer.includes(optionLabel) : false}
+                onClick={event => handleChange(questionId, updateAnswer(optionId, optionLabel, event.target.checked))}
+                defaultChecked={typeof answer == "object" ? answer.value.hasOwnProperty(optionId) : false}
               />
             }
             label={optionLabel}
@@ -43,10 +58,10 @@ const styles = {
   },
   questionContainer: {
     flex: 1,
-    border: '2px solquestionId gray',
+    border: '2px solid gray',
     borderRadius: 15,
     padding: 20,
-    wquestionIdth: '50%',
+    width: '50%',
     marginBottom: 50,
   },
 }

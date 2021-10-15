@@ -15,30 +15,35 @@ import {
 const Table = ({ questionId, questionLabel, row, col, answer }) => {
   const { control } = useForm()
   const { handleChange } = useContext(FormContext)
-  const allAnswers = answer
 
-  const persistentData = (answer, optionName, index) => {
-    // To do: refactor data persistency
-    /*
-    if (typeof value !== "undefined") {
-      if (value === optionName)
-        return true
+  const updateAnswer = (rowId, colId) => {
+    if (typeof answer === "undefined") {
+      answer = {
+        value: {}
+      }
     }
 
-    else {
-      for (var i = 0; i < allValues.length; i++)
-        if (allValues[i].numRow === index && allValues[i].optionValue === optionName)
-          return true
+    answer.value[rowId] = {
+      colId: colId,
+      colLabel: col[colId],
+      rowLabel: row[rowId]
     }
 
-    return false
-    */
+    return answer
+  }
+
+  const isChecked = (rowId, colId) => {
+    if (typeof answer === "undefined")
+      return false
+
+    return answer.value[rowId]?.colId === colId
   }
 
   return (
     <FormControl component="fieldset" style={styles.questionContainer}>
       <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <TableUI>
+
         <TableHead>
           <TableRow>
             <TableCell />
@@ -49,9 +54,13 @@ const Table = ({ questionId, questionLabel, row, col, answer }) => {
             ))}
           </TableRow>
         </TableHead>
+
         <TableBody>
           {Object.entries(row).map(([rowId, rowLabel]) => (
-            <TableRow key={`${questionId}-row-${rowId}`} onChange={event => handleChange(questionId, event, rowId)}>
+            <TableRow
+              key={`${questionId}-row-${rowId}`}
+              onChange={event => handleChange(questionId, updateAnswer(rowId, event.target.value))}>
+
               <TableCell>{rowLabel}</TableCell>
               <Controller
                 name={rowId}
@@ -61,16 +70,18 @@ const Table = ({ questionId, questionLabel, row, col, answer }) => {
                     <TableCell key={`${questionId}-col2-${colId}`} style={{ textAlign: 'center' }}>
                       <Radio
                         {...field}
-                        checked={persistentData(value, colLabel, rowId)}
-                        value={colLabel}
+                        checked={isChecked(rowId, colId)}
+                        value={colId}
                       />
                     </TableCell>
                   ))
                 }
               />
+
             </TableRow>
           ))}
         </TableBody>
+
       </TableUI>
     </FormControl>
   )
