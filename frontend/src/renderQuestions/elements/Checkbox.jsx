@@ -7,25 +7,40 @@ import {
   Checkbox as CheckboxUI
 } from '@material-ui/core'
 
-const Checkbox = ({ id, label, value, options }) => {
+const Checkbox = ({ questionId, questionLabel, options, answer }) => {
   const { handleChange } = useContext(FormContext)
+
+  const updateAnswer = (optionId, optionLabel, checked) => {
+    if (typeof answer === "undefined") {
+      answer = {
+        value: {}
+      }
+    }
+
+    if (checked)
+      answer.value[optionId] = optionLabel
+    else
+      delete answer.value[optionId]
+
+    return answer;
+  }
 
   return (
     <React.Fragment>
 
       <FormControl component="fieldset" style={styles.questionContainer}>
-        <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
-        {options.length > 0 && options.map((option, i) =>
+        <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
+        {Object.entries(options).map(([optionId, optionLabel]) =>
           <FormControlLabel
-            key={`${id}-${i}`}
-            value={option.optionLabel}
+            key={`${questionId}-${optionId}`}
+            value={[optionLabel]}
             control={
               <CheckboxUI
-                onClick={event => handleChange(id, event)}
-                defaultChecked={value.includes(option.optionLabel)}
+                onClick={event => handleChange(questionId, updateAnswer(optionId, optionLabel, event.target.checked))}
+                defaultChecked={typeof answer == "object" ? answer.value.hasOwnProperty(optionId) : false}
               />
             }
-            label={option.optionLabel}
+            label={optionLabel}
           />
         )}
       </FormControl>

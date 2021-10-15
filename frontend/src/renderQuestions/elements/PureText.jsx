@@ -8,19 +8,18 @@ import {
   Typography,
 } from '@material-ui/core'
 import { borderLeft } from '@material-ui/system';
-import './Teste.css'
 
 const PureText = ({ id, label }) => {
   const { handleChange } = useContext(FormContext)
 
   return (
-    <React.Fragment styles = {styles.labelText}>
+    <React.Fragment styles={styles.labelText}>
       {label ? label.map((label, i) =>
-      <React.Fragment > 
-        <FormLabel key={i} Component="legend" className="teste" > {label}  </FormLabel>
-        <br/>
-      </React.Fragment>) : null}
-        {/* <br/>         
+        <React.Fragment >
+          <FormLabel key={i} Component="legend" className="teste" > {label}  </FormLabel>
+          <br />
+        </React.Fragment>) : null}
+      {/* <br/>         
         <img src = "https://lh4.googleusercontent.com/cB1t2hdhOR8EeB493K67hwmX14YFzfm9pAjz8m5vlTKysdBp3mCl3tKnva0VtfvF2UBUf2MXebzRj9h9qIc715wd2YqHVuI2m59gHCOrEfVwq7b50tJ0kRCCnE_VouKGeg=w1434"/>  
 
         <br/>  */}

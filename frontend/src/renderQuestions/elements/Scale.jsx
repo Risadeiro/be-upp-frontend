@@ -5,66 +5,37 @@ import {
   Slider
 } from '@material-ui/core'
 
-const Select = ({ id, label, value }) => {
-  const customMarks = [
-    {
-      value: 1,
-      label: '1'
-    },
-    {
-      value: 2,
-      label: '2'
-    },
-    {
-      value: 3,
-      label: '3'
-    },
-    {
-      value: 4,
-      label: '4'
-    },
-    {
-      value: 5,
-      label: '5'
-    },
-    {
-      value: 6,
-      label: '6'
-    },
-    {
-      value: 7,
-      label: '7'
-    },
-    {
-      value: 8,
-      label: '8'
-    },
-    {
-      value: 9,
-      label: '9'
-    },
-    {
-      value: 10,
-      label: '10'
-    }
-  ]
+const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) => {
+  const marks = []
+  for (var i = minValue; i <= maxValue; i += step) {
+    marks.push({
+      value: i, 
+      label: i.toString()
+    });
+  }
 
   const { handleChange } = useContext(FormContext)
 
+  const updateAnswer = (event) => {
+    return {
+      value: event.target.value
+    }
+  }
+  
   return (
     <React.Fragment>
-      <FormLabel style={styles.labelText}> {label} </FormLabel>
+      <FormLabel style={styles.labelText}> {questionLabel} </FormLabel>
       <br />
 
       <Slider
-        key={id}
+        key={questionId}
         style={styles.sliderStyle}
-        marks={customMarks}
+        marks={marks}
         valueLabelDisplay='auto'
-        min={1}
-        max={10}
-        onChange={event => handleChange(id, event)}
-        defaultValue={value}
+        min={minValue}
+        max={maxValue}
+        onChange={(event) => handleChange(questionId, updateAnswer(event))}
+        defaultValue={answer?.value}
       />
 
       <br />

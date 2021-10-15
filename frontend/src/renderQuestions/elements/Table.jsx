@@ -12,62 +12,76 @@ import {
   FormLabel,
 } from '@material-ui/core'
 
-const Table = ({ idQuestion, label, row, col, value }) => {
+const Table = ({ questionId, questionLabel, row, col, answer }) => {
   const { control } = useForm()
   const { handleChange } = useContext(FormContext)
-  const allValues = value
 
-  const persistentData = (value, optionName, index) => {
-    if (typeof value !== "undefined") {
-      if (value === optionName)
-        return true
+  const updateAnswer = (rowId, colId) => {
+    if (typeof answer === "undefined") {
+      answer = {
+        value: {}
+      }
     }
 
-    else {
-      for (var i = 0; i < allValues.length; i++)
-        if (allValues[i].numRow === index && allValues[i].optionValue === optionName)
-          return true
+    answer.value[rowId] = {
+      colId: colId,
+      colLabel: col[colId],
+      rowLabel: row[rowId]
     }
 
-    return false
+    return answer
+  }
+
+  const isChecked = (rowId, colId) => {
+    if (typeof answer === "undefined")
+      return false
+
+    return answer.value[rowId]?.colId === colId
   }
 
   return (
     <FormControl component="fieldset" style={styles.questionContainer}>
-      <FormLabel component="legend" style={styles.labelText}> {label} </FormLabel>
+      <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <TableUI>
+
         <TableHead>
           <TableRow>
             <TableCell />
-            {col.map(({ label }, i) => (
-              <TableCell key={`${idQuestion}-col1-${i}`} align="center">
-                {label}
+            {Object.entries(col).map(([colId, colLabel]) => (
+              <TableCell key={`${questionId}-col1-${colId}`} align="center">
+                {colLabel}
               </TableCell>
             ))}
           </TableRow>
         </TableHead>
+
         <TableBody>
-          {row.map(({ name, label }, i) => (
-            <TableRow key={`${idQuestion}-row-${i}`} onChange={event => handleChange(idQuestion, event, i)}>
-              <TableCell>{label}</TableCell>
+          {Object.entries(row).map(([rowId, rowLabel]) => (
+            <TableRow
+              key={`${questionId}-row-${rowId}`}
+              onChange={event => handleChange(questionId, updateAnswer(rowId, event.target.value))}>
+
+              <TableCell>{rowLabel}</TableCell>
               <Controller
-                name={name}
+                name={rowId}
                 control={control}
                 render={({ field: { value, ...field } }) =>
-                  col.map(({ name: optionName }, j) => (
-                    <TableCell key={`${idQuestion}-col2-${j}`} style={{ textAlign: 'center' }}>
+                  Object.entries(col).map(([colId, colLabel]) => (
+                    <TableCell key={`${questionId}-col2-${colId}`} style={{ textAlign: 'center' }}>
                       <Radio
                         {...field}
-                        checked={persistentData(value, optionName, i)}
-                        value={optionName}
+                        checked={isChecked(rowId, colId)}
+                        value={colId}
                       />
                     </TableCell>
                   ))
                 }
               />
+
             </TableRow>
           ))}
         </TableBody>
+
       </TableUI>
     </FormControl>
   )
