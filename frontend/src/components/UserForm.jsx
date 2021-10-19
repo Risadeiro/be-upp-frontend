@@ -40,20 +40,45 @@ const UserForm = () => {
     setSteps(steps - 1)
   }
 
-  
   const handleChange = (questionId, answer) =>
-  answers[questionId] = answer
-  
+    answers[questionId] = answer
+
+  const sendData = () => {
+    const questions = []
+
+    Object.entries(answers).map(([questionID, questionInfo]) =>
+      questions.push({
+        id: questionID,
+        value: questionInfo.value
+      })
+    )
+
+    const preparedData = {
+      questions: questions,
+      templateVersion: allElements.templateVersion,
+      doctorId: 1
+    }
+
+    axios.post(`http://localhost:3001/open-api/form-data/`, preparedData)
+      .then(response => {
+        alert("Foi enviado. Parabéns!")
+      })
+      .catch(error => {
+        alert("Ocorreu um erro no POST Template!")
+      })
+  }
+
   if (!isLoading) {
     const { questions, pageLabel } = allElements.pages[steps] ?? {}
     const nPages = allElements.pages.length
-    var dict = new Object();
-    Object.keys(allElements["pages"]).forEach(function(key) {//questions
-        Object.keys(allElements["pages"][key]["questions"]).forEach(function(key2) {//type
-          dict[key2] = [allElements["pages"][key]["questions"][key2]["type"], allElements["pages"][key]["questions"][key2]["questionLabel"]]
-      });
-    });
-    
+
+    var dict = {}
+    Object.keys(allElements["pages"]).forEach(function (key) {//questions
+      Object.keys(allElements["pages"][key]["questions"]).forEach(function (key2) {//type
+        dict[key2] = [allElements["pages"][key]["questions"][key2]["type"], allElements["pages"][key]["questions"][key2]["questionLabel"]]
+      })
+    })
+
     if (!(steps === nPages))
       return (
         <FormContext.Provider value={{ handleChange }}>
@@ -104,7 +129,7 @@ const UserForm = () => {
     else {
       return (
         <React.Fragment>
-          <Confirm 
+          <Confirm
             dict={dict}
             answer={answers}
           />
@@ -119,9 +144,9 @@ const UserForm = () => {
           <Button
             variant="contained"
             style={styles.buttonSuccess}
-            color="primary">
-            Submeter
-          </Button>
+            color="primary"
+            onClick={() => sendData()}
+          > Submeter </Button>
         </React.Fragment>
       )
     }

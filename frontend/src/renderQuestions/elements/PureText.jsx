@@ -1,25 +1,17 @@
-import React, { useContext } from 'react'
-import { FormContext } from '../FormContext';
+import React from 'react'
 import {
   FormControl,
-  FormLabel,
-  FormControlLabel,
-  TextField,
-  Typography,
-  RadioGroup,
-  Radio as RadioUI
+  FormLabel
 } from '@material-ui/core'
-import { borderLeft } from '@material-ui/system'
 
 const PureText = ({ id, label }) => {
-
   return (
-    <FormControl key={id} style={styles.questionContainer}>
-        {label ? label.map((label, i) =>
-          <React.Fragment > 
-            <FormLabel key={i} component="legend" style={styles.labelText} > {label}  </FormLabel>
-            <br/>
-          </React.Fragment>) : null}
+    <FormControl style={styles.questionContainer}>
+      {label ? label.map((label, i) =>
+        <React.Fragment >
+          <FormLabel key={`${id}-${i}`} component="legend" style={styles.labelText} > {label}  </FormLabel>
+          <br />
+        </React.Fragment>) : null}
     </FormControl>
   )
 }
@@ -29,7 +21,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    textAlign: 'left', 
+    textAlign: 'left',
     alignSelf: 'stretch',
   },
   questionContainer: {
