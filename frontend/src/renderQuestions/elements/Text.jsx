@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { FormContext } from '../FormContext';
 import {
-  TextField
+  TextField,
+  InputAdornment
 } from '@material-ui/core'
 
-const Text = ({ questionId, questionLabel, answer }) => {
+const Text = ({ questionId, questionLabel, placeholder, endUnit, answer }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (answer) => {
@@ -16,10 +17,13 @@ const Text = ({ questionId, questionLabel, answer }) => {
   return (
     <React.Fragment>
       <TextField
+        InputProps={{ endAdornment: <InputAdornment position="end"> {endUnit} </InputAdornment> }}
+        InputLabelProps={{ shrink: true }}
         key={questionId}
         style={styles.floatingText}
         label={questionLabel}
-        variant="standard"
+        placeholder={placeholder}
+        variant="outlined"
         defaultValue={answer?.value}
         onChange={event => handleChange(questionId, updateAnswer(event.target.value))} />
       <br />
@@ -28,11 +32,6 @@ const Text = ({ questionId, questionLabel, answer }) => {
 }
 
 const styles = {
-  questionLabeText: {
-    fontSize: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
   questionContainer: {
     flex: 1,
     border: '2px solid gray',
@@ -42,7 +41,8 @@ const styles = {
     marginBottom: 50,
   },
   floatingText: {
-    marginBottom: 50
+    marginBottom: 50,
+    width: 'auto'
   }
 }
 

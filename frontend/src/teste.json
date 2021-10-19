@@ -1,13 +1,17 @@
 {
-    "useMedication": {
-        "value": {
-            "1": "Sim"
+    "questions": {
+        "useMedication": {
+            "value": {
+                "1": "Sim"
+            }
+        },
+        "diseases": {
+            "value": {
+                "1": "Covid",
+                "3": "Alto Colesterol"
+            }
         }
     },
-    "diseases": {
-        "value": {
-            "1": "Covid",
-            "3": "Alto Colesterol"
-        }
-    }
+    "templateVersion": 1,
+    "createAt": 1633020142
 }

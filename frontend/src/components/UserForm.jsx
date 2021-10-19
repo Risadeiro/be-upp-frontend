@@ -16,17 +16,29 @@ const UserForm = () => {
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/open-api/template/latest`).then(response => {
+    axios.get(`http://localhost:3001/open-api/template/latest`).then(response => {
       setAllElements(response.data)
       setLoading(false)
     })
   }, [])
 
-  const nextStep = () =>
-    setSteps(steps + 1)
+  const nextStep = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto"
+    })
 
-  const prevStep = () =>
+    setSteps(steps + 1)
+  }
+
+  const prevStep = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "auto"
+    })
+
     setSteps(steps - 1)
+  }
 
   const handleChange = (questionId, answer) =>
     answers[questionId] = answer

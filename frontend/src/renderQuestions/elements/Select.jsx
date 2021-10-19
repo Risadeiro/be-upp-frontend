@@ -24,7 +24,7 @@ const Select = ({ questionId, questionLabel, options, answer }) => {
   return (
     <React.Fragment>
       <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
-      <br /> <br />
+      <br />
 
       <FormControl style={styles.selectBox}>
         <SelectUI
@@ -52,7 +52,16 @@ const styles = {
   selectBox: {
     width: 100,
     marginBottom: 50
-  }
+  },
+  questionContainer: {
+    flex: 1,
+    border: '2px solid gray',
+    borderRadius: 15,
+    padding: 20,
+    width: '50%',
+    marginBottom: 50,
+    backgroundColor: 'red'
+  },
 }
 
 export default Select

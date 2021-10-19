@@ -53,7 +53,7 @@ const styles = {
     borderRadius: 15,
     padding: 20,
     width: '50%',
-    marginBottom: 50,
+    marginBottom: 50
   },
 }
 
