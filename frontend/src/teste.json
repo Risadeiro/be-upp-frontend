@@ -1,0 +1,13 @@
+{
+    "useMedication": {
+        "value": {
+            "1": "Sim"
+        }
+    },
+    "diseases": {
+        "value": {
+            "1": "Covid",
+            "3": "Alto Colesterol"
+        }
+    }
+}

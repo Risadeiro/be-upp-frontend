@@ -1,17 +1,9 @@
-import React, { useContext } from 'react'
-import { FormContext } from '../FormContext';
+import React from 'react'
 import {
-  FormControl,
   FormLabel,
-  FormControlLabel,
-  TextField,
-  Typography,
 } from '@material-ui/core'
-import { borderLeft } from '@material-ui/system';
 
 const PureText = ({ id, label }) => {
-  const { handleChange } = useContext(FormContext)
-
   return (
     <React.Fragment styles={styles.labelText}>
       {label ? label.map((label, i) =>

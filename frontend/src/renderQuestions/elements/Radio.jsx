@@ -19,8 +19,6 @@ const Radio = ({ questionId, questionLabel, options, answer }) => {
     }
   }
 
-  // console.log(typeof answer === "undefined" ? answer[Object.keys(answer)[0]] : "nada")
-
   return (
     <React.Fragment>
 

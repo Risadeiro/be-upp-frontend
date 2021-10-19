@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import questionJSON from '../new-questions.json'
+import React, { useState, useEffect } from 'react'
 import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
 import Confirm from '../components/Confirm'
+import axios from 'axios'
 import {
   Typography,
   AppBar,
@@ -10,12 +10,17 @@ import {
 } from '@material-ui/core'
 
 const UserForm = () => {
-  const [allElements,] = useState(questionJSON)
+  const [allElements, setAllElements] = useState()
   const [steps, setSteps] = useState(0)
-  const [nPages] = useState(questionJSON.pages.length)
   const [answers,] = useState({})
+  const [isLoading, setLoading] = useState(true)
 
-  const { questions, pageLabel } = allElements.pages[steps] ?? {}
+  useEffect(() => {
+    axios.get(`http://localhost:3000/open-api/template/latest`).then(response => {
+      setAllElements(response.data)
+      setLoading(false)
+    })
+  }, [])
 
   const nextStep = () =>
     setSteps(steps + 1)
@@ -23,80 +28,84 @@ const UserForm = () => {
   const prevStep = () =>
     setSteps(steps - 1)
 
-  const handleChange = (questionId, answer) => {
+  const handleChange = (questionId, answer) =>
     answers[questionId] = answer
-  }
 
-  // console.log(allElements.pages[steps].questions)
+  if (!isLoading) {
+    const { questions, pageLabel } = allElements.pages[steps] ?? {}
+    const nPages = allElements.pages.length
 
-  if (!(steps === nPages))
-    return (
-      <FormContext.Provider value={{ handleChange }}>
-        <AppBar style={{ marginBottom: 20 }} position='sticky'>
-          <Typography
-            variant="h4"
-            component="div"
-            sx={{ flexGrow: 1 }}
-          >
-            {pageLabel}
-          </Typography>
-        </AppBar>
+    if (!(steps === nPages))
+      return (
+        <FormContext.Provider value={{ handleChange }}>
+          <AppBar style={{ marginBottom: 20 }} position='sticky'>
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{ flexGrow: 1 }}
+            >
+              {pageLabel}
+            </Typography>
+          </AppBar>
 
-        <form>
-          {questions ?
-            Object.entries(questions).map(([questionId, questionInfo]) =>
-              <RenderElements
-                key={questionId}
-                props={{
-                  questionId: questionId,
-                  answer: answers[questionId],
-                  ...questionInfo
-                }} />)
-            : null}
-          <br />
-        </form>
+          <form>
+            {questions ?
+              Object.entries(questions).map(([questionId, questionInfo]) =>
+                <RenderElements
+                  key={questionId}
+                  props={{
+                    questionId: questionId,
+                    answer: answers[questionId],
+                    ...questionInfo
+                  }} />)
+              : null}
+            <br />
+          </form>
 
-        {steps > 0 &&
+          {steps > 0 &&
+            <Button
+              color="secondary"
+              variant="contained"
+              style={styles.buttonBack}
+              onClick={() => prevStep()}
+            > Voltar </Button>
+          }
+
+          {steps < nPages &&
+            <Button
+              color="primary"
+              variant="contained"
+              style={styles.buttonContinue}
+              onClick={() => nextStep()}
+            > Continuar </Button>
+          }
+        </FormContext.Provider>
+      )
+
+    else {
+      return (
+        <React.Fragment>
+          <Confirm />
+
           <Button
             color="secondary"
             variant="contained"
             style={styles.buttonBack}
             onClick={() => prevStep()}
           > Voltar </Button>
-        }
 
-        {steps < nPages &&
           <Button
-            color="primary"
             variant="contained"
-            style={styles.buttonContinue}
-            onClick={() => nextStep()}
-          > Continuar </Button>
-        }
-      </FormContext.Provider>
-    )
-
-  else {
-    return (
-      <React.Fragment>
-        <Confirm />
-
-        <Button
-          color="secondary"
-          variant="contained"
-          style={styles.buttonBack}
-          onClick={() => prevStep()}
-        > Voltar </Button>
-
-        <Button
-          variant="contained"
-          style={styles.buttonSuccess}
-          color="primary">
-          Submeter
-        </Button>
-      </React.Fragment>
-    )
+            style={styles.buttonSuccess}
+            color="primary">
+            Submeter
+          </Button>
+        </React.Fragment>
+      )
+    }
   }
+
+  return null
 }
 
 const styles = {
