@@ -40,13 +40,20 @@ const UserForm = () => {
     setSteps(steps - 1)
   }
 
+  
   const handleChange = (questionId, answer) =>
-    answers[questionId] = answer
-
+  answers[questionId] = answer
+  
   if (!isLoading) {
     const { questions, pageLabel } = allElements.pages[steps] ?? {}
     const nPages = allElements.pages.length
-
+    var dict = new Object();
+    Object.keys(allElements["pages"]).forEach(function(key) {//questions
+        Object.keys(allElements["pages"][key]["questions"]).forEach(function(key2) {//type
+          dict[key2] = [allElements["pages"][key]["questions"][key2]["type"], allElements["pages"][key]["questions"][key2]["questionLabel"]]
+      });
+    });
+    
     if (!(steps === nPages))
       return (
         <FormContext.Provider value={{ handleChange }}>
@@ -97,7 +104,10 @@ const UserForm = () => {
     else {
       return (
         <React.Fragment>
-          <Confirm />
+          <Confirm 
+            dict={dict}
+            answer={answers}
+          />
 
           <Button
             color="secondary"
