@@ -13,7 +13,7 @@ const RenderElements = ({ props: {
   maxValue, minValue, step,         // Scale only
   options,                          // Checkbox, radio, select only
   row, col,                         // Table only
-  placeholder, endUnit,             // Text only
+  placeholder, endUnit, answerType, constraints,  // Text only
   answer
 } }) => {
 
@@ -84,6 +84,8 @@ const RenderElements = ({ props: {
           answer={answer}
           placeholder={placeholder}
           endUnit={endUnit}
+          answerType={answerType}
+          constraints={constraints}
         />
       )
 
