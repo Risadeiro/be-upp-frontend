@@ -11,9 +11,10 @@ import {
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState()
-  const [steps, setSteps] = useState(0)
+  const [steps, setSteps] = useState(2)
   const [answers,] = useState({})
   const [isLoading, setLoading] = useState(true)
+  const [errorQuestions, setErrorQuestions] = useState({})
 
   useEffect(() => {
     axios.get(`http://localhost:3001/open-api/template/latest`).then(response => {
@@ -22,13 +23,43 @@ const UserForm = () => {
     })
   }, [])
 
-  const nextStep = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "auto"
+  const checkAdvance = () => {
+    const allPageQuestions = allElements.pages[steps].questions
+    const notAnswered = {}
+    let allGood = true
+
+    Object.entries(allPageQuestions).map(([questionID, questionInfo]) => {
+      if (questionInfo.type !== "pureText"
+        && questionInfo.type !== "image"
+        && questionInfo.type !== "scale"
+        && questionInfo.type !== "table"
+        && (!answers.hasOwnProperty(questionID) || !answers[questionID].value || Object.keys(answers[questionID].value).length === 0)) {
+        notAnswered[questionID] = { value: true, errorText: "Favor preencher." }
+        allGood = false
+      }
+
+      // table checking separately
+      if (questionInfo.type === "table") {
+        if (!answers.hasOwnProperty(questionID) || (Object.keys(answers[questionID].value).length !== Object.keys(allPageQuestions[questionID].row).length)) {
+          notAnswered[questionID] = { value: true, errorText: "Favor preencher." }
+          allGood = false
+        }
+      }
     })
 
-    setSteps(steps + 1)
+    setErrorQuestions(notAnswered)
+    return allGood
+  }
+
+  const nextStep = () => {
+    if (checkAdvance()) {
+      window.scrollTo({
+        top: 0,
+        behavior: "auto"
+      })
+
+      setSteps(steps + 1)
+    }
   }
 
   const prevStep = () => {
@@ -100,8 +131,9 @@ const UserForm = () => {
                   props={{
                     questionId: questionId,
                     answers: answers,
+                    error: errorQuestions[questionId],
                     answer: answers[questionId],
-                    ...questionInfo
+                    ...questionInfo,
                   }} />)
               : null}
             <br />

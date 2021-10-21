@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { FormContext } from '../FormContext';
 import {
   TextField,
@@ -9,10 +9,14 @@ import validateText from '../../validation/TextValidation';
 const Text = ({
   questionId, questionLabel,
   placeholder, endUnit,
-  answerType, constraints, answer, type }) => {
+  answerType, constraints, answer, type,
+  error }) => {
 
-  const { handleChange } = useContext(FormContext)
+  useEffect(() => {
+    setInputValue(answer?.value)
+  }, [])
 
+  const { handleChange, removeError } = useContext(FormContext)
   const [inputValue, setInputValue] = useState("")
 
   const updateAnswer = (answer) => {
@@ -49,6 +53,8 @@ const Text = ({
         variant="outlined"
         defaultValue={answer?.value}
         onBlur={handleBlur}
+        error={error?.value}
+        helperText={error?.errorText}
         onChange={event => handleTextChange(event)} />
       <br />
     </React.Fragment>

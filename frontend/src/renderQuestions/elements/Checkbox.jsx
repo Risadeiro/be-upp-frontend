@@ -4,10 +4,11 @@ import {
   FormControl,
   FormLabel,
   FormControlLabel,
+  FormHelperText,
   Checkbox as CheckboxUI
 } from '@material-ui/core'
 
-const Checkbox = ({ questionId, questionLabel, options, answer, type }) => {
+const Checkbox = ({ questionId, questionLabel, options, answer, type, error }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (optionId, optionLabel, checked) => {
@@ -29,7 +30,7 @@ const Checkbox = ({ questionId, questionLabel, options, answer, type }) => {
   return (
     <React.Fragment>
 
-      <FormControl component="fieldset" style={styles.questionContainer}>
+      <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
         <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
         {Object.entries(options).map(([optionId, optionLabel]) =>
           <FormControlLabel
@@ -44,6 +45,7 @@ const Checkbox = ({ questionId, questionLabel, options, answer, type }) => {
             label={optionLabel}
           />
         )}
+        <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { FormContext } from '../FormContext';
 import {
   FormLabel,
@@ -6,6 +6,14 @@ import {
 } from '@material-ui/core'
 
 const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, type }) => {
+  useEffect(() => {
+    handleChange(questionId, updateAnswer({
+      target: {
+        value: minValue
+      }
+    }))
+  })
+
   const marks = []
   for (var i = minValue; i <= maxValue; i += step) {
     marks.push({

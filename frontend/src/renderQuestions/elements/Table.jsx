@@ -10,9 +10,10 @@ import {
   Radio,
   FormControl,
   FormLabel,
+  FormHelperText
 } from '@material-ui/core'
 
-const Table = ({ questionId, questionLabel, row, col, answer, type }) => {
+const Table = ({ questionId, questionLabel, row, col, answer, type, error }) => {
   const { control } = useForm()
   const { handleChange } = useContext(FormContext)
 
@@ -25,9 +26,9 @@ const Table = ({ questionId, questionLabel, row, col, answer, type }) => {
     }
 
     answer.value[rowId] = {
-      colId: colId,
-      colLabel: col[colId],
-      rowLabel: row[rowId]
+      colId: colId
+      // colLabel: col[colId]
+      // rowLabel: row[rowId]
     }
 
     return answer
@@ -41,7 +42,7 @@ const Table = ({ questionId, questionLabel, row, col, answer, type }) => {
   }
 
   return (
-    <FormControl component="fieldset" style={styles.questionContainer}>
+    <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
       <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <TableUI>
 
@@ -84,6 +85,7 @@ const Table = ({ questionId, questionLabel, row, col, answer, type }) => {
         </TableBody>
 
       </TableUI>
+      <FormHelperText> {error?.errorText} </FormHelperText>
     </FormControl>
   )
 }

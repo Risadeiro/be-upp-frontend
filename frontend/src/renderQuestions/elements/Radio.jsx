@@ -5,10 +5,11 @@ import {
   FormLabel,
   FormControlLabel,
   RadioGroup,
+  FormHelperText,
   Radio as RadioUI,
 } from '@material-ui/core'
 
-const Radio = ({ questionId, questionLabel, options, answer, type }) => {
+const Radio = ({ questionId, questionLabel, options, answer, type, error }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (optionId, optionLabel) => {
@@ -23,7 +24,7 @@ const Radio = ({ questionId, questionLabel, options, answer, type }) => {
   return (
     <React.Fragment>
 
-      <FormControl component="fieldset" style={styles.questionContainer}>
+      <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
         <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
         <RadioGroup defaultValue={typeof answer == "object" ? Object.values(answer.value)[0] : ""}>
           {Object.entries(options).map(([optionId, optionLabel]) =>
@@ -35,6 +36,7 @@ const Radio = ({ questionId, questionLabel, options, answer, type }) => {
             />
           )}
         </RadioGroup>
+        <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />

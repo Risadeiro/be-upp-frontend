@@ -5,9 +5,10 @@ import {
   MenuItem,
   FormControl,
   FormLabel,
+  FormHelperText,
 } from '@material-ui/core'
 
-const Select = ({ questionId, questionLabel, options, answer, type }) => {
+const Select = ({ questionId, questionLabel, options, answer, type, error }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (event) => {
@@ -27,7 +28,7 @@ const Select = ({ questionId, questionLabel, options, answer, type }) => {
       <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <br />
 
-      <FormControl style={styles.selectBox}>
+      <FormControl style={styles.selectBox} error={error?.value}>
         <SelectUI
           key={questionId}
           onChange={event => handleChange(questionId, updateAnswer(event))}
@@ -37,6 +38,7 @@ const Select = ({ questionId, questionLabel, options, answer, type }) => {
             <MenuItem key={optionId} value={optionId}> {optionLabel} </MenuItem>
           )}
         </SelectUI>
+        <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />

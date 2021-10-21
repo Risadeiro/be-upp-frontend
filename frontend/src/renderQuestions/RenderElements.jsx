@@ -10,13 +10,14 @@ import Image from './elements/Image'
 import validateRequirements from './../validation/RequirementValidation';
 
 const RenderElements = ({ props: {
-  questionId, questionLabel, type,  // Mandatory fields 
-  maxValue, minValue, step,         // Scale only
-  options,                          // Checkbox, radio, select only
-  row, col,                         // Table only
+  questionId, questionLabel, type,                // Mandatory fields 
+  maxValue, minValue, step,                       // Scale only
+  options,                                        // Checkbox, radio, select only
+  row, col,                                       // Table only
   placeholder, endUnit, answerType, constraints,  // Text only
   answers, requirements,
-  answer
+  answer,
+  error
 } }) => {
 
   if (validateRequirements(questionId, answers, requirements) === false)
@@ -47,6 +48,7 @@ const RenderElements = ({ props: {
           options={options}
           answer={answer}
           type={type}
+          error={error}
         />
       )
 
@@ -71,6 +73,7 @@ const RenderElements = ({ props: {
           options={options}
           answer={answer}
           type={type}
+          error={error}
         />
       )
 
@@ -82,6 +85,7 @@ const RenderElements = ({ props: {
           options={options}
           answer={answer}
           type={type}
+          error={error}
         />
       )
 
@@ -96,6 +100,7 @@ const RenderElements = ({ props: {
           answerType={answerType}
           constraints={constraints}
           type={type}
+          error={error}
         />
       )
 
@@ -108,6 +113,7 @@ const RenderElements = ({ props: {
           col={col}
           answer={answer}
           type={type}
+          error={error}
         />
       )
 

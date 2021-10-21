@@ -19,7 +19,6 @@ export default function (text, type, constraints) {
   }
 }
 
-
 const validateEmail = (email) => {
   let isValid, errorMessage
 
