@@ -7,6 +7,7 @@ import Text from './elements/Text'
 import Table from './elements/Table'
 import PureText from './elements/PureText'
 import Image from './elements/Image'
+import validateRequirements from './../validation/RequirementValidation';
 
 const RenderElements = ({ props: {
   questionId, questionLabel, type,  // Mandatory fields 
@@ -14,8 +15,12 @@ const RenderElements = ({ props: {
   options,                          // Checkbox, radio, select only
   row, col,                         // Table only
   placeholder, endUnit, answerType, constraints,  // Text only
+  answers, requirements,
   answer
 } }) => {
+
+  if (validateRequirements(questionId, answers, requirements) === false)
+    return <div id={questionId} />
 
   switch (type) {
     case 'pureText':
@@ -41,6 +46,7 @@ const RenderElements = ({ props: {
           questionLabel={questionLabel}
           options={options}
           answer={answer}
+          type={type}
         />
       )
 
@@ -53,6 +59,7 @@ const RenderElements = ({ props: {
           minValue={minValue}
           step={step}
           answer={answer}
+          type={type}
         />
       )
 
@@ -63,6 +70,7 @@ const RenderElements = ({ props: {
           questionLabel={questionLabel}
           options={options}
           answer={answer}
+          type={type}
         />
       )
 
@@ -73,6 +81,7 @@ const RenderElements = ({ props: {
           questionLabel={questionLabel}
           options={options}
           answer={answer}
+          type={type}
         />
       )
 
@@ -86,6 +95,7 @@ const RenderElements = ({ props: {
           endUnit={endUnit}
           answerType={answerType}
           constraints={constraints}
+          type={type}
         />
       )
 
@@ -97,6 +107,7 @@ const RenderElements = ({ props: {
           row={row}
           col={col}
           answer={answer}
+          type={type}
         />
       )
 

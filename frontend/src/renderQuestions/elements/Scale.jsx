@@ -5,11 +5,11 @@ import {
   Slider
 } from '@material-ui/core'
 
-const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) => {
+const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, type }) => {
   const marks = []
   for (var i = minValue; i <= maxValue; i += step) {
     marks.push({
-      value: i, 
+      value: i,
       label: i.toString()
     });
   }
@@ -18,10 +18,11 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) 
 
   const updateAnswer = (event) => {
     return {
+      type: type,
       value: event.target.value
     }
   }
-  
+
   return (
     <React.Fragment>
       <FormLabel style={styles.labelText}> {questionLabel} </FormLabel>

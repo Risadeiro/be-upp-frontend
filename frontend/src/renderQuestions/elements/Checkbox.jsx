@@ -7,12 +7,13 @@ import {
   Checkbox as CheckboxUI
 } from '@material-ui/core'
 
-const Checkbox = ({ questionId, questionLabel, options, answer }) => {
+const Checkbox = ({ questionId, questionLabel, options, answer, type }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (optionId, optionLabel, checked) => {
     if (typeof answer === "undefined") {
       answer = {
+        type: type,
         value: {}
       }
     }

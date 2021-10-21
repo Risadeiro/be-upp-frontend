@@ -9,7 +9,7 @@ import validateText from '../../validation/TextValidation';
 const Text = ({
   questionId, questionLabel,
   placeholder, endUnit,
-  answerType, constraints, answer }) => {
+  answerType, constraints, answer, type }) => {
 
   const { handleChange } = useContext(FormContext)
 
@@ -17,6 +17,7 @@ const Text = ({
 
   const updateAnswer = (answer) => {
     return {
+      type: type,
       value: answer
     }
   }

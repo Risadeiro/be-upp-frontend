@@ -99,6 +99,7 @@ const UserForm = () => {
                   key={questionId}
                   props={{
                     questionId: questionId,
+                    answers: answers,
                     answer: answers[questionId],
                     ...questionInfo
                   }} />)

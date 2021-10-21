@@ -12,13 +12,14 @@ import {
   FormLabel,
 } from '@material-ui/core'
 
-const Table = ({ questionId, questionLabel, row, col, answer }) => {
+const Table = ({ questionId, questionLabel, row, col, answer, type }) => {
   const { control } = useForm()
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (rowId, colId) => {
     if (typeof answer === "undefined") {
       answer = {
+        type: type,
         value: {}
       }
     }

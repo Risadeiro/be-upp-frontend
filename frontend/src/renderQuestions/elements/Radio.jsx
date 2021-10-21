@@ -8,11 +8,12 @@ import {
   Radio as RadioUI,
 } from '@material-ui/core'
 
-const Radio = ({ questionId, questionLabel, options, answer }) => {
+const Radio = ({ questionId, questionLabel, options, answer, type }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (optionId, optionLabel) => {
     return {
+      type: type,
       value: {
         [optionId]: optionLabel
       }

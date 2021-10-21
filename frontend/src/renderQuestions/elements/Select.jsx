@@ -7,7 +7,7 @@ import {
   FormLabel,
 } from '@material-ui/core'
 
-const Select = ({ questionId, questionLabel, options, answer }) => {
+const Select = ({ questionId, questionLabel, options, answer, type }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (event) => {
@@ -15,6 +15,7 @@ const Select = ({ questionId, questionLabel, options, answer }) => {
     const optionLabel = options[optionId]
 
     return {
+      type: type,
       value: {
         [optionId]: optionLabel
       }
