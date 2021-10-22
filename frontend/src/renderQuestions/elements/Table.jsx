@@ -26,9 +26,9 @@ const Table = ({ questionId, questionLabel, row, col, answer, type, error }) => 
     }
 
     answer.value[rowId] = {
-      colId: colId
-      // colLabel: col[colId]
-      // rowLabel: row[rowId]
+      colId: colId,
+      colLabel: col[colId],
+      rowLabel: row[rowId]
     }
 
     return answer

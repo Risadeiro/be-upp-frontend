@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
+import FirstPage from '../components/FirstPage'
 import Confirm from '../components/Confirm'
+import Success from '../components/Success'
 import axios from 'axios'
 import {
   Typography,
@@ -11,7 +13,7 @@ import {
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState()
-  const [steps, setSteps] = useState(2)
+  const [steps, setSteps] = useState(-1)
   const [answers,] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [errorQuestions, setErrorQuestions] = useState({})
@@ -52,7 +54,7 @@ const UserForm = () => {
   }
 
   const nextStep = () => {
-    if (checkAdvance()) {
+    if (steps === -1 || steps === 2 || checkAdvance()) {     
       window.scrollTo({
         top: 0,
         behavior: "auto"
@@ -96,7 +98,10 @@ const UserForm = () => {
       })
       .catch(error => {
         alert("Ocorreu um erro no POST Template!")
-      })
+      })   
+    nextStep() 
+    console.log("Estamos em sendData imprimindo Steps")
+    console.log(steps)
   }
 
   if (!isLoading) {
@@ -109,8 +114,20 @@ const UserForm = () => {
         dict[key2] = [allElements["pages"][key]["questions"][key2]["type"], allElements["pages"][key]["questions"][key2]["questionLabel"]]
       })
     })
+    if((steps === -1))
+      return (
+        <React.Fragment>
+          <FirstPage> </FirstPage>
+          <Button
+              color="primary"
+              variant="contained"
+              style={styles.buttonContinue}
+              onClick={() => nextStep()}
+            > Iniciar </Button>
+        </React.Fragment>
+      )
 
-    if (!(steps === nPages))
+    else if (!(steps === nPages))
       return (
         <FormContext.Provider value={{ handleChange }}>
           <AppBar style={{ marginBottom: 20 }} position='sticky'>
@@ -158,8 +175,9 @@ const UserForm = () => {
           }
         </FormContext.Provider>
       )
-
-    else {
+    else if (steps===nPages){      
+      console.log(nPages)
+      console.log("entrou")
       return (
         <React.Fragment>
           <Confirm
@@ -181,6 +199,12 @@ const UserForm = () => {
             onClick={() => sendData()}
           > Submeter </Button>
         </React.Fragment>
+      )
+    }
+    else {      
+      console.log("sucesso")
+      return (
+        <Success></Success>
       )
     }
   }

@@ -11,7 +11,11 @@ const printAnswer = (questionId, questionInfo, dict) => {
       return (
         <React.Fragment key={questionId}>
           <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          <h3> {questionInfo.value[1] === "Sim" ? "Sim" : "Não"} </h3>
+          {questionInfo.value ?
+            Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
+              <h3> {itemInfo} </h3>
+            )
+            : null}
         </React.Fragment>
       )
 
@@ -56,6 +60,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
       )
 
     case 'table':
+      console.log(questionInfo.value)
       return (
         <React.Fragment key={questionId}>
           <br />
