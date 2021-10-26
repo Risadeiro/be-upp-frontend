@@ -11,7 +11,7 @@ import {
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState()
-  const [steps, setSteps] = useState(2)
+  const [steps, setSteps] = useState(4)
   const [answers,] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [errorQuestions, setErrorQuestions] = useState({})

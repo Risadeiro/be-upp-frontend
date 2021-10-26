@@ -31,6 +31,7 @@ const Select = ({ questionId, questionLabel, options, answer, type, error }) => 
       <FormControl style={styles.selectBox} error={error?.value}>
         <SelectUI
           key={questionId}
+          inputProps={{ MenuProps: { disableScrollLock: true } }}
           onChange={event => handleChange(questionId, updateAnswer(event))}
           defaultValue={typeof answer == "object" ? Object.keys(answer.value)[0] : ""}
         >
@@ -55,15 +56,6 @@ const styles = {
   selectBox: {
     width: 100,
     marginBottom: 50
-  },
-  questionContainer: {
-    flex: 1,
-    border: '2px solid gray',
-    borderRadius: 15,
-    padding: 20,
-    width: '50%',
-    marginBottom: 50,
-    backgroundColor: 'red'
   },
 }
 
