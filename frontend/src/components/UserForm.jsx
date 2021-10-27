@@ -99,9 +99,6 @@ const UserForm = () => {
       .catch(error => {
         alert("Ocorreu um erro no POST Template!")
       })   
-    nextStep() 
-    console.log("Estamos em sendData imprimindo Steps")
-    console.log(steps)
   }
 
   if (!isLoading) {
@@ -175,9 +172,7 @@ const UserForm = () => {
           }
         </FormContext.Provider>
       )
-    else if (steps===nPages){      
-      console.log(nPages)
-      console.log("entrou")
+    else {
       return (
         <React.Fragment>
           <Confirm
@@ -199,12 +194,6 @@ const UserForm = () => {
             onClick={() => sendData()}
           > Submeter </Button>
         </React.Fragment>
-      )
-    }
-    else {      
-      console.log("sucesso")
-      return (
-        <Success></Success>
       )
     }
   }

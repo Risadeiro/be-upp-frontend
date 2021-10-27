@@ -4,9 +4,9 @@ import {
   AppBar,
   FormLabel
 } from '@material-ui/core'
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     fontFamily: [
       'Montserrat',

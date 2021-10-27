@@ -4,6 +4,7 @@ import {
   FormLabel
 } from '@material-ui/core'
 
+
 const PureText = ({ id, label }) => {
   return (
     <FormControl style={styles.questionContainer}>
