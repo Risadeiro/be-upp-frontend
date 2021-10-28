@@ -37,6 +37,7 @@ const Checkbox = ({ questionId, questionLabel, options, answer, type, error }) =
           <FormControlLabel
             key={`${questionId}-${optionId}`}
             value={[optionLabel]}
+            style={styles.item}
             control={
               <CheckboxUI
                 onClick={event => handleChange(questionId, updateAnswer(optionId, optionLabel, event.target.checked))}
@@ -69,6 +70,10 @@ const styles = {
     width: '50%',
     marginBottom: 50,
   },
+  item: {
+    textAlign: "left",
+    marginBottom: 10
+  }
 }
 
 export default Checkbox

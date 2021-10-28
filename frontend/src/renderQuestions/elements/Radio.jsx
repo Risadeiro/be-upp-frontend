@@ -29,6 +29,7 @@ const Radio = ({ questionId, questionLabel, options, answer, type, error }) => {
         <RadioGroup defaultValue={typeof answer == "object" ? Object.values(answer.value)[0] : ""}>
           {Object.entries(options).map(([optionId, optionLabel]) =>
             <FormControlLabel
+              style={styles.item}
               key={`${questionId}-${optionId}`}
               value={optionLabel}
               control={<RadioUI onChange={() => handleChange(questionId, updateAnswer(optionId, optionLabel))} />}
@@ -38,7 +39,6 @@ const Radio = ({ questionId, questionLabel, options, answer, type, error }) => {
         </RadioGroup>
         <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
-
       <br />
     </React.Fragment>
   )
@@ -59,6 +59,10 @@ const styles = {
     width: '50%',
     marginBottom: 50
   },
+  item: {
+    textAlign: "left",
+    marginBottom: 10
+  }
 }
 
 export default Radio

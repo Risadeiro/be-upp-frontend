@@ -60,7 +60,7 @@ const styles = {
     margin: 'auto',
   },
   sliderStyle: {
-    width: 500,
+    width: "55%",
     marginTop: 10,
     marginBottom: 80,
   },
