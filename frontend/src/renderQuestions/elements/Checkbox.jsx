@@ -5,7 +5,8 @@ import {
   FormLabel,
   FormControlLabel,
   FormHelperText,
-  Checkbox as CheckboxUI
+  Checkbox as CheckboxUI,
+  autocompleteClasses
 } from '@material-ui/core'
 
 const Checkbox = ({ questionId, questionLabel, options, answer, type, error }) => {
@@ -58,6 +59,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
+    margin: 'auto',
   },
   questionContainer: {
     flex: 1,

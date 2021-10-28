@@ -3,7 +3,6 @@ import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
 import FirstPage from '../components/FirstPage'
 import Confirm from '../components/Confirm'
-import Success from '../components/Success'
 import axios from 'axios'
 import {
   Typography,
@@ -54,7 +53,7 @@ const UserForm = () => {
   }
 
   const nextStep = () => {
-    if (steps === -1 || steps === 2 || checkAdvance()) {     
+    if (steps === -1 || checkAdvance()) {
       window.scrollTo({
         top: 0,
         behavior: "auto"
@@ -98,7 +97,7 @@ const UserForm = () => {
       })
       .catch(error => {
         alert("Ocorreu um erro no POST Template!")
-      })   
+      })
   }
 
   if (!isLoading) {
@@ -111,16 +110,16 @@ const UserForm = () => {
         dict[key2] = [allElements["pages"][key]["questions"][key2]["type"], allElements["pages"][key]["questions"][key2]["questionLabel"]]
       })
     })
-    if((steps === -1))
+    if ((steps === -1))
       return (
         <React.Fragment>
           <FirstPage> </FirstPage>
           <Button
-              color="primary"
-              variant="contained"
-              style={styles.buttonContinue}
-              onClick={() => nextStep()}
-            > Iniciar </Button>
+            color="primary"
+            variant="contained"
+            style={styles.buttonContinue}
+            onClick={() => nextStep()}
+          > Iniciar </Button>
         </React.Fragment>
       )
 

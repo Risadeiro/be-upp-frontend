@@ -10,99 +10,87 @@ const printAnswer = (questionId, questionInfo, dict) => {
   switch (dict[questionId][0]) {
     case 'select':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <div className="question">
-          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          </div>
+        <div className="container" key={questionId}>
+          <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }}>
+            {dict[questionId][1]}
+          </FormLabel>
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
-              <h3 className="answer"> {itemInfo} </h3>
+              <h3 className="answer" key={`answer-${itemId}-${questionId}`}> {itemInfo} </h3>
             )
             : null}
         </div>
-        </React.Fragment>
       )
 
     case 'scale':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <div className="question">
-          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          </div>
-          <h3 className="answer"> {questionInfo.value} </h3>
+        <div className="container" key={questionId}>
+          <FormLabel className="question" key={questionId} component="legend" style={{ fontSize: 20 }} >
+            {dict[questionId][1]}
+          </FormLabel>
+          <h3 className="answer" key={`answer-${questionId}`}> {questionInfo.value} </h3>
         </div>
-        </React.Fragment>
       )
 
     case 'checkbox':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          <br/>
-          <div className="break"/>
+        <div className="container" key={questionId} >
+          <FormLabel key={questionId} component="legend" style={{ fontSize: 20, flex: 2 }}>
+            {dict[questionId][1]}
+          </FormLabel>
+          <div className="break" key={`teste-${questionId}`} />
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
-            <>
-            <h3 className="answer"> {itemInfo} </h3>          
-            <div className="break"/>
-            </>
+              <h3 className="answer-checkbox" key={`answer-${itemId}-${questionId}`}> {`${itemId}. ${itemInfo}`} </h3>
             )
             : null}
         </div>
-        </React.Fragment>
       )
 
     case 'radio':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <div className="question">
-            <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          </div>
-            {questionInfo.value ?
-              Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
-                <h3 className="answer" > {itemInfo} </h3>
-              )
-              : null}
+        <div className="container" key={questionId}>
+          <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }} >
+            {dict[questionId][1]}
+          </FormLabel>
+          {questionInfo.value ?
+            Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
+              <h3 className="answer" key={`answer-${questionId}`} > {itemInfo} </h3>
+            )
+            : null}
         </div>
-        </React.Fragment>
       )
 
     case 'text':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <div className="question">
-            <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          </div>
-          <h3 className="answer"> {questionInfo.value} </h3>
+        <div className="container" key={questionId}>
+          <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }}>
+            {dict[questionId][1]}
+          </FormLabel>
+          <h3 className="answer" key={`answer-${questionId}`}> {questionInfo.value} </h3>
         </div>
-        </React.Fragment>
       )
 
     case 'table':
       return (
-        <React.Fragment key={questionId}>
-        <div className="container">
-          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-          <div className="break"/>
-          <div className="line"/>
+        <div className="container" key={questionId}>
+          <FormLabel key={questionId} component="legend" style={{ fontSize: 20, flex: 2, marginBottom: 20 }} >
+            {dict[questionId][1]}
+          </FormLabel>
+          <div className="break" />
+          <div className="line" />
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
-            <React.Fragment key={`${itemId}-${questionId}`}>
-                <div className="question">
-                  <FormLabel key={`2-${questionId}`} component="legend" style={styles.tableLabelText}> {itemInfo.rowLabel}  </FormLabel>
-                </div>
-                <h3 className="answer"> {itemInfo.colLabel}  </h3>
-                <div className="line"/>
-            </React.Fragment>
+              <React.Fragment key={`${itemId}-${questionId}`}>
+                <FormLabel key={`2-${questionId}`} component="legend" className="question">
+                  {itemInfo.rowLabel}
+                </FormLabel>
+                <h3 className="answer" key={`3-${questionId}`}> {itemInfo.colLabel}  </h3>
+                <div className="line" />
+              </React.Fragment>
             )
             : null}
         </div>
-        </React.Fragment>
       )
     default:
       return null;
@@ -132,33 +120,5 @@ const Confirm = ({ dict, answer }) => {
   )
 }
 
-const styles = {
-  labelText: {
-    fontSize: 20,
-    marginBottom: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    flex: 2,
-  },
-  tableLabelText: {
-    fontSize: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  questionContainer: {
-    flex: 1,
-    border: '2px solid gray',
-    borderRadius: 15,
-    padding: 20,
-    width: '50%',
-    marginBottom: 50,
-  },
-  tableAnswer: {
-    fontSize: 20,
-    paddingLeft: 10,
-    paddingRight: 10,
-    width: '50%',
-  },
-}
 
 export default Confirm
