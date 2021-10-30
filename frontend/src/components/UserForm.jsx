@@ -4,6 +4,7 @@ import { FormContext } from '../renderQuestions/FormContext'
 import FirstPage from '../components/FirstPage'
 import Confirm from '../components/Confirm'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
 import {
   Typography,
   AppBar,
@@ -11,11 +12,14 @@ import {
 } from '@material-ui/core'
 
 const UserForm = () => {
+  const { fpcid } = useParams()
   const [allElements, setAllElements] = useState()
   const [steps, setSteps] = useState(-1)
   const [answers,] = useState({})
   const [isLoading, setLoading] = useState(true)
   const [errorQuestions, setErrorQuestions] = useState({})
+
+  console.log(fpcid)
 
   useEffect(() => {
     axios.get(`http://localhost:3001/open-api/template/latest`).then(response => {
@@ -72,8 +76,10 @@ const UserForm = () => {
     setSteps(steps - 1)
   }
 
-  const handleChange = (questionId, answer) =>
+  const handleChange = (questionId, answer) => {
     answers[questionId] = answer
+    console.log(answers)
+  }
 
   const sendData = () => {
     const questions = []

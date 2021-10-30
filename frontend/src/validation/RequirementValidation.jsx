@@ -1,4 +1,4 @@
-export default function (questionId, answers, requirements) {
+export default function (answers, requirements) {
   if (requirements == null || requirements.length == 0)
     return true
 
@@ -47,7 +47,8 @@ export default function (questionId, answers, requirements) {
       return
     }
     else {
-      isValid = isValid && validateRequirement(answers[questionId].value, answers[questionId].type, expectedValues)
+      isValid = isValid && validateRequirement(answers[questionId].value,
+        answers[questionId].type, expectedValues)
     }
   })
   return isValid

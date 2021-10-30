@@ -1,0 +1,47 @@
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
+
+import Enzyme from 'enzyme';
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
+
+Enzyme.configure({ adapter: new Adapter() });
+
+
+
+
+import React from 'react';
+import App from './App';
+import FirstPage from './components/FirstPage';
+import { mount } from 'enzyme';
+import toJson from "enzyme-to-json"
+import { Typography } from '@material-ui/core';
+import UserForm from './components/UserForm';
+
+it("should render the homepage", () => {
+  const app = mount(<FirstPage></FirstPage>);
+  // expect(app.find(Typography).at(1).text()).toEqual("Preencha a seguir o formulário pré-consulta:")
+  expect(toJson(app)).toMatchSnapshot()
+})
+
+it("should render the homepage -> testing manually", () => {
+  const app = mount(<FirstPage></FirstPage>);
+  expect(app.find(Typography).at(1).text()).toEqual("Preencha a seguir o formulário pré-consulta:")
+  //expect(toJson(app)).toMatchSnapshot()
+})
+
+
+it("should render the app", () => {
+  const app = mount(<App/>);
+  //expect(app.find(Typography).at(1).text()).toEqual("Preencha a seguir o formulário pré-consulta:")
+  expect(toJson(app)).toMatchSnapshot()
+})
+
+it("should render the Userform", () => {
+  const app = mount(<UserForm/>);
+  //expect(app.find(Typography).at(1).text()).toEqual("Preencha a seguir o formulário pré-consulta:")
+  expect(toJson(app)).toMatchSnapshot()
+})
+
