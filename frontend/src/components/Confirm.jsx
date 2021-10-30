@@ -5,28 +5,28 @@ import {
   FormLabel
 } from '@material-ui/core'
 
-function printAnswer(questionId, questionInfo, dict) {
+const printAnswer = (questionId, questionInfo, dict) => {
   switch (dict[questionId][0]) {
     case 'select':
       return (
-        <React.Fragment>
-          <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
+        <React.Fragment key={questionId}>
+          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
           <h3> {questionInfo.value[1] === "Sim" ? "Sim" : "Não"} </h3>
         </React.Fragment>
       )
 
     case 'scale':
       return (
-        <React.Fragment>
-          <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
+        <React.Fragment key={questionId}>
+          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
           <h3> {questionInfo.value} </h3>
         </React.Fragment>
       )
 
     case 'checkbox':
       return (
-        <React.Fragment>
-          <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
+        <React.Fragment key={questionId}>
+          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
               <h3> {itemInfo} </h3>
@@ -37,8 +37,8 @@ function printAnswer(questionId, questionInfo, dict) {
 
     case 'radio':
       return (
-        <React.Fragment>
-          <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
+        <React.Fragment key={questionId}>
+          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
               <h3> {itemInfo} </h3>
@@ -49,28 +49,23 @@ function printAnswer(questionId, questionInfo, dict) {
 
     case 'text':
       return (
-        <React.Fragment>
-          <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
+        <React.Fragment key={questionId}>
+          <FormLabel key={questionId} component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
           <h3> {questionInfo.value} </h3>
         </React.Fragment>
       )
 
     case 'table':
       return (
-        <React.Fragment>
-          {/* <FormLabel key={questionId} Component="legend" style={styles.labelText} > {dict[questionId][1]}  </FormLabel> */}
+        <React.Fragment key={questionId}>
           <br />
           {questionInfo.value ?
             Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
-              <React.Fragment>
-                <FormLabel key={questionId} Component="legend" style={styles.labelText}> {dict[questionId][1]}  </FormLabel>
-
+              <React.Fragment key={`${itemId}-${questionId}`}>
                 <br />
-
-                <FormLabel key={questionId} Component="legend" style={styles.labelText}> {itemInfo.rowLabel}  </FormLabel>
-                <FormLabel key={questionId} Component="legend" style={styles.labelText}> {itemInfo.colLabel}  </FormLabel>
+                <FormLabel key={`2-${questionId}`} component="legend" style={styles.labelText}> {itemInfo.rowLabel}  </FormLabel>
+                <h3> {itemInfo.colLabel}  </h3>
                 <br />
-                {/* <h3> { itemInfo.colLabel } </h3> */}
               </React.Fragment>
             )
             : null}
@@ -83,8 +78,6 @@ function printAnswer(questionId, questionInfo, dict) {
 }
 
 const Confirm = ({ dict, answer }) => {
-  console.log(answer)
-
   return (
     <React.Fragment>
       <AppBar style={{ marginBottom: 20 }} position='sticky'>
@@ -103,13 +96,9 @@ const Confirm = ({ dict, answer }) => {
         )
         : null}
       <br />
-
-      {/* <h1> {typeof answer.healthLevel == "object" ? answer.healthLevel.value : "Não foi"} </h1> */}
     </React.Fragment>
   )
 }
-
-
 
 const styles = {
   labelText: {
@@ -124,6 +113,12 @@ const styles = {
     padding: 20,
     width: '50%',
     marginBottom: 50,
+  },
+  tableAnswer: {
+    fontSize: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    width: '50%',
   },
 }
 

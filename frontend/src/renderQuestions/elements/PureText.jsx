@@ -8,7 +8,7 @@ const PureText = ({ id, label }) => {
   return (
     <FormControl style={styles.questionContainer}>
       {label ? label.map((label, i) =>
-        <React.Fragment >
+        <React.Fragment key={`${id}-${i}`}>
           <FormLabel key={`${id}-${i}`} component="legend" style={styles.labelText} > {label}  </FormLabel>
           <br />
         </React.Fragment>) : null}

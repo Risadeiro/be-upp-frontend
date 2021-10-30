@@ -5,9 +5,10 @@ import {
   MenuItem,
   FormControl,
   FormLabel,
+  FormHelperText,
 } from '@material-ui/core'
 
-const Select = ({ questionId, questionLabel, options, answer }) => {
+const Select = ({ questionId, questionLabel, options, answer, type, error }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (event) => {
@@ -15,6 +16,7 @@ const Select = ({ questionId, questionLabel, options, answer }) => {
     const optionLabel = options[optionId]
 
     return {
+      type: type,
       value: {
         [optionId]: optionLabel
       }
@@ -26,9 +28,10 @@ const Select = ({ questionId, questionLabel, options, answer }) => {
       <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
       <br />
 
-      <FormControl style={styles.selectBox}>
+      <FormControl style={styles.selectBox} error={error?.value}>
         <SelectUI
           key={questionId}
+          inputProps={{ MenuProps: { disableScrollLock: true } }}
           onChange={event => handleChange(questionId, updateAnswer(event))}
           defaultValue={typeof answer == "object" ? Object.keys(answer.value)[0] : ""}
         >
@@ -36,6 +39,7 @@ const Select = ({ questionId, questionLabel, options, answer }) => {
             <MenuItem key={optionId} value={optionId}> {optionLabel} </MenuItem>
           )}
         </SelectUI>
+        <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />
@@ -52,15 +56,6 @@ const styles = {
   selectBox: {
     width: 100,
     marginBottom: 50
-  },
-  questionContainer: {
-    flex: 1,
-    border: '2px solid gray',
-    borderRadius: 15,
-    padding: 20,
-    width: '50%',
-    marginBottom: 50,
-    backgroundColor: 'red'
   },
 }
 

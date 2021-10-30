@@ -1,16 +1,43 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { FormContext } from '../FormContext';
 import {
   TextField,
   InputAdornment
 } from '@material-ui/core'
+import validateText from '../../validation/TextValidation';
 
-const Text = ({ questionId, questionLabel, placeholder, endUnit, answer }) => {
-  const { handleChange } = useContext(FormContext)
+const Text = ({
+  questionId, questionLabel,
+  placeholder, endUnit,
+  answerType, constraints, answer, type,
+  error }) => {
+
+  useEffect(() => {
+    setInputValue(answer?.value)
+  }, [])
+
+  const { handleChange, removeError } = useContext(FormContext)
+  const [inputValue, setInputValue] = useState("")
 
   const updateAnswer = (answer) => {
     return {
+      type: type,
       value: answer
+    }
+  }
+
+  const handleTextChange = (event) => {
+    setInputValue(event.target.value)
+  }
+
+  const handleBlur = () => {
+    const { isValid, errorMessage } = validateText(inputValue, answerType, constraints)
+
+    if (isValid) {
+      handleChange(questionId, updateAnswer(inputValue))
+    }
+    else {
+      console.log(errorMessage)
     }
   }
 
@@ -25,7 +52,10 @@ const Text = ({ questionId, questionLabel, placeholder, endUnit, answer }) => {
         placeholder={placeholder}
         variant="outlined"
         defaultValue={answer?.value}
-        onChange={event => handleChange(questionId, updateAnswer(event.target.value))} />
+        onBlur={handleBlur}
+        error={error?.value}
+        helperText={error?.errorText}
+        onChange={event => handleTextChange(event)} />
       <br />
     </React.Fragment>
   )

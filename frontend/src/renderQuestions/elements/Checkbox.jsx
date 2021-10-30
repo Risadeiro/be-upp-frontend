@@ -4,15 +4,17 @@ import {
   FormControl,
   FormLabel,
   FormControlLabel,
+  FormHelperText,
   Checkbox as CheckboxUI
 } from '@material-ui/core'
 
-const Checkbox = ({ questionId, questionLabel, options, answer }) => {
+const Checkbox = ({ questionId, questionLabel, options, answer, type, error }) => {
   const { handleChange } = useContext(FormContext)
 
   const updateAnswer = (optionId, optionLabel, checked) => {
     if (typeof answer === "undefined") {
       answer = {
+        type: type,
         value: {}
       }
     }
@@ -28,12 +30,13 @@ const Checkbox = ({ questionId, questionLabel, options, answer }) => {
   return (
     <React.Fragment>
 
-      <FormControl component="fieldset" style={styles.questionContainer}>
+      <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
         <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
         {Object.entries(options).map(([optionId, optionLabel]) =>
           <FormControlLabel
             key={`${questionId}-${optionId}`}
             value={[optionLabel]}
+            style={styles.item}
             control={
               <CheckboxUI
                 onClick={event => handleChange(questionId, updateAnswer(optionId, optionLabel, event.target.checked))}
@@ -43,6 +46,7 @@ const Checkbox = ({ questionId, questionLabel, options, answer }) => {
             label={optionLabel}
           />
         )}
+        <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />
@@ -55,6 +59,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
+    marginBottom: 10
   },
   questionContainer: {
     flex: 1,
@@ -64,6 +69,10 @@ const styles = {
     width: '50%',
     marginBottom: 50,
   },
+  item: {
+    textAlign: "left",
+    marginBottom: 10
+  }
 }
 
 export default Checkbox

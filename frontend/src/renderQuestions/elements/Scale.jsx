@@ -1,15 +1,23 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { FormContext } from '../FormContext';
 import {
   FormLabel,
   Slider
 } from '@material-ui/core'
 
-const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) => {
+const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, type }) => {
+  useEffect(() => {
+    handleChange(questionId, updateAnswer({
+      target: {
+        value: minValue
+      }
+    }))
+  })
+
   const marks = []
   for (var i = minValue; i <= maxValue; i += step) {
     marks.push({
-      value: i, 
+      value: i,
       label: i.toString()
     });
   }
@@ -18,10 +26,11 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer}) 
 
   const updateAnswer = (event) => {
     return {
+      type: type,
       value: event.target.value
     }
   }
-  
+
   return (
     <React.Fragment>
       <FormLabel style={styles.labelText}> {questionLabel} </FormLabel>
@@ -50,7 +59,7 @@ const styles = {
     paddingRight: 10,
   },
   sliderStyle: {
-    width: 500,
+    width: "55%",
     marginTop: 10,
     marginBottom: 80,
   },
