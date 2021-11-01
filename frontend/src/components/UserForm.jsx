@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import RenderElements from '../renderQuestions/RenderElements'
 import { FormContext } from '../renderQuestions/FormContext'
 import FirstPage from '../components/FirstPage'
-import Confirm from '../components/Confirm'
+import Confirm from './Confirm'
 import axios from 'axios'
 import {
   Typography,

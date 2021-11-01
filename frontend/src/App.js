@@ -1,11 +1,25 @@
 import './App.css';
 import UserForm from './components/UserForm';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Login from './components/login/Login';
 
 const App = () => {
   return (
-    <div className="App">
-      <UserForm />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path='/fpc/:fpcid' component={UserForm} >
+          <div className="App">
+            <UserForm />
+          </div>
+        </Route>
+
+        <Route exact path='/login'>
+          <Login />
+        </Route>
+
+      </Switch>
+    </Router>
   )
 }
 
