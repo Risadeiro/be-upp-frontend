@@ -1,51 +1,60 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { FormContext } from '../FormContext';
-import {
-  TextField,
-  InputAdornment
-} from '@material-ui/core'
-import validateText from '../../validation/TextValidation';
+import React, {useContext, useState, useEffect} from "react";
+import {FormContext} from "../FormContext";
+import {TextField, InputAdornment} from "@material-ui/core";
+import validateText from "../../validation/TextValidation";
 
 const Text = ({
-  questionId, questionLabel,
-  placeholder, endUnit,
-  answerType, constraints, answer, type,
-  error }) => {
-
+  questionId,
+  questionLabel,
+  placeholder,
+  endUnit,
+  answerType,
+  constraints,
+  answer,
+  type,
+  error,
+}) => {
   useEffect(() => {
-    setInputValue(answer?.value)
-  }, [])
+    setInputValue(answer?.value);
+  }, []);
 
-  const { handleChange, removeError } = useContext(FormContext)
-  const [inputValue, setInputValue] = useState("")
+  const {handleChange, removeError} = useContext(FormContext);
+  const [inputValue, setInputValue] = useState("");
 
   const updateAnswer = (answer) => {
     return {
       type: type,
-      value: answer
-    }
-  }
+      value: answer,
+    };
+  };
 
   const handleTextChange = (event) => {
-    setInputValue(event.target.value)
-  }
+    setInputValue(event.target.value);
+  };
 
   const handleBlur = () => {
-    const { isValid, errorMessage } = validateText(inputValue, answerType, constraints)
+    const {isValid, errorMessage} = validateText(
+      inputValue,
+      answerType,
+      constraints
+    );
 
     if (isValid) {
-      handleChange(questionId, updateAnswer(inputValue))
+      handleChange(questionId, updateAnswer(inputValue));
+    } else {
+      console.log(errorMessage);
     }
-    else {
-      console.log(errorMessage)
-    }
-  }
+  };
 
   return (
     <React.Fragment>
       <TextField
-        InputProps={{ endAdornment: <InputAdornment position="end"> {endUnit} </InputAdornment> }}
-        InputLabelProps={{ shrink: true }}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end"> {endUnit} </InputAdornment>
+          ),
+        }}
+        InputLabelProps={{shrink: true}}
         key={questionId}
         style={styles.floatingText}
         label={questionLabel}
@@ -55,25 +64,26 @@ const Text = ({
         onBlur={handleBlur}
         error={error?.value}
         helperText={error?.errorText}
-        onChange={event => handleTextChange(event)} />
+        onChange={(event) => handleTextChange(event)}
+      />
       <br />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const styles = {
   questionContainer: {
     flex: 1,
-    border: '2px solid gray',
+    border: "2px solid gray",
     borderRadius: 15,
     padding: 20,
-    width: '50%',
+    width: "50%",
     marginBottom: 50,
   },
   floatingText: {
     marginBottom: 50,
-    width: 'auto'
-  }
-}
+    width: "auto",
+  },
+};
 
-export default Text
+export default Text;
