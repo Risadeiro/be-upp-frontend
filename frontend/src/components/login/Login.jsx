@@ -1,5 +1,6 @@
 /* Credits to FLORIN POP (Login/Register Design) */
 import React, { useEffect } from 'react';
+import { useForm } from "react-hook-form";
 import './Login.css'
 
 const Login = () => {
@@ -17,24 +18,76 @@ const Login = () => {
     });
   }, [])
 
+  const { register, handleSubmit, formState: { errors } } = useForm()
+
+  const onSubmitLogin = (event) => {
+    console.log("Apertou Login!")
+    console.log(event)
+  }
+
+  const onSubmitRegister = (event) => {
+    console.log("Apertou Registrar!")
+    console.log(event)
+  }
+
   return (
     <div className="body">
       <div className="container" id="container">
         <div className="form-container sign-up-container">
-          <form className="formLogin" action="#">
+          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitRegister)}>
             <h1 className="h1Login"> Criar Conta </h1>
-            <input className="inputLogin" type="text" placeholder="Nome Completo" />
-            <input className="inputLogin" type="email" placeholder="Email" />
-            <input className="inputLogin" type="password" placeholder="Senha" />
+
+            <input
+              className="inputLogin"
+              type="text"
+              placeholder="Nome Completo"
+              required
+              maxLength="50"
+              {...register("nameRegister")}
+            />
+
+            <input
+              className="inputLogin"
+              type="email"
+              placeholder="Email"
+              required
+              {...register("emailRegister")}
+            />
+
+            <input
+              className="inputLogin"
+              type="password"
+              placeholder="Senha"
+              required
+              minLength="6"
+              {...register("passwordRegister")}
+            />
+
             <button className="buttonLogin"> Registrar </button>
           </form>
         </div>
 
         <div className="form-container sign-in-container">
-          <form className="formLogin" action="#">
+          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitLogin)}>
             <h1 className="h1Login"> Login </h1>
-            <input className="inputLogin" type="email" placeholder="Email" />
-            <input className="inputLogin" type="password" placeholder="Senha" />
+
+            <input
+              className="inputLogin"
+              type="email"
+              placeholder="Email"
+              required
+              {...register("emailLogin")}
+            />
+
+            <input
+              className="inputLogin"
+              type="password"
+              placeholder="Senha"
+              required
+              minLength="6"
+              {...register("passwordLogin")}
+            />
+
             <a href="#"> Esqueceu a senha? </a>
             <button className="buttonLogin"> Login </button>
           </form>
