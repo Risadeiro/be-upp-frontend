@@ -1,78 +1,95 @@
-import React, { useContext } from 'react'
-import { FormContext } from '../FormContext';
+import React, {useContext} from "react";
+import {FormContext} from "../FormContext";
 import {
   FormControl,
   FormLabel,
   FormControlLabel,
   FormHelperText,
-  Checkbox as CheckboxUI
-} from '@material-ui/core'
+  Checkbox as CheckboxUI,
+} from "@material-ui/core";
 
-const Checkbox = ({ questionId, questionLabel, options, answer, type, error }) => {
-  const { handleChange } = useContext(FormContext)
+const Checkbox = ({
+  questionId,
+  questionLabel,
+  options,
+  answer,
+  type,
+  error,
+}) => {
+  const {handleChange} = useContext(FormContext);
 
   const updateAnswer = (optionId, optionLabel, checked) => {
     if (typeof answer === "undefined") {
       answer = {
         type: type,
-        value: {}
-      }
+        value: {},
+      };
     }
 
-    if (checked)
-      answer.value[optionId] = optionLabel
-    else
-      delete answer.value[optionId]
+    if (checked) answer.value[optionId] = optionLabel;
+    else delete answer.value[optionId];
 
     return answer;
-  }
+  };
 
   return (
     <React.Fragment>
-
-      <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
-        <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
-        {Object.entries(options).map(([optionId, optionLabel]) =>
+      <FormControl
+        component="fieldset"
+        style={styles.questionContainer}
+        error={error?.value}
+      >
+        <FormLabel component="legend" style={styles.labelText}>
+          {questionLabel}
+        </FormLabel>
+        {Object.entries(options).map(([optionId, optionLabel]) => (
           <FormControlLabel
             key={`${questionId}-${optionId}`}
             value={[optionLabel]}
             style={styles.item}
             control={
               <CheckboxUI
-                onClick={event => handleChange(questionId, updateAnswer(optionId, optionLabel, event.target.checked))}
-                defaultChecked={typeof answer == "object" ? answer.value.hasOwnProperty(optionId) : false}
+                onClick={(event) =>
+                  handleChange(
+                    questionId,
+                    updateAnswer(optionId, optionLabel, event.target.checked)
+                  )
+                }
+                defaultChecked={
+                  typeof answer == "object" ? optionId in answer.value : false
+                }
               />
             }
             label={optionLabel}
           />
-        )}
+        ))}
         <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const styles = {
   labelText: {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
   questionContainer: {
     flex: 1,
-    border: '2px solid gray',
+    border: "2px solid gray",
     borderRadius: 15,
     padding: 20,
-    width: '50%',
+    width: "50%",
     marginBottom: 50,
   },
   item: {
     textAlign: "left",
-    marginBottom: 10
-  }
-}
+    marginBottom: 10,
+  },
+};
 
-export default Checkbox
+export default Checkbox;
