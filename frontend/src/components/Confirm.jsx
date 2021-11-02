@@ -43,7 +43,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
           </FormLabel>
           {questionInfo.value
             ? Object.entries(questionInfo.value).map(([itemId, itemInfo]) => (
-                <h3> {itemInfo} </h3>
+                <h3 key={itemId}> {itemInfo} </h3>
               ))
             : null}
         </React.Fragment>
@@ -61,7 +61,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
           </FormLabel>
           {questionInfo.value
             ? Object.entries(questionInfo.value).map(([itemId, itemInfo]) => (
-                <h3> {itemInfo} </h3>
+                <h3 key={itemId}> {itemInfo} </h3>
               ))
             : null}
         </React.Fragment>

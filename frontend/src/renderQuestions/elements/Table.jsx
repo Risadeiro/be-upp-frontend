@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import {Controller, useForm} from "react-hook-form";
 import {FormContext} from "../FormContext";
 import {
@@ -78,8 +78,8 @@ const Table = ({questionId, questionLabel, row, col, answer, type, error}) => {
                 <Controller
                   name={rowId}
                   control={control}
-                  render={({field: {value, ...field}}) =>
-                    Object.entries(col).map(([colId, colLabel]) => (
+                  render={({field: {...field}}) =>
+                    Object.entries(col).map(([colId]) => (
                       <TableCell
                         key={`${questionId}-col2-${colId}`}
                         style={{textAlign: "center"}}

@@ -32,7 +32,7 @@ const UserForm = () => {
         questionInfo.type !== "image" &&
         questionInfo.type !== "scale" &&
         questionInfo.type !== "table" &&
-        (!answers.hasOwnProperty(questionID) ||
+        (!(questionID in answers) ||
           !answers[questionID].value ||
           Object.keys(answers[questionID].value).length === 0)
       ) {
@@ -43,7 +43,7 @@ const UserForm = () => {
       // table checking separately
       if (questionInfo.type === "table") {
         if (
-          !answers.hasOwnProperty(questionID) ||
+          !(questionID in answers) ||
           Object.keys(answers[questionID].value).length !==
             Object.keys(allPageQuestions[questionID].row).length
         ) {
@@ -100,10 +100,10 @@ const UserForm = () => {
 
     axios
       .post(`http://localhost:3001/open-api/form-data/`, preparedData)
-      .then((response) => {
+      .then(() => {
         alert("Foi enviado. Parabéns!");
       })
-      .catch((error) => {
+      .catch(() => {
         alert("Ocorreu um erro no POST Template!");
       });
   };

@@ -1,4 +1,3 @@
-import React from "react";
 import Select from "./elements/Select";
 import Scale from "./elements/Scale";
 import Checkbox from "./elements/Checkbox";

@@ -56,9 +56,7 @@ const Checkbox = ({
                   )
                 }
                 defaultChecked={
-                  typeof answer == "object"
-                    ? answer.value.hasOwnProperty(optionId)
-                    : false
+                  typeof answer == "object" ? optionId in answer.value : false
                 }
               />
             }

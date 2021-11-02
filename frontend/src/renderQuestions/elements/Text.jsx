@@ -18,7 +18,7 @@ const Text = ({
     setInputValue(answer?.value);
   }, []);
 
-  const {handleChange, removeError} = useContext(FormContext);
+  const {handleChange} = useContext(FormContext);
   const [inputValue, setInputValue] = useState("");
 
   const updateAnswer = (answer) => {
