@@ -1,5 +1,5 @@
 /* Credits to FLORIN POP (Login/Register Design) */
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from "react-hook-form";
 import './Login.css'
 
@@ -18,7 +18,7 @@ const Login = () => {
     });
   }, [])
 
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit } = useForm()
 
   const onSubmitLogin = (event) => {
     console.log("Apertou Login!")
@@ -88,7 +88,6 @@ const Login = () => {
               {...register("passwordLogin")}
             />
 
-            <a href="#"> Esqueceu a senha? </a>
             <button className="buttonLogin"> Login </button>
           </form>
         </div>

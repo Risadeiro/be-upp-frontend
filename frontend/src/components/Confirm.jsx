@@ -10,7 +10,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
   switch (dict[questionId][0]) {
     case 'select':
       return (
-        <div className="container" key={questionId}>
+        <div className="mainContainer" key={questionId}>
           <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }}>
             {dict[questionId][1]}
           </FormLabel>
@@ -24,7 +24,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
 
     case 'scale':
       return (
-        <div className="container" key={questionId}>
+        <div className="mainContainer" key={questionId}>
           <FormLabel className="question" key={questionId} component="legend" style={{ fontSize: 20 }} >
             {dict[questionId][1]}
           </FormLabel>
@@ -34,7 +34,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
 
     case 'checkbox':
       return (
-        <div className="container" key={questionId} >
+        <div className="mainContainer" key={questionId} >
           <FormLabel key={questionId} component="legend" style={{ fontSize: 20, flex: 2 }}>
             {dict[questionId][1]}
           </FormLabel>
@@ -49,12 +49,12 @@ const printAnswer = (questionId, questionInfo, dict) => {
 
     case 'radio':
       return (
-        <div className="container" key={questionId}>
+        <div className="mainContainer" key={questionId}>
           <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }} >
             {dict[questionId][1]}
           </FormLabel>
           {questionInfo.value ?
-            Object.entries(questionInfo.value).map(([itemId, itemInfo]) =>
+            Object.entries(questionInfo.value).map(([, itemInfo]) =>
               <h3 className="answer" key={`answer-${questionId}`} > {itemInfo} </h3>
             )
             : null}
@@ -63,7 +63,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
 
     case 'text':
       return (
-        <div className="container" key={questionId}>
+        <div className="mainContainer" key={questionId}>
           <FormLabel key={questionId} component="legend" className="question" style={{ fontSize: 20 }}>
             {dict[questionId][1]}
           </FormLabel>
@@ -73,7 +73,7 @@ const printAnswer = (questionId, questionInfo, dict) => {
 
     case 'table':
       return (
-        <div className="container" key={questionId}>
+        <div className="mainContainer" key={questionId}>
           <FormLabel key={questionId} component="legend" style={{ fontSize: 20, flex: 2, marginBottom: 20 }} >
             {dict[questionId][1]}
           </FormLabel>
@@ -119,6 +119,5 @@ const Confirm = ({ dict, answer }) => {
     </React.Fragment>
   )
 }
-
 
 export default Confirm

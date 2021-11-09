@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import RenderElements from "../renderQuestions/RenderElements";
 import { FormContext } from "../renderQuestions/FormContext";
 import Confirm from "../components/Confirm";
+import FirstPage from "./FirstPage";
 import axios from "axios";
 import { Typography, AppBar, Button } from "@material-ui/core";
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState();
-  const [steps, setSteps] = useState(0);
+  const [steps, setSteps] = useState(-1);
   const [answers] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [errorQuestions, setErrorQuestions] = useState({});
@@ -126,7 +127,19 @@ const UserForm = () => {
       });
     });
 
-    if (!(steps === nPages))
+    if ((steps === -1))
+      return (
+        <React.Fragment>
+          <FirstPage> </FirstPage>
+          <Button
+            color="primary"
+            variant="contained"
+            style={styles.buttonContinue}
+            onClick={() => nextStep()}
+          > Iniciar </Button>
+        </React.Fragment>
+      )
+    else if (!(steps === nPages))
       return (
         <FormContext.Provider value={{ handleChange }}>
           <AppBar style={{ marginBottom: 20 }} position="sticky">
