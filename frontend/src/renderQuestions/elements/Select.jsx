@@ -1,51 +1,57 @@
-import React, { useContext } from 'react'
-import { FormContext } from '../FormContext';
+import React, {useContext} from "react";
+import {FormContext} from "../FormContext";
 import {
   Select as SelectUI,
   MenuItem,
   FormControl,
   FormLabel,
   FormHelperText,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
-const Select = ({ questionId, questionLabel, options, answer, type, error }) => {
-  const { handleChange } = useContext(FormContext)
+const Select = ({questionId, questionLabel, options, answer, type, error}) => {
+  const {handleChange} = useContext(FormContext);
 
   const updateAnswer = (event) => {
-    const optionId = event.target.value
-    const optionLabel = options[optionId]
+    const optionId = event.target.value;
+    const optionLabel = options[optionId];
 
     return {
       type: type,
       value: {
-        [optionId]: optionLabel
-      }
-    }
-  }
+        [optionId]: optionLabel,
+      },
+    };
+  };
 
   return (
     <React.Fragment>
-      <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
+      <FormLabel component="legend" style={styles.labelText}>
+        {questionLabel}
+      </FormLabel>
       <br />
 
       <FormControl style={styles.selectBox} error={error?.value}>
         <SelectUI
           key={questionId}
-          inputProps={{ MenuProps: { disableScrollLock: true } }}
-          onChange={event => handleChange(questionId, updateAnswer(event))}
-          defaultValue={typeof answer == "object" ? Object.keys(answer.value)[0] : ""}
+          inputProps={{MenuProps: {disableScrollLock: true}}}
+          onChange={(event) => handleChange(questionId, updateAnswer(event))}
+          defaultValue={
+            typeof answer == "object" ? Object.keys(answer.value)[0] : ""
+          }
         >
-          {Object.entries(options).map(([optionId, optionLabel]) =>
-            <MenuItem key={optionId} value={optionId}> {optionLabel} </MenuItem>
-          )}
+          {Object.entries(options).map(([optionId, optionLabel]) => (
+            <MenuItem key={optionId} value={optionId}>
+              {optionLabel}
+            </MenuItem>
+          ))}
         </SelectUI>
         <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
 
       <br />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const styles = {
   labelText: {
@@ -55,8 +61,8 @@ const styles = {
   },
   selectBox: {
     width: 100,
-    marginBottom: 50
+    marginBottom: 50,
   },
-}
+};
 
-export default Select
+export default Select;

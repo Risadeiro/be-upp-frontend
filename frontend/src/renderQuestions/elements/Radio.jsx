@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { FormContext } from '../FormContext';
+import React, { useContext } from "react";
+import { FormContext } from "../FormContext";
 import {
   FormControl,
   FormLabel,
@@ -7,42 +7,60 @@ import {
   RadioGroup,
   FormHelperText,
   Radio as RadioUI,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
 const Radio = ({ questionId, questionLabel, options, answer, type, error }) => {
-  const { handleChange } = useContext(FormContext)
+  const { handleChange } = useContext(FormContext);
 
   const updateAnswer = (optionId, optionLabel) => {
     return {
       type: type,
       value: {
-        [optionId]: optionLabel
-      }
-    }
-  }
+        [optionId]: optionLabel,
+      },
+    };
+  };
 
   return (
     <React.Fragment>
-
-      <FormControl component="fieldset" style={styles.questionContainer} error={error?.value}>
-        <FormLabel component="legend" style={styles.labelText}> {questionLabel} </FormLabel>
-        <RadioGroup defaultValue={typeof answer == "object" ? Object.values(answer.value)[0] : ""}>
-          {Object.entries(options).map(([optionId, optionLabel]) =>
+      <FormControl
+        component="fieldset"
+        style={styles.questionContainer}
+        error={error?.value}
+      >
+        <FormLabel component="legend" style={styles.labelText}>
+          {questionLabel}
+        </FormLabel>
+        <RadioGroup
+          defaultValue={
+            typeof answer == "object" ? Object.values(answer.value)[0] : ""
+          }
+        >
+          {Object.entries(options).map(([optionId, optionLabel]) => (
             <FormControlLabel
               style={styles.item}
               key={`${questionId}-${optionId}`}
               value={optionLabel}
-              control={<RadioUI onChange={() => handleChange(questionId, updateAnswer(optionId, optionLabel))} />}
+              control={
+                <RadioUI
+                  onChange={() =>
+                    handleChange(
+                      questionId,
+                      updateAnswer(optionId, optionLabel)
+                    )
+                  }
+                />
+              }
               label={optionLabel}
             />
-          )}
+          ))}
         </RadioGroup>
         <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
       <br />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const styles = {
   labelText: {
@@ -53,16 +71,16 @@ const styles = {
   },
   questionContainer: {
     flex: 1,
-    border: '2px solid gray',
+    border: "2px solid gray",
     borderRadius: 15,
     padding: 20,
-    width: '50%',
-    marginBottom: 50
+    width: "50%",
+    marginBottom: 50,
   },
   item: {
     textAlign: "left",
-    marginBottom: 10
-  }
-}
+    marginBottom: 10,
+  },
+};
 
-export default Radio
+export default Radio;

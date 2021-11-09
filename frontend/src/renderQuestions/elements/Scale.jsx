@@ -1,35 +1,43 @@
-import React, { useContext, useEffect } from 'react'
-import { FormContext } from '../FormContext';
-import {
-  FormLabel,
-  Slider
-} from '@material-ui/core'
+import React, {useContext, useEffect} from "react";
+import {FormContext} from "../FormContext";
+import {FormLabel, Slider} from "@material-ui/core";
 
-const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, type }) => {
+const Select = ({
+  questionId,
+  questionLabel,
+  minValue,
+  maxValue,
+  step,
+  answer,
+  type,
+}) => {
   useEffect(() => {
-    handleChange(questionId, updateAnswer({
-      target: {
-        value: minValue
-      }
-    }))
-  })
+    handleChange(
+      questionId,
+      updateAnswer({
+        target: {
+          value: minValue,
+        },
+      })
+    );
+  });
 
-  const marks = []
+  const marks = [];
   for (var i = minValue; i <= maxValue; i += step) {
     marks.push({
       value: i,
-      label: i.toString()
+      label: i.toString(),
     });
   }
 
-  const { handleChange } = useContext(FormContext)
+  const {handleChange} = useContext(FormContext);
 
   const updateAnswer = (event) => {
     return {
       type: type,
-      value: event.target.value
-    }
-  }
+      value: event.target.value,
+    };
+  };
 
   return (
     <React.Fragment>
@@ -40,7 +48,7 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, t
         key={questionId}
         style={styles.sliderStyle}
         marks={marks}
-        valueLabelDisplay='auto'
+        valueLabelDisplay="auto"
         min={minValue}
         max={maxValue}
         onChange={(event) => handleChange(questionId, updateAnswer(event))}
@@ -49,8 +57,8 @@ const Select = ({ questionId, questionLabel, minValue, maxValue, step, answer, t
 
       <br />
     </React.Fragment>
-  )
-}
+  );
+};
 
 const styles = {
   labelText: {
@@ -64,6 +72,6 @@ const styles = {
     marginTop: 10,
     marginBottom: 80,
   },
-}
+};
 
-export default Select
+export default Select;
