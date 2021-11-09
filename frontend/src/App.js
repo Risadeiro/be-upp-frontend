@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path='/fpc/:fpcid' component={UserForm} >
+        <Route exact path='/fpc/:fpcid'>
           <div className="App">
             <UserForm />
           </div>
