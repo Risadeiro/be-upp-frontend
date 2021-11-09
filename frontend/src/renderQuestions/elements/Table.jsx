@@ -1,6 +1,6 @@
-import {useContext} from "react";
-import {Controller, useForm} from "react-hook-form";
-import {FormContext} from "../FormContext";
+import { useContext } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { FormContext } from "../FormContext";
 import {
   Table as TableUI,
   TableBody,
@@ -14,9 +14,9 @@ import {
   TableContainer,
 } from "@material-ui/core";
 
-const Table = ({questionId, questionLabel, row, col, answer, type, error}) => {
-  const {control} = useForm();
-  const {handleChange} = useContext(FormContext);
+const Table = ({ questionId, questionLabel, row, col, answer, type, error }) => {
+  const { control } = useForm();
+  const { handleChange } = useContext(FormContext);
 
   const updateAnswer = (rowId, colId) => {
     if (typeof answer === "undefined") {
@@ -28,9 +28,9 @@ const Table = ({questionId, questionLabel, row, col, answer, type, error}) => {
 
     answer.value[rowId] = {
       colId: colId,
-      // colLabel: col[colId]
-      // rowLabel: row[rowId]
-    };
+      colLabel: col[colId],
+      rowLabel: row[rowId]
+    }
 
     return answer;
   };
@@ -78,11 +78,11 @@ const Table = ({questionId, questionLabel, row, col, answer, type, error}) => {
                 <Controller
                   name={rowId}
                   control={control}
-                  render={({field: {...field}}) =>
+                  render={({ field: { ...field } }) =>
                     Object.entries(col).map(([colId]) => (
                       <TableCell
                         key={`${questionId}-col2-${colId}`}
-                        style={{textAlign: "center"}}
+                        style={{ textAlign: "center" }}
                       >
                         <Radio
                           {...field}
@@ -108,6 +108,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
+    margin: 'auto',
   },
   questionContainer: {
     flex: 1,

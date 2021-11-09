@@ -17,6 +17,7 @@
     "react-hook-form": "^7.16.1",
     "react-hook-form-resolvers": "0.0.1",
     "react-input-mask": "^2.0.4",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "^4.0.3",
     "validate-date": "^2.0.0",
     "web-vitals": "^1.0.1"

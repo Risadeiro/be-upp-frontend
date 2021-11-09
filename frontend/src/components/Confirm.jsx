@@ -1,5 +1,5 @@
 import React from "react";
-import {Typography, AppBar, FormLabel} from "@material-ui/core";
+import { Typography, AppBar, FormLabel } from "@material-ui/core";
 
 const printAnswer = (questionId, questionInfo, dict) => {
   switch (dict[questionId][0]) {
@@ -43,8 +43,8 @@ const printAnswer = (questionId, questionInfo, dict) => {
           </FormLabel>
           {questionInfo.value
             ? Object.entries(questionInfo.value).map(([itemId, itemInfo]) => (
-                <h3 key={itemId}> {itemInfo} </h3>
-              ))
+              <h3 key={itemId}> {itemInfo} </h3>
+            ))
             : null}
         </React.Fragment>
       );
@@ -61,8 +61,8 @@ const printAnswer = (questionId, questionInfo, dict) => {
           </FormLabel>
           {questionInfo.value
             ? Object.entries(questionInfo.value).map(([itemId, itemInfo]) => (
-                <h3 key={itemId}> {itemInfo} </h3>
-              ))
+              <h3 key={itemId}> {itemInfo} </h3>
+            ))
             : null}
         </React.Fragment>
       );
@@ -87,19 +87,19 @@ const printAnswer = (questionId, questionInfo, dict) => {
           <br />
           {questionInfo.value
             ? Object.entries(questionInfo.value).map(([itemId, itemInfo]) => (
-                <React.Fragment key={`${itemId}-${questionId}`}>
-                  <br />
-                  <FormLabel
-                    key={`2-${questionId}`}
-                    component="legend"
-                    style={styles.labelText}
-                  >
-                    {itemInfo.rowLabel}
-                  </FormLabel>
-                  <h3> {itemInfo.colLabel} </h3>
-                  <br />
-                </React.Fragment>
-              ))
+              <React.Fragment key={`${itemId}-${questionId}`}>
+                <br />
+                <FormLabel
+                  key={`2-${questionId}`}
+                  component="legend"
+                  style={styles.labelText}
+                >
+                  {itemInfo.rowLabel}
+                </FormLabel>
+                <h3> {itemInfo.colLabel} </h3>
+                <br />
+              </React.Fragment>
+            ))
             : null}
         </React.Fragment>
       );
@@ -108,19 +108,19 @@ const printAnswer = (questionId, questionInfo, dict) => {
   }
 };
 
-const Confirm = ({dict, answer}) => {
+const Confirm = ({ dict, answer }) => {
   return (
     <React.Fragment>
-      <AppBar style={{marginBottom: 20}} position="sticky">
-        <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
+      <AppBar style={{ marginBottom: 20 }} position="sticky">
+        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
           Página de confirmação de dados
         </Typography>
       </AppBar>
 
       {answer
         ? Object.entries(answer).map(([questionId, questionInfo]) =>
-            printAnswer(questionId, questionInfo, dict)
-          )
+          printAnswer(questionId, questionInfo, dict)
+        )
         : null}
       <br />
     </React.Fragment>

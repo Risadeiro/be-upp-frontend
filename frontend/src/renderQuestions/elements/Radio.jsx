@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import {FormContext} from "../FormContext";
+import React, { useContext } from "react";
+import { FormContext } from "../FormContext";
 import {
   FormControl,
   FormLabel,
@@ -9,8 +9,8 @@ import {
   Radio as RadioUI,
 } from "@material-ui/core";
 
-const Radio = ({questionId, questionLabel, options, answer, type, error}) => {
-  const {handleChange} = useContext(FormContext);
+const Radio = ({ questionId, questionLabel, options, answer, type, error }) => {
+  const { handleChange } = useContext(FormContext);
 
   const updateAnswer = (optionId, optionLabel) => {
     return {
@@ -57,6 +57,7 @@ const Radio = ({questionId, questionLabel, options, answer, type, error}) => {
         </RadioGroup>
         <FormHelperText> {error?.errorText} </FormHelperText>
       </FormControl>
+      <br />
     </React.Fragment>
   );
 };
@@ -66,7 +67,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    marginBottom: 10,
+    margin: 'auto',
   },
   questionContainer: {
     flex: 1,
