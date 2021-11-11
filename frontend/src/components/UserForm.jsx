@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import RenderElements from "../renderQuestions/RenderElements";
-import { FormContext } from "../renderQuestions/FormContext";
+import {FormContext} from "../renderQuestions/FormContext";
 import Confirm from "../components/Confirm";
 import FirstPage from "./FirstPage";
 import axios from "axios";
-import { Typography, AppBar, Button } from "@material-ui/core";
+import {Typography, AppBar, Button} from "@material-ui/core";
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState();
@@ -37,7 +37,7 @@ const UserForm = () => {
           !answers[questionID].value ||
           Object.keys(answers[questionID].value).length === 0)
       ) {
-        notAnswered[questionID] = { value: true, errorText: "Favor preencher." };
+        notAnswered[questionID] = {value: true, errorText: "Favor preencher."};
         allGood = false;
       }
 
@@ -46,7 +46,7 @@ const UserForm = () => {
         if (
           !(questionID in answers) ||
           Object.keys(answers[questionID].value).length !==
-          Object.keys(allPageQuestions[questionID].row).length
+            Object.keys(allPageQuestions[questionID].row).length
         ) {
           notAnswered[questionID] = {
             value: true,
@@ -110,7 +110,7 @@ const UserForm = () => {
   };
 
   if (!isLoading) {
-    const { questions, pageLabel } = allElements.pages[steps] ?? {};
+    const {questions, pageLabel} = allElements.pages[steps] ?? {};
     const nPages = allElements.pages.length;
 
     var dict = {};
@@ -127,7 +127,7 @@ const UserForm = () => {
       });
     });
 
-    if ((steps === -1))
+    if (steps === -1)
       return (
         <React.Fragment>
           <FirstPage> </FirstPage>
@@ -136,14 +136,17 @@ const UserForm = () => {
             variant="contained"
             style={styles.buttonContinue}
             onClick={() => nextStep()}
-          > Iniciar </Button>
+          >
+            {" "}
+            Iniciar{" "}
+          </Button>
         </React.Fragment>
-      )
+      );
     else if (!(steps === nPages))
       return (
-        <FormContext.Provider value={{ handleChange }}>
-          <AppBar style={{ marginBottom: 20 }} position="sticky">
-            <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+        <FormContext.Provider value={{handleChange}}>
+          <AppBar style={{marginBottom: 20}} position="sticky">
+            <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
               {pageLabel}
             </Typography>
           </AppBar>
@@ -151,17 +154,17 @@ const UserForm = () => {
           <form>
             {questions
               ? Object.entries(questions).map(([questionId, questionInfo]) => (
-                <RenderElements
-                  key={questionId}
-                  props={{
-                    questionId: questionId,
-                    answers: answers,
-                    error: errorQuestions[questionId],
-                    answer: answers[questionId],
-                    ...questionInfo,
-                  }}
-                />
-              ))
+                  <RenderElements
+                    key={questionId}
+                    props={{
+                      questionId: questionId,
+                      answers: answers,
+                      error: errorQuestions[questionId],
+                      answer: answers[questionId],
+                      ...questionInfo,
+                    }}
+                  />
+                ))
               : null}
             <br />
           </form>

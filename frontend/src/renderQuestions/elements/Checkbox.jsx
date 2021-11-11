@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { FormContext } from "../FormContext";
+import React, {useContext} from "react";
+import {FormContext} from "../FormContext";
 import {
   FormControl,
   FormLabel,
   FormControlLabel,
   FormHelperText,
   Checkbox as CheckboxUI,
-} from '@material-ui/core'
+} from "@material-ui/core";
 
 const Checkbox = ({
   questionId,
@@ -16,7 +16,7 @@ const Checkbox = ({
   type,
   error,
 }) => {
-  const { handleChange } = useContext(FormContext);
+  const {handleChange} = useContext(FormContext);
 
   const updateAnswer = (optionId, optionLabel, checked) => {
     if (typeof answer === "undefined") {
@@ -76,7 +76,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    margin: 'auto',
+    margin: "auto",
   },
   questionContainer: {
     flex: 1,

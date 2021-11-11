@@ -65,7 +65,7 @@ const styles = {
     fontSize: 20,
     paddingLeft: 10,
     paddingRight: 10,
-    margin: 'auto',
+    margin: "auto",
   },
   sliderStyle: {
     width: "55%",

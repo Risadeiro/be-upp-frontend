@@ -1,40 +1,44 @@
 /* Credits to FLORIN POP (Login/Register Design) */
-import { useEffect } from 'react';
-import { useForm } from "react-hook-form";
-import './Login.css'
+import {useEffect} from "react";
+import {useForm} from "react-hook-form";
+import "./Login.css";
 
 const Login = () => {
   useEffect(() => {
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
 
-    signUpButton.addEventListener('click', () => {
-      container.classList.add('right-panel-active');
+    signUpButton.addEventListener("click", () => {
+      container.classList.add("right-panel-active");
     });
 
-    signInButton.addEventListener('click', () => {
-      container.classList.remove('right-panel-active');
+    signInButton.addEventListener("click", () => {
+      container.classList.remove("right-panel-active");
     });
-  }, [])
+  }, []);
 
-  const { register, handleSubmit } = useForm()
+  const {register, handleSubmit} = useForm();
 
   const onSubmitLogin = (event) => {
-    console.log("Apertou Login!")
-    console.log(event)
-  }
+    console.log("Apertou Login!");
+    console.log(event);
+  };
 
   const onSubmitRegister = (event) => {
-    console.log("Apertou Registrar!")
-    console.log(event)
-  }
+    console.log("Apertou Registrar!");
+    console.log(event);
+  };
 
   return (
     <div className="body">
       <div className="container" id="container">
         <div className="form-container sign-up-container">
-          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitRegister)}>
+          <form
+            className="formLogin"
+            action="#"
+            onSubmit={handleSubmit(onSubmitRegister)}
+          >
             <h1 className="h1Login"> Criar Conta </h1>
 
             <input
@@ -68,7 +72,11 @@ const Login = () => {
         </div>
 
         <div className="form-container sign-in-container">
-          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitLogin)}>
+          <form
+            className="formLogin"
+            action="#"
+            onSubmit={handleSubmit(onSubmitLogin)}
+          >
             <h1 className="h1Login"> Login </h1>
 
             <input
@@ -98,19 +106,28 @@ const Login = () => {
               <h1 className="h1Login"> Seja bem-vindo! </h1>
               <p className="pLogin"> Registre-se com seus dados pessoais </p>
               <h3> Já tem conta? </h3>
-              <button className="buttonLogin ghost" id="signIn"> Login </button>
+              <button className="buttonLogin ghost" id="signIn">
+                {" "}
+                Login{" "}
+              </button>
             </div>
             <div className="overlay-panel overlay-right">
               <h1 className="h1Login"> Seja bem-vindo! </h1>
-              <p className="pLogin"> Entre com seus dados de acesso por favor </p>
+              <p className="pLogin">
+                {" "}
+                Entre com seus dados de acesso por favor{" "}
+              </p>
               <h3> Ainda não tem conta? </h3>
-              <button className="buttonLogin ghost" id="signUp"> Registrar </button>
+              <button className="buttonLogin ghost" id="signUp">
+                {" "}
+                Registrar{" "}
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
