@@ -1,44 +1,65 @@
 /* Credits to FLORIN POP (Login/Register Design) */
-import { useEffect } from 'react';
+import axios from "axios";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import './Login.css'
+import { useHistory } from "react-router-dom";
+import styles from './Login.module.css';
 
 const Login = () => {
   useEffect(() => {
-    const signUpButton = document.getElementById('signUp');
-    const signInButton = document.getElementById('signIn');
-    const container = document.getElementById('container');
+    const signUpButton = document.getElementById("signUp");
+    const signInButton = document.getElementById("signIn");
+    const container = document.getElementById("container");
 
-    signUpButton.addEventListener('click', () => {
-      container.classList.add('right-panel-active');
+    signUpButton.addEventListener("click", () => {
+      container.classList.add(styles.rightPanelActive);
     });
 
-    signInButton.addEventListener('click', () => {
-      container.classList.remove('right-panel-active');
+    signInButton.addEventListener("click", () => {
+      container.classList.remove(styles.rightPanelActive);
     });
-  }, [])
+  }, []);
 
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm();
+  const history = useHistory();
 
   const onSubmitLogin = (event) => {
-    console.log("Apertou Login!")
-    console.log(event)
-  }
+    const credentials = {
+      email: event.emailLogin,
+      password: event.passwordLogin
+    }
+
+    axios
+      .post(`http://localhost:3001/open-api/doctor/login`, credentials)
+      .then((response) => {
+        history.push({
+          pathname: '/doctor',
+          state: {
+            doctor: response.data
+          }
+        })
+      })
+      .catch(() => alert("Erro de Autenticação"))
+  };
 
   const onSubmitRegister = (event) => {
-    console.log("Apertou Registrar!")
-    console.log(event)
-  }
+    console.log("Apertou Registrar!");
+    console.log(event);
+  };
 
   return (
-    <div className="body">
-      <div className="container" id="container">
-        <div className="form-container sign-up-container">
-          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitRegister)}>
-            <h1 className="h1Login"> Criar Conta </h1>
+    <div className={styles.body}>
+      <div className={styles.container} id="container">
+        <div className={`${styles.formContainer} ${styles.signUpContainer}`}>
+          <form
+            className={styles.form}
+            action="#"
+            onSubmit={handleSubmit(onSubmitRegister)}
+          >
+            <h1 className={styles.h1}> Criar Conta </h1>
 
             <input
-              className="inputLogin"
+              className={styles.input}
               type="text"
               placeholder="Nome Completo"
               required
@@ -47,7 +68,7 @@ const Login = () => {
             />
 
             <input
-              className="inputLogin"
+              className={styles.input}
               type="email"
               placeholder="Email"
               required
@@ -55,7 +76,7 @@ const Login = () => {
             />
 
             <input
-              className="inputLogin"
+              className={styles.input}
               type="password"
               placeholder="Senha"
               required
@@ -63,16 +84,20 @@ const Login = () => {
               {...register("passwordRegister")}
             />
 
-            <button className="buttonLogin"> Registrar </button>
+            <button className={styles.button}> Registrar </button>
           </form>
         </div>
 
-        <div className="form-container sign-in-container">
-          <form className="formLogin" action="#" onSubmit={handleSubmit(onSubmitLogin)}>
-            <h1 className="h1Login"> Login </h1>
+        <div className={`${styles.formContainer} ${styles.signInContainer}`}>
+          <form
+            className={styles.form}
+            action="#"
+            onSubmit={handleSubmit(onSubmitLogin)}
+          >
+            <h1 className="{styles.h1}"> Login </h1>
 
             <input
-              className="inputLogin"
+              className={styles.input}
               type="email"
               placeholder="Email"
               required
@@ -80,7 +105,7 @@ const Login = () => {
             />
 
             <input
-              className="inputLogin"
+              className={styles.input}
               type="password"
               placeholder="Senha"
               required
@@ -88,29 +113,35 @@ const Login = () => {
               {...register("passwordLogin")}
             />
 
-            <button className="buttonLogin"> Login </button>
+            <button className={styles.button}> Login </button>
           </form>
         </div>
 
-        <div className="overlay-container">
-          <div className="overlay">
-            <div className="overlay-panel overlay-left">
-              <h1 className="h1Login"> Seja bem-vindo! </h1>
-              <p className="pLogin"> Registre-se com seus dados pessoais </p>
+        <div className={styles.overlayContainer}>
+          <div className={styles.overlay}>
+            <div className={`${styles.overlayPanel} ${styles.overlayLeft}`}>
+              <h1 className={styles.h1}> Seja bem-vindo! </h1>
+              <p className={styles.p}> Registre-se com seus dados pessoais </p>
               <h3> Já tem conta? </h3>
-              <button className="buttonLogin ghost" id="signIn"> Login </button>
+              <button className={`${styles.button} ${styles.ghost}`} id="signIn">
+                Login
+              </button>
             </div>
-            <div className="overlay-panel overlay-right">
-              <h1 className="h1Login"> Seja bem-vindo! </h1>
-              <p className="pLogin"> Entre com seus dados de acesso por favor </p>
+            <div className={`${styles.overlayPanel} ${styles.overlayRight}`}>
+              <h1 className={styles.h1}> Seja bem-vindo! </h1>
+              <p className={styles.p}>
+                Entre com seus dados de acesso por favor
+              </p>
               <h3> Ainda não tem conta? </h3>
-              <button className="buttonLogin ghost" id="signUp"> Registrar </button>
+              <button className={`${styles.button} ${styles.ghost}`} id="signUp">
+                Registrar
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
-}
+    </div >
+  );
+};
 
-export default Login
+export default Login;

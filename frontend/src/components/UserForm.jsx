@@ -5,6 +5,7 @@ import Confirm from "../components/Confirm";
 import FirstPage from "./FirstPage";
 import axios from "axios";
 import { Typography, AppBar, Button } from "@material-ui/core";
+import { useParams } from "react-router";
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState();
@@ -12,6 +13,7 @@ const UserForm = () => {
   const [answers] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [errorQuestions, setErrorQuestions] = useState({});
+  const { appointmentId } = useParams();
 
   useEffect(() => {
     axios
@@ -96,8 +98,10 @@ const UserForm = () => {
     const preparedData = {
       questions: questions,
       templateVersion: allElements.templateVersion,
-      doctorId: 1,
+      appointmentId: appointmentId,
     };
+
+    console.log(preparedData)
 
     axios
       .post(`http://localhost:3001/open-api/form-data/`, preparedData)
@@ -127,7 +131,7 @@ const UserForm = () => {
       });
     });
 
-    if ((steps === -1))
+    if (steps === -1)
       return (
         <React.Fragment>
           <FirstPage> </FirstPage>
@@ -136,9 +140,12 @@ const UserForm = () => {
             variant="contained"
             style={styles.buttonContinue}
             onClick={() => nextStep()}
-          > Iniciar </Button>
+          >
+            {" "}
+            Iniciar{" "}
+          </Button>
         </React.Fragment>
-      )
+      );
     else if (!(steps === nPages))
       return (
         <FormContext.Provider value={{ handleChange }}>

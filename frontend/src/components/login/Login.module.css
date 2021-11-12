@@ -16,12 +16,12 @@
 	margin: -20px 0 50px;
 }
 
-.h1Login {
+.h1 {
 	font-weight: bold;
 	margin: 0;
 }
 
-.pLogin {
+.p {
 	font-size: 14px;
 	font-weight: 100;
 	line-height: 20px;
@@ -29,23 +29,20 @@
 	margin: 20px 0 30px;
 }
 
-.spanLogin {
-	font-size: 12px;
-}
-
-a {
+.a {
 	color: #333;
 	font-size: 14px;
 	text-decoration: none;
 	margin: 15px 0;
 }
 
-.buttonLogin {
+.button {
 	border-radius: 20px;
 	border: 1px solid #3640ce;
 	background-color: #3640ce;
 	color: #FFFFFF;
 	font-size: 12px;
+	margin-top: 15px;
 	font-weight: bold;
 	padding: 12px 45px;
 	letter-spacing: 1px;
@@ -53,20 +50,20 @@ a {
 	transition: transform 80ms ease-in;
 }
 
-.buttonLogin:active {
+.button:active {
 	transform: scale(0.95);
 }
 
-.buttonLogin:focus {
+.button:focus {
 	outline: none;
 }
 
-.buttonLogin.ghost {
+.button.ghost {
 	background-color: transparent;
 	border-color: #FFFFFF;
 }
 
-.formLogin {
+.form {
 	background-color: #FFFFFF;
 	display: flex;
 	align-items: center;
@@ -77,7 +74,7 @@ a {
 	text-align: center;
 }
 
-.inputLogin {
+.input {
 	background-color: #eee;
 	border: none;
 	padding: 12px 15px;
@@ -97,31 +94,31 @@ a {
 	min-height: 480px;
 }
 
-.form-container {
+.formContainer {
 	position: absolute;
 	top: 0;
 	height: 100%;
 	transition: all 0.6s ease-in-out;
 }
 
-.sign-in-container {
+.signInContainer {
 	left: 0;
 	width: 50%;
 	z-index: 2;
 }
 
-.container.right-panel-active .sign-in-container {
+.container.rightPanelActive .signInContainer {
 	transform: translateX(100%);
 }
 
-.sign-up-container {
+.signUpContainer {
 	left: 0;
 	width: 50%;
 	opacity: 0;
 	z-index: 1;
 }
 
-.container.right-panel-active .sign-up-container {
+.container.rightPanelActive .signUpContainer {
 	transform: translateX(100%);
 	opacity: 1;
 	z-index: 5;
@@ -140,7 +137,7 @@ a {
 	}
 }
 
-.overlay-container {
+.overlayContainer {
 	position: absolute;
 	top: 0;
 	left: 50%;
@@ -151,7 +148,7 @@ a {
 	z-index: 100;
 }
 
-.container.right-panel-active .overlay-container{
+.container.rightPanelActive .overlayContainer{
 	transform: translateX(-100%);
 }
 
@@ -169,11 +166,11 @@ a {
 	transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.container.rightPanelActive .overlay {
   	transform: translateX(50%);
 }
 
-.overlay-panel {
+.overlayPanel {
 	position: absolute;
 	display: flex;
 	align-items: center;
@@ -188,19 +185,19 @@ a {
 	transition: transform 0.6s ease-in-out;
 }
 
-.overlay-left {
+.overlayLeft {
 	transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
+.container.rightPanelActive .overlayLeft {
 	transform: translateX(0);
 }
 
-.overlay-right {
+.overlayRight {
 	right: 0;
 	transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
+.container.rightPanelActive .overlayRight {
 	transform: translateX(20%);
 }
