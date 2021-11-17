@@ -23,7 +23,7 @@
     padding: 0 1rem;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
-    transition: .5s
+    transition: .5s;
 }
 
 .a {
@@ -125,7 +125,8 @@
 }
 
 .active {
-    color: var(--white-color)
+    color: var(--white-color);
+    transition: 3s
 }
 
 .active::before {
@@ -134,7 +135,7 @@
     left: 0;
     width: 2px;
     height: 32px;
-    background-color: var(--white-color)
+    background-color: var(--white-color);
 }
 
 .height100 {

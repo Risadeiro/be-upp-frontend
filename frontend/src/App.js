@@ -3,7 +3,7 @@ import UserForm from "./components/UserForm";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Login from "./components/login/Login";
-import Professional from "./components/professional/Professional";
+import MainPage from "./components/professional/MainPage";
 
 const App = () => {
   return (
@@ -19,8 +19,8 @@ const App = () => {
           <Login />
         </Route>
 
-        <Route exact path="/doctor">
-          <Professional />
+        <Route path="/doctor">
+          <MainPage />
         </Route>
       </Switch>
     </Router>
