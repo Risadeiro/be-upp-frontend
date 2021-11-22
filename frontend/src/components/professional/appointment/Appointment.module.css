@@ -1,0 +1,70 @@
+.listContainer {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24%;
+    grid-gap: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 1px;
+}
+
+.patientName {
+    font-weight: 700;
+    font-size: 35px;
+    padding: 5px;
+}
+
+.listContainer .patientName {
+    text-align: center;
+}
+
+.patientContainer {
+    border: solid 1px;
+    border-radius: 15px;
+    box-shadow: 1px 1px rgb(83, 83, 83);
+    background-color: lightgray;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 4px;
+    overflow: auto;
+}
+
+.patientContainer:hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.active {
+    background-color: lightblue;
+}
+
+.patientItem {
+    display: flex;
+    align-content: space-between;
+}
+
+.endAppointmentContainer {
+    display: flex;
+    column-gap: .5rem;
+    margin-top: 3rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.datePickerContainer {
+    flex: 1 1 10ch;
+}
+
+.patientNameContainer {
+    flex: 5 1 30ch;
+}
+
+.submitButton {
+    flex: 1 1 10ch;
+    border: none;
+    border-radius: .25rem;
+    padding: .75rem 1rem;
+    background: #3640ce;
+    color: white;
+    box-shadow: 0 .75rem .5rem -.5rem hsl(0 50% 80%);
+    cursor: pointer;
+}

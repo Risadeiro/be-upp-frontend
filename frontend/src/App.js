@@ -1,6 +1,6 @@
 import "./App.css";
 import UserForm from "./components/UserForm";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import Login from "./components/login/Login";
 import MainPage from "./components/professional/MainPage";

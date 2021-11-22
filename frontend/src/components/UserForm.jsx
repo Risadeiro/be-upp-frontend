@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import RenderElements from "../renderQuestions/RenderElements";
-import { FormContext } from "../renderQuestions/FormContext";
+import {FormContext} from "../renderQuestions/FormContext";
 import Confirm from "../components/Confirm";
 import FirstPage from "./FirstPage";
 import axios from "axios";
-import { Typography, AppBar, Button } from "@material-ui/core";
-import { useParams } from "react-router";
+import {Typography, AppBar, Button} from "@material-ui/core";
+import {useParams} from "react-router";
 
 const UserForm = () => {
   const [allElements, setAllElements] = useState();
@@ -13,7 +13,7 @@ const UserForm = () => {
   const [answers] = useState({});
   const [isLoading, setLoading] = useState(true);
   const [errorQuestions, setErrorQuestions] = useState({});
-  const { appointmentId } = useParams();
+  const {appointmentId} = useParams();
 
   useEffect(() => {
     axios
@@ -39,7 +39,7 @@ const UserForm = () => {
           !answers[questionID].value ||
           Object.keys(answers[questionID].value).length === 0)
       ) {
-        notAnswered[questionID] = { value: true, errorText: "Favor preencher." };
+        notAnswered[questionID] = {value: true, errorText: "Favor preencher."};
         allGood = false;
       }
 
@@ -48,7 +48,7 @@ const UserForm = () => {
         if (
           !(questionID in answers) ||
           Object.keys(answers[questionID].value).length !==
-          Object.keys(allPageQuestions[questionID].row).length
+            Object.keys(allPageQuestions[questionID].row).length
         ) {
           notAnswered[questionID] = {
             value: true,
@@ -101,7 +101,7 @@ const UserForm = () => {
       appointmentId: appointmentId,
     };
 
-    console.log(preparedData)
+    console.log(preparedData);
 
     axios
       .post(`http://localhost:3001/open-api/form-data/`, preparedData)
@@ -114,7 +114,7 @@ const UserForm = () => {
   };
 
   if (!isLoading) {
-    const { questions, pageLabel } = allElements.pages[steps] ?? {};
+    const {questions, pageLabel} = allElements.pages[steps] ?? {};
     const nPages = allElements.pages.length;
 
     var dict = {};
@@ -148,9 +148,9 @@ const UserForm = () => {
       );
     else if (!(steps === nPages))
       return (
-        <FormContext.Provider value={{ handleChange }}>
-          <AppBar style={{ marginBottom: 20 }} position="sticky">
-            <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+        <FormContext.Provider value={{handleChange}}>
+          <AppBar style={{marginBottom: 20}} position="sticky">
+            <Typography variant="h4" component="div" sx={{flexGrow: 1}}>
               {pageLabel}
             </Typography>
           </AppBar>
@@ -158,17 +158,17 @@ const UserForm = () => {
           <form>
             {questions
               ? Object.entries(questions).map(([questionId, questionInfo]) => (
-                <RenderElements
-                  key={questionId}
-                  props={{
-                    questionId: questionId,
-                    answers: answers,
-                    error: errorQuestions[questionId],
-                    answer: answers[questionId],
-                    ...questionInfo,
-                  }}
-                />
-              ))
+                  <RenderElements
+                    key={questionId}
+                    props={{
+                      questionId: questionId,
+                      answers: answers,
+                      error: errorQuestions[questionId],
+                      answer: answers[questionId],
+                      ...questionInfo,
+                    }}
+                  />
+                ))
               : null}
             <br />
           </form>

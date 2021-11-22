@@ -1,20 +1,28 @@
-import {useState, useEffect} from 'react'
-import styles from './Sidebar.module.css'
-import {SidebarItems} from './SidebarItems';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import styles from "./Sidebar.module.css";
+import { SidebarItems } from "./SidebarItems";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const Sidebar = ({toggleState}) => {
-  const [navClass, setNavClass] = useState(styles.lNavbar)
-  const [linkActive, setLinkActive] = useState(0)
+const Sidebar = ({ toggleState }) => {
+  const location = useLocation()
+  const [navClass, setNavClass] = useState(styles.lNavbar);
+  const [linkActive, setLinkActive] = useState();
+
+  useEffect(() => {
+    SidebarItems.map((item, index) => {
+      if (item.path === location.pathname)
+        setLinkActive(index)
+    })
+  })
 
   useEffect(() => {
     if (toggleState) {
-      setNavClass(`${styles.lNavbar} ${styles.show}`)
+      setNavClass(`${styles.lNavbar} ${styles.show}`);
+    } else {
+      setNavClass(`${styles.lNavbar}`);
     }
-    else {
-      setNavClass(`${styles.lNavbar}`)
-    }
-  }, [toggleState])
+  }, [toggleState]);
 
   return (
     <div className={navClass} id="nav-bar">
@@ -30,20 +38,23 @@ const Sidebar = ({toggleState}) => {
               return (
                 <Link
                   onClick={() => setLinkActive(index)}
-                  key={index} 
-                  replace to={item.path} 
-                  className={`${styles.a} ${styles.navLink} ${index === linkActive ? styles.active : ""}`}
+                  key={index}
+                  replace
+                  to={item.path}
+                  className={`${styles.a} ${styles.navLink} ${index === linkActive ? styles.active : ""
+                    }`}
                 >
                   <i className={`bx ${item.icon} ${styles.navIcon}`} />
                   <span className={`${styles.navName}`}>{item.text}</span>
                 </Link>
-              )
+              );
             })}
           </div>
         </div>
 
         <a href="/login" className={`${styles.a} ${styles.navLink}`}>
-          <i className={`bx bx-log-out ${styles.navIcon}`} /> <span className={`${styles.navName}`}>SignOut</span>
+          <i className={`bx bx-log-out ${styles.navIcon}`} />
+          <span className={`${styles.navName}`}>SignOut</span>
         </a>
       </nav>
     </div>

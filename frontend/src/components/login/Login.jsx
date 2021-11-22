@@ -1,9 +1,9 @@
 /* Credits to FLORIN POP (Login/Register Design) */
 import axios from "axios";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
-import styles from './Login.module.css';
+import {useEffect} from "react";
+import {useForm} from "react-hook-form";
+import {useHistory} from "react-router-dom";
+import styles from "./Login.module.css";
 
 const Login = () => {
   useEffect(() => {
@@ -20,26 +20,26 @@ const Login = () => {
     });
   }, []);
 
-  const { register, handleSubmit } = useForm();
+  const {register, handleSubmit} = useForm();
   const history = useHistory();
 
   const onSubmitLogin = (event) => {
     const credentials = {
       email: event.emailLogin,
-      password: event.passwordLogin
-    }
+      password: event.passwordLogin,
+    };
 
     axios
       .post(`http://localhost:3001/open-api/doctor/login`, credentials)
       .then((response) => {
         history.push({
-          pathname: '/doctor',
+          pathname: "/doctor",
           state: {
-            doctor: response.data
-          }
-        })
+            doctor: response.data,
+          },
+        });
       })
-      .catch(() => alert("Erro de Autenticação"))
+      .catch(() => alert("Erro de Autenticação"));
   };
 
   const onSubmitRegister = (event) => {
@@ -123,7 +123,10 @@ const Login = () => {
               <h1 className={styles.h1}> Seja bem-vindo! </h1>
               <p className={styles.p}> Registre-se com seus dados pessoais </p>
               <h3> Já tem conta? </h3>
-              <button className={`${styles.button} ${styles.ghost}`} id="signIn">
+              <button
+                className={`${styles.button} ${styles.ghost}`}
+                id="signIn"
+              >
                 Login
               </button>
             </div>
@@ -133,14 +136,17 @@ const Login = () => {
                 Entre com seus dados de acesso por favor
               </p>
               <h3> Ainda não tem conta? </h3>
-              <button className={`${styles.button} ${styles.ghost}`} id="signUp">
+              <button
+                className={`${styles.button} ${styles.ghost}`}
+                id="signUp"
+              >
                 Registrar
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 };
 
