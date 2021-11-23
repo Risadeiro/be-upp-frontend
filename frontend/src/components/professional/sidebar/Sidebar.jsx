@@ -5,16 +5,15 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 const Sidebar = ({ toggleState }) => {
-  const location = useLocation()
+  const location = useLocation();
   const [navClass, setNavClass] = useState(styles.lNavbar);
   const [linkActive, setLinkActive] = useState();
 
   useEffect(() => {
     SidebarItems.map((item, index) => {
-      if (item.path === location.pathname)
-        setLinkActive(index)
-    })
-  })
+      if (item.path === location.pathname) setLinkActive(index);
+    });
+  });
 
   useEffect(() => {
     if (toggleState) {
@@ -30,7 +29,7 @@ const Sidebar = ({ toggleState }) => {
         <div>
           <a href="/login" className={`${styles.a} ${styles.navLogo}`}>
             <i className={`bx bx-layer ${styles.navLogoIcon}`} />
-            <span className={styles.navLogoName}>DAVID</span>
+            <span className={styles.navLogoName}>QUALIME</span>
           </a>
 
           <div className={styles.navList}>

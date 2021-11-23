@@ -1,12 +1,17 @@
 export const SidebarItems = [
   {
+    path: "/doctor/list",
+    icon: "bx-list-ul",
+    text: "Lista de Consultas",
+  },
+  {
     path: "/doctor/appointment",
-    icon: "bx-grid-alt",
+    icon: "bx-plus-medical",
     text: "Nova Consulta",
   },
   {
-    path: "/doctor/nothing",
-    icon: "bx-user",
-    text: "Perfil",
-  },
+    path: "/doctor/register-patient",
+    icon: "bx-user-plus",
+    text: "Cadastrar Paciente",
+  }
 ];

@@ -1854,6 +1854,100 @@
     "prop-types" "^15.7.2"
     "react-is" "^17.0.2"
 
+"@material/animation@^13.0.0":
+  "integrity" "sha512-YR0/u4u56qXDjKYolQ7F+IvlPkaSBhMl/dZv8DK0FbD6PH4ckOPd3bEXNRndXtprsxwknQQP2pttjPImylkl0g=="
+  "resolved" "https://registry.npmjs.org/@material/animation/-/animation-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "tslib" "^2.1.0"
+
+"@material/base@^13.0.0":
+  "integrity" "sha512-vFx0JryRfcvUNX3cZ2u32wUMvxzd+c/YW0LFOXNgqCDWlubHcMm0Y6Wz371LhfQo80/NE69u+/4Joo99yKnVeg=="
+  "resolved" "https://registry.npmjs.org/@material/base/-/base-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "tslib" "^2.1.0"
+
+"@material/card@^13.0.0":
+  "integrity" "sha512-ooJUOt1Viv99Dyz4rhz9ZZbfa996eHh3RUuXkPRkT66Btd5TzpdqsQWKwOVc5bgbgWqzhDWQ6A/aQdYqH97ccg=="
+  "resolved" "https://registry.npmjs.org/@material/card/-/card-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/dom" "^13.0.0"
+    "@material/elevation" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/ripple" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/shape" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/dom@^13.0.0":
+  "integrity" "sha512-M9HLAYBZtkTUvf66FL+jAEvUOdhji1HkGA1mV6oyE+HY9gkCkmso+mngvzlLd5+uaAVE9I3WQFhSb9gp0cpXnw=="
+  "resolved" "https://registry.npmjs.org/@material/dom/-/dom-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/feature-targeting" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/elevation@^13.0.0":
+  "integrity" "sha512-hzdblgamVRbC0UwKafcvUVDvKzMiOSveDiwGgFk+EAg/tZRdwMlQPyf/9I6Lr8Cw/pNGnEOPhmCDOYPOHimr0w=="
+  "resolved" "https://registry.npmjs.org/@material/elevation/-/elevation-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/feature-targeting@^13.0.0":
+  "integrity" "sha512-QJClfeaA4EMyAxKJy9WR0Nx+/VwSZCkhGLUVBG9NhxqYGfl/LtaeaidrNm32vYEoNZAofN92VD2RwQTRwp/dMQ=="
+  "resolved" "https://registry.npmjs.org/@material/feature-targeting/-/feature-targeting-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "tslib" "^2.1.0"
+
+"@material/ripple@^13.0.0":
+  "integrity" "sha512-hx4B40hB2rRfsGwf1jwo2GGlYDq0yUQjcMcMmXfQipPJNpQhy8ylmXKc1DBjmWf7EQ/MgbfCSYwPrYXrbGP31w=="
+  "resolved" "https://registry.npmjs.org/@material/ripple/-/ripple-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/animation" "^13.0.0"
+    "@material/base" "^13.0.0"
+    "@material/dom" "^13.0.0"
+    "@material/feature-targeting" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/rtl@^13.0.0":
+  "integrity" "sha512-nFGy3iQg7k+xLs67eb86mRFVLwa0yi7MusqRK4OM8DXcLO5yoVfUTPKpdSykcbRryp9imVHsxutox2tZawR4og=="
+  "resolved" "https://registry.npmjs.org/@material/rtl/-/rtl-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/theme" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/shape@^13.0.0":
+  "integrity" "sha512-exk96+iCjzCujk3aSrvIMhmW773s1Tc0h+MbQKbt6Iv3nHJCyLSiRbxclCHXWHrVwG/9KZRkrt/g2qk7P3VRBg=="
+  "resolved" "https://registry.npmjs.org/@material/shape/-/shape-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/feature-targeting" "^13.0.0"
+    "@material/rtl" "^13.0.0"
+    "@material/theme" "^13.0.0"
+    "tslib" "^2.1.0"
+
+"@material/theme@^13.0.0":
+  "integrity" "sha512-KAe1s0MvvfCGAwJliDVTvgAKuD3ESwhl7F7br4Iam4IPdqME2rWl8NPhKHFfaWqTG7PyCgMMngYEYuA8cLNTsA=="
+  "resolved" "https://registry.npmjs.org/@material/theme/-/theme-13.0.0.tgz"
+  "version" "13.0.0"
+  dependencies:
+    "@material/feature-targeting" "^13.0.0"
+    "tslib" "^2.1.0"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -11717,6 +11811,11 @@
   "version" "1.14.1"
 
 "tslib@^2.0.3":
+  "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
+  "version" "2.3.1"
+
+"tslib@^2.1.0":
   "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
   "version" "2.3.1"

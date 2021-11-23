@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 import axios from "axios";
 import PatientSearch from "./patientSearch/PatientSearch";
 import styles from "./Appointment.module.css";
-import data from "./pacienteTest.json"
-import { TextField } from "@material-ui/core";
-import { DatePicker } from "@material-ui/lab"
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
+import data from "./pacienteTest.json";
+import { Paper, TextField } from "@material-ui/core";
+import { DatePicker } from "@material-ui/lab";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 
 const Appointment = ({ doctor }) => {
   const filterPosts = (posts, query) => {
@@ -20,40 +23,38 @@ const Appointment = ({ doctor }) => {
     });
   };
 
-  const [allPatients, setAllPatients] = useState()
-  const [searchQuery, setSearchQuery] = useState()
-  const [selectedPatient, setSelectedPatient] = useState()
-  const [appointmentDate, setAppointmentDate] = useState(new Date())
-  const filteredPatients = filterPosts(data, searchQuery)
+  const [allPatients, setAllPatients] = useState();
+  const [searchQuery, setSearchQuery] = useState();
+  const [selectedPatient, setSelectedPatient] = useState();
+  const [appointmentDate, setAppointmentDate] = useState(new Date());
+  const filteredPatients = filterPosts(data, searchQuery);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/open-api/patient/all')
-      .then((response) => {
-        setAllPatients(response.data)
-      })
-  }, [])
+    axios.get("http://localhost:3001/open-api/patient/all").then((response) => {
+      setAllPatients(response.data);
+    });
+  }, []);
 
-  console.log(allPatients)
+  console.log(allPatients);
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     const preparedData = {
       patientId: selectedPatient.patientId,
       doctorId: doctor._id,
-      date: appointmentDate
-    }
+      date: appointmentDate.getTime(),
+    };
 
     axios
       .post(`http://localhost:3001/open-api/appointment/`, preparedData)
-      .then(() => {
-        alert("A consulta foi criada!");
+      .then((response) => {
+        alert("A consulta foi criada! ", response);
       })
       .catch(() => {
         alert("Ocorreu um erro. Tente novamente!");
       });
-  }
+  };
 
   return (
     <div>
@@ -62,33 +63,46 @@ const Appointment = ({ doctor }) => {
         setSearchQuery={setSearchQuery}
       />
 
-      <div className={styles.listContainer}>
+      <Paper
+        elevation={3}
+        className={styles.listContainer}
+      >
         {filteredPatients.map((post, key) => (
-          <div
+          <Card
+            elevation={4}
             key={key}
-            className={`${styles.patientContainer} ${selectedPatient === post ? styles.active : ""}`}
+            className={`${styles.patientCard} ${selectedPatient === post ? styles.activePatient : ""}`}
             onClick={() => setSelectedPatient(post)}
             aria-hidden="true"
           >
-            <div className={styles.patientName}>{post.name}</div>
-            <div className={styles.patientItem}>email: {post.email}</div>
-            <div className={styles.patientItem}>cpf: {post.cpf}</div>
-            <div className={styles.patientItem}>celular: {post.cellphone}</div>
-          </div>
+            <CardHeader title={post.name} subheader={post.email} />
+
+            <CardContent>
+              <div className={styles.infosContainer}>
+                <div className={styles.infoName}>CPF:</div>
+                <div className={styles.infoValue}>{post.cpf}</div>
+              </div>
+              <div className={styles.infosContainer}>
+                <div className={styles.infoName}>Celular:</div>
+                <div className={styles.infoValue}>{post.cellphone}</div>
+              </div>
+            </CardContent>
+          </Card>
         ))}
-      </div>
+      </Paper>
 
       <form className={styles.endAppointmentContainer} onSubmit={handleSubmit}>
-        <LocalizationProvider dateAdapter={AdapterDateFns} className={styles.datePickerContainer}>
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+          className={styles.datePickerContainer}
+        >
           <DatePicker
             className={styles.datePickerContainer}
             label="Data da Consulta"
             inputFormat="dd/MM/yyyy"
             value={appointmentDate}
-            onChange={date => setAppointmentDate(date)}
-            renderInput={(props) => (
-              <TextField {...props} helperText="" />
-            )}
+            onChange={(date) => setAppointmentDate(date)}
+            renderInput={(props) => <TextField {...props} helperText="" />}
           />
         </LocalizationProvider>
 
@@ -101,7 +115,11 @@ const Appointment = ({ doctor }) => {
           value={selectedPatient?.name}
         />
 
-        <input className={styles.submitButton} type="submit" value="CRIAR CONSULTA" />
+        <input
+          className={styles.submitButton}
+          type="submit"
+          value="CRIAR CONSULTA"
+        />
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
-import styles from './PatientSearch.module.css'
+import styles from "./PatientSearch.module.css";
 
-const PatientSearch = ({ searchQuery, setSearchQuery }) => {
+const PatientSearch = ({searchQuery, setSearchQuery}) => {
   return (
     <div className={`${styles.body}`}>
       <form
@@ -8,15 +8,12 @@ const PatientSearch = ({ searchQuery, setSearchQuery }) => {
         onSubmit="event.preventDefault()"
         role="search"
       >
-        <label
-          className={`${styles.html} ${styles.label}`}
-          htmlFor="search"
-        >
+        <label className={`${styles.html} ${styles.label}`} htmlFor="search">
           Procure por algo
         </label>
         <input
           value={searchQuery}
-          onInput={event => setSearchQuery(event.target.value)}
+          onInput={(event) => setSearchQuery(event.target.value)}
           className={`${styles.input}`}
           id="search"
           type="search"
