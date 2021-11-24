@@ -1,120 +1,118 @@
 .listContainer {
-    display: grid;
-    grid-template-columns: 24% 24% 24% 24%;
-    grid-gap: 10px;
-    border-radius: 10px;
-    padding: 25px;
-    overflow-y:auto;
-    height:auto;
-    max-height:575px;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  grid-gap: 10px;
+  border-radius: 10px;
+  padding: 25px;
+  overflow-y: auto;
+  height: auto;
+  max-height: 575px;
 }
 
 .patientCard {
-    background-color: white;
-    
+  background-color: white;
 }
 
 .infosContainer {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 10px
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 10px;
 }
 
 .infoName {
-    flex: 0;
-    font-weight: 700;
+  flex: 0;
+  font-weight: 700;
 }
 
 .infoValue {
-    flex: 2;
+  flex: 2;
 }
 
 .patientName {
-    font-weight: 700;
-    font-size: 35px;
-    padding: 5px;
+  font-weight: 700;
+  font-size: 35px;
+  padding: 5px;
 }
 
 .listContainer .patientName {
-    text-align: center;
+  text-align: center;
 }
 
 .patientContainer {
-    border: solid 1px;
-    border-radius: 15px;
-    box-shadow: 1px 1px rgb(83, 83, 83);
-    background-color: lightgray;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-bottom: 4px;
-    overflow: auto;
+  border: solid 1px;
+  border-radius: 15px;
+  box-shadow: 1px 1px rgb(83, 83, 83);
+  background-color: lightgray;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 4px;
+  overflow: auto;
 }
 
 .patientCard:hover {
-    background-color: lightblue;
-    cursor: pointer;
+  background-color: lightblue;
+  cursor: pointer;
 }
 
 .activePatient {
-    background-color: lightblue !important;
+  background-color: lightblue !important;
 }
 
 .patientItem {
-    display: flex;
-    align-content: space-between;
+  display: flex;
+  align-content: space-between;
 }
 
 .endAppointmentContainer {
-    display: flex;
-    column-gap: .5rem;
-    margin-top: 3rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+  display: flex;
+  column-gap: 0.5rem;
+  margin-top: 3rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .datePickerContainer {
-    flex: 1 1 10ch;
+  flex: 1 1 10ch;
 }
 
 .patientNameContainer {
-    flex: 5 1 30ch;
+  flex: 5 1 30ch;
 }
 
 .submitButton {
-    flex: 1 1 10ch;
-    border: none;
-    border-radius: .25rem;
-    padding: .75rem 1rem;
-    background: #3640ce;
-    color: white;
-    box-shadow: 0 .75rem .5rem -.5rem #3640ce;
-    cursor: pointer;
+  flex: 1 1 10ch;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.75rem 1rem;
+  background: #3640ce;
+  color: white;
+  box-shadow: 0 0.75rem 0.5rem -0.5rem #3640ce;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 67em) {
-    .listContainer {
-        grid-template-columns: 31% 31% 31%;
-    }
+  .listContainer {
+    grid-template-columns: 31% 31% 31%;
+  }
 }
 
-@media screen and (max-width: 59em) {   
-    .listContainer {
-        grid-template-columns: 49% 49%;
-    }
+@media screen and (max-width: 59em) {
+  .listContainer {
+    grid-template-columns: 49% 49%;
+  }
 }
 
 @media screen and (max-width: 48em) {
-    .endAppointmentContainer {
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        row-gap: 1.5rem;
-    }
+  .endAppointmentContainer {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    row-gap: 1.5rem;
+  }
 }
 
 @media screen and (max-width: 36em) {
-    .listContainer {
-        grid-template-columns: 100%;
-    }
+  .listContainer {
+    grid-template-columns: 100%;
+  }
 }
-

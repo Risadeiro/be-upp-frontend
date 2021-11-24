@@ -18,7 +18,7 @@ const PatientSearch = ({searchQuery, setSearchQuery}) => {
           id="search"
           type="search"
           name="s"
-          placeholder="Procure paciente..."
+          placeholder="Procure por nome de paciente..."
           required
         />
       </form>

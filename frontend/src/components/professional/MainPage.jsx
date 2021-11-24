@@ -1,13 +1,14 @@
 /* import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from "react-router-dom"; */
-import { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {useState} from "react";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 import styles from "./MainPage.module.css";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
 import Appointment from "./appointment/Appointment";
 import RegisterPatient from "./registerPatient/RegisterPatient";
+import ListPatient from "./listPatient/ListPatient";
 
 const MainPage = () => {
   /*   
@@ -38,16 +39,15 @@ const MainPage = () => {
   return (
     <Router>
       <div className={bodyClass}>
-        <Header
-          onClick={toggleMenu}
-          toggleState={toggleState}
-        />
+        <Header onClick={toggleMenu} toggleState={toggleState} />
 
-        <Sidebar
-          toggleState={toggleState}
-        />
+        <Sidebar toggleState={toggleState} />
 
         <Switch>
+          <Route exact path="/doctor/list">
+            <ListPatient />
+          </Route>
+
           <Route exact path="/doctor/appointment">
             {/* <Appointment doctor={doctor} /> */}
             <Appointment />

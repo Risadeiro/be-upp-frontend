@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import styles from "./Sidebar.module.css";
-import { SidebarItems } from "./SidebarItems";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import {SidebarItems} from "./SidebarItems";
+import {Link} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 
-const Sidebar = ({ toggleState }) => {
+const Sidebar = ({toggleState}) => {
   const location = useLocation();
   const [navClass, setNavClass] = useState(styles.lNavbar);
   const [linkActive, setLinkActive] = useState();
@@ -27,7 +27,7 @@ const Sidebar = ({ toggleState }) => {
     <div className={navClass} id="nav-bar">
       <nav className={styles.nav}>
         <div>
-          <a href="/login" className={`${styles.a} ${styles.navLogo}`}>
+          <a href="/doctor/list" className={`${styles.a} ${styles.navLogo}`}>
             <i className={`bx bx-layer ${styles.navLogoIcon}`} />
             <span className={styles.navLogoName}>QUALIME</span>
           </a>
@@ -40,8 +40,9 @@ const Sidebar = ({ toggleState }) => {
                   key={index}
                   replace
                   to={item.path}
-                  className={`${styles.a} ${styles.navLink} ${index === linkActive ? styles.active : ""
-                    }`}
+                  className={`${styles.a} ${styles.navLink} ${
+                    index === linkActive ? styles.active : ""
+                  }`}
                 >
                   <i className={`bx ${item.icon} ${styles.navIcon}`} />
                   <span className={`${styles.navName}`}>{item.text}</span>

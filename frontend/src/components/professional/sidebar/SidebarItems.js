@@ -6,12 +6,12 @@ export const SidebarItems = [
   },
   {
     path: "/doctor/appointment",
-    icon: "bx-plus-medical",
+    icon: "bxs-calendar-plus",
     text: "Nova Consulta",
   },
   {
     path: "/doctor/register-patient",
     icon: "bx-user-plus",
     text: "Cadastrar Paciente",
-  }
+  },
 ];

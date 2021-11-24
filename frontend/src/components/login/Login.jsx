@@ -33,7 +33,7 @@ const Login = () => {
       .post(`http://localhost:3001/open-api/doctor/login`, credentials)
       .then((response) => {
         history.push({
-          pathname: "/doctor",
+          pathname: "/doctor/appointment",
           state: {
             doctor: response.data,
           },

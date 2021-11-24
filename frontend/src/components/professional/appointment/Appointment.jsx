@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 import PatientSearch from "./patientSearch/PatientSearch";
 import styles from "./Appointment.module.css";
 import data from "./pacienteTest.json";
-import { Paper, TextField } from "@material-ui/core";
-import { DatePicker } from "@material-ui/lab";
+import {Paper, TextField} from "@material-ui/core";
+import {DatePicker} from "@material-ui/lab";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 
-const Appointment = ({ doctor }) => {
+const Appointment = ({doctor}) => {
   const filterPosts = (posts, query) => {
     if (!query) {
       return posts;
@@ -63,15 +63,14 @@ const Appointment = ({ doctor }) => {
         setSearchQuery={setSearchQuery}
       />
 
-      <Paper
-        elevation={3}
-        className={styles.listContainer}
-      >
+      <Paper elevation={3} className={styles.listContainer}>
         {filteredPatients.map((post, key) => (
           <Card
             elevation={4}
             key={key}
-            className={`${styles.patientCard} ${selectedPatient === post ? styles.activePatient : ""}`}
+            className={`${styles.patientCard} ${
+              selectedPatient === post ? styles.activePatient : ""
+            }`}
             onClick={() => setSelectedPatient(post)}
             aria-hidden="true"
           >
@@ -79,11 +78,11 @@ const Appointment = ({ doctor }) => {
 
             <CardContent>
               <div className={styles.infosContainer}>
-                <div className={styles.infoName}>CPF:</div>
+                <div className={styles.infoName}>CPF</div>
                 <div className={styles.infoValue}>{post.cpf}</div>
               </div>
               <div className={styles.infosContainer}>
-                <div className={styles.infoName}>Celular:</div>
+                <div className={styles.infoName}>Celular</div>
                 <div className={styles.infoValue}>{post.cellphone}</div>
               </div>
             </CardContent>
@@ -108,8 +107,8 @@ const Appointment = ({ doctor }) => {
 
         <TextField
           className={styles.patientNameContainer}
-          InputProps={{ readOnly: true }}
-          InputLabelProps={{ shrink: true }}
+          InputProps={{readOnly: true}}
+          InputLabelProps={{shrink: true}}
           id="standard-read-only-input"
           label="Nome do Paciente"
           value={selectedPatient?.name}

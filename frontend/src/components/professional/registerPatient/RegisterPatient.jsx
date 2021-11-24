@@ -1,40 +1,34 @@
-import { useState } from "react";
+import {useState} from "react";
 import styles from "./RegisterPatient.module.css";
-import {
-  Paper,
-  TextField,
-  Grid
-} from "@material-ui/core";
-import { DatePicker } from "@material-ui/lab";
+import {Paper, TextField, Grid} from "@material-ui/core";
+import {DatePicker} from "@material-ui/lab";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import axios from "axios";
-import InputMask from "react-input-mask"
+import InputMask from "react-input-mask";
 
 const RegisterPatient = () => {
   const initInfo = {
-    name: '',
-    email: '',
-    cpf: '',
-    phone: '',
-    birth: new Date()
-  }
+    name: "",
+    email: "",
+    cpf: "",
+    phone: "",
+    birth: new Date(),
+  };
 
-  const [patientInfo, setPatientInfo] = useState(initInfo)
-  const [errors, setErrors] = useState({})
+  const [patientInfo, setPatientInfo] = useState(initInfo);
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (validate()) {
       const preparedData = {
         ...patientInfo,
-        phone: patientInfo.phone.replace(/\D+/g, ''),
-        cpf: patientInfo.cpf.replace(/\D+/g, ''),
-        birth: patientInfo.birth.getTime()
-      }
-
-      console.log(preparedData)
+        phone: patientInfo.phone.replace(/\D+/g, ""),
+        cpf: patientInfo.cpf.replace(/\D+/g, ""),
+        birth: patientInfo.birth.getTime(),
+      };
 
       axios
         .post(`http://localhost:3001/open-api/patient/`, preparedData)
@@ -45,58 +39,65 @@ const RegisterPatient = () => {
           alert("Ocorreu um erro. Tente novamente!");
         });
     }
-  }
+  };
 
   const handleInputChange = (name, value) => {
     switch (name) {
-      case 'birth':
+      case "birth":
         setPatientInfo({
           ...patientInfo,
-          birth: value
-        })
-        validate({ birth: value })
+          birth: value,
+        });
+        validate({birth: value});
         break;
 
       default:
         setPatientInfo({
           ...patientInfo,
-          [name]: value
-        })
-        validate({ [name]: value })
+          [name]: value,
+        });
+        validate({[name]: value});
     }
-  }
+  };
 
   const validate = (values = patientInfo) => {
-    let e = { ...errors }
+    let e = {...errors};
 
-    if ('name' in values)
-      e.name = values.name ? "" : "Favor Preencher."
-    if ('email' in values)
-      e.email = (/$^|.+@.+[.].+/).test(values.email) && values.email ? "" : "Email Inválido."
-    if ('cpf' in values)
-      e.cpf = (/([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})/).test(values.cpf) && values.cpf ? "" : "CPF Inválido."
-    if ('phone' in values)
-      e.phone = (/^[1-9]{2} (?:9[1-9])[0-9]{3}-[0-9]{4}$/).test(values.phone) && values.phone ? "" : "Número de Celular Inválido."
-    if ('birth' in values)
-      e.birth = values.birth ? "" : "Favor Preencher."
+    if ("name" in values) e.name = values.name ? "" : "Favor Preencher.";
+    if ("email" in values)
+      e.email =
+        /$^|.+@.+[.].+/.test(values.email) && values.email
+          ? ""
+          : "Email Inválido.";
+    if ("cpf" in values)
+      e.cpf =
+        /([0-9]{2}[.]?[0-9]{3}[.]?[0-9]{3}[/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[.]?[0-9]{3}[.]?[0-9]{3}[-]?[0-9]{2})/.test(
+          values.cpf
+        ) && values.cpf
+          ? ""
+          : "CPF Inválido.";
+    if ("phone" in values)
+      e.phone =
+        /^[1-9]{2} (?:9[1-9])[0-9]{3}-[0-9]{4}$/.test(values.phone) &&
+        values.phone
+          ? ""
+          : "Número de Celular Inválido.";
+    if ("birth" in values) e.birth = values.birth ? "" : "Favor Preencher.";
 
     setErrors({
-      ...e
-    })
+      ...e,
+    });
 
     if (values === patientInfo)
-      return Object.values(e).every(item => item === "")
-  }
+      return Object.values(e).every((item) => item === "");
+  };
 
   const resetForm = () => {
-    setPatientInfo(initInfo)
-  }
+    setPatientInfo(initInfo);
+  };
 
   return (
-    <Paper
-      elevation={3}
-      className={styles.container}
-    >
+    <Paper elevation={3} className={styles.container}>
       <form onSubmit={handleSubmit}>
         <Grid className={styles.gridContainer}>
           <Grid item xs={12} md={6}>
@@ -109,7 +110,7 @@ const RegisterPatient = () => {
               value={patientInfo.name}
               placeholder="José Maria da Silva"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-              {...(errors.name && { error: true, helperText: errors.name })}
+              {...(errors.name && {error: true, helperText: errors.name})}
             />
 
             <TextField
@@ -121,7 +122,7 @@ const RegisterPatient = () => {
               value={patientInfo.email}
               placeholder="qualime@gov.br"
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
-              {...(errors.email && { error: true, helperText: errors.email })}
+              {...(errors.email && {error: true, helperText: errors.email})}
             />
 
             <InputMask
@@ -130,16 +131,18 @@ const RegisterPatient = () => {
               value={patientInfo.cpf}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
             >
-              {(props) => <TextField
-                {...props}
-                autoComplete="off"
-                className={styles.text}
-                variant="outlined"
-                name="cpf"
-                label="CPF"
-                placeholder="123.456.789-10"
-                {...(errors.cpf && { error: true, helperText: errors.cpf })}
-              />}
+              {(props) => (
+                <TextField
+                  {...props}
+                  autoComplete="off"
+                  className={styles.text}
+                  variant="outlined"
+                  name="cpf"
+                  label="CPF"
+                  placeholder="123.456.789-10"
+                  {...(errors.cpf && {error: true, helperText: errors.cpf})}
+                />
+              )}
             </InputMask>
           </Grid>
 
@@ -150,30 +153,32 @@ const RegisterPatient = () => {
               value={patientInfo.phone}
               onChange={(e) => handleInputChange(e.target.name, e.target.value)}
             >
-              {(props) => <TextField
-                {...props}
-                autoComplete="off"
-                className={styles.text}
-                variant="outlined"
-                name="phone"
-                label="Telefone Celular"
-                placeholder="DDD 91234-5678"
-                {...(errors.phone && { error: true, helperText: errors.phone })}
-              />}
+              {(props) => (
+                <TextField
+                  {...props}
+                  autoComplete="off"
+                  className={styles.text}
+                  variant="outlined"
+                  name="phone"
+                  label="Telefone Celular"
+                  placeholder="DDD 91234-5678"
+                  {...(errors.phone && {error: true, helperText: errors.phone})}
+                />
+              )}
             </InputMask>
 
             <div className={styles.text}>
-              <LocalizationProvider
-                dateAdapter={AdapterDateFns}
-              >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Data de Nascimento"
                   inputFormat="dd/MM/yyyy"
                   name="birth"
                   value={patientInfo.birth}
                   onChange={(e) => handleInputChange("birth", e)}
-                  renderInput={(props) => <TextField {...props} helperText="" />}
-                  {...(errors.birth && { error: true, helperText: errors.birth })}
+                  renderInput={(props) => (
+                    <TextField {...props} helperText="" />
+                  )}
+                  {...(errors.birth && {error: true, helperText: errors.birth})}
                 />
               </LocalizationProvider>
             </div>
@@ -194,7 +199,7 @@ const RegisterPatient = () => {
           </Grid>
         </Grid>
       </form>
-    </Paper >
+    </Paper>
   );
 };
 
