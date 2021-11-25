@@ -1,15 +1,15 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
-import PatientSearch from "./patientSearch/PatientSearch";
 import styles from "./Appointment.module.css";
 import data from "./pacienteTest.json";
-import {Paper, TextField} from "@material-ui/core";
+import {Paper, TextField, Toolbar} from "@material-ui/core";
 import {DatePicker} from "@material-ui/lab";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import SearchBar from "../searchBar/SearchBar";
 
 const Appointment = ({doctor}) => {
   const filterPosts = (posts, query) => {
@@ -58,36 +58,43 @@ const Appointment = ({doctor}) => {
 
   return (
     <div>
-      <PatientSearch
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-      />
+      <Paper className={styles.paperContainer} elevation={3}>
+        <Toolbar className={styles.toolbar}>
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            name="search"
+            label="Procure Paciente"
+            placeholder=""
+          />
+        </Toolbar>
 
-      <Paper elevation={3} className={styles.listContainer}>
-        {filteredPatients.map((post, key) => (
-          <Card
-            elevation={4}
-            key={key}
-            className={`${styles.patientCard} ${
-              selectedPatient === post ? styles.activePatient : ""
-            }`}
-            onClick={() => setSelectedPatient(post)}
-            aria-hidden="true"
-          >
-            <CardHeader title={post.name} subheader={post.email} />
+        <div className={styles.listContainer}>
+          {filteredPatients.map((post, key) => (
+            <Card
+              elevation={4}
+              key={key}
+              className={`${styles.patientCard} ${
+                selectedPatient === post ? styles.activePatient : ""
+              }`}
+              onClick={() => setSelectedPatient(post)}
+              aria-hidden="true"
+            >
+              <CardHeader title={post.name} subheader={post.email} />
 
-            <CardContent>
-              <div className={styles.infosContainer}>
-                <div className={styles.infoName}>CPF</div>
-                <div className={styles.infoValue}>{post.cpf}</div>
-              </div>
-              <div className={styles.infosContainer}>
-                <div className={styles.infoName}>Celular</div>
-                <div className={styles.infoValue}>{post.cellphone}</div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              <CardContent>
+                <div className={styles.infosContainer}>
+                  <div className={styles.infoName}>CPF</div>
+                  <div className={styles.infoValue}>{post.cpf}</div>
+                </div>
+                <div className={styles.infosContainer}>
+                  <div className={styles.infoName}>Celular</div>
+                  <div className={styles.infoValue}>{post.cellphone}</div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </Paper>
 
       <form className={styles.endAppointmentContainer} onSubmit={handleSubmit}>

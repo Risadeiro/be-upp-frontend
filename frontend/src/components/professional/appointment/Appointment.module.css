@@ -9,6 +9,16 @@
   max-height: 575px;
 }
 
+.paperContainer {
+  margin: 40px;
+  margin-top: 100px;
+  padding: 24px;
+}
+
+.toolbar {
+  margin-bottom: 24px;
+}
+
 .patientCard {
   background-color: white;
 }
@@ -22,16 +32,19 @@
 .infoName {
   flex: 0;
   font-weight: 700;
+  font-family: "Nunito", sans-serif;
 }
 
 .infoValue {
   flex: 2;
+  font-family: "Nunito", sans-serif;
 }
 
 .patientName {
   font-weight: 700;
   font-size: 35px;
   padding: 5px;
+  font-family: "Nunito", sans-serif;
 }
 
 .listContainer .patientName {
@@ -90,13 +103,13 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 67em) {
+@media screen and (max-width: 70em) {
   .listContainer {
     grid-template-columns: 31% 31% 31%;
   }
 }
 
-@media screen and (max-width: 59em) {
+@media screen and (max-width: 60em) {
   .listContainer {
     grid-template-columns: 49% 49%;
   }
@@ -111,7 +124,7 @@
   }
 }
 
-@media screen and (max-width: 36em) {
+@media screen and (max-width: 40em) {
   .listContainer {
     grid-template-columns: 100%;
   }

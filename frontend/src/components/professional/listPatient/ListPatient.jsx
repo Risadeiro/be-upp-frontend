@@ -1,39 +1,59 @@
+// import {useEffect, useState, useMemo} from "react";
+// import axios from "axios";
+// import {useState, useMemo} from "react";
 import {useMemo} from "react";
 import Table from "./table/Table";
-import dummyData from "./dummyData.json";
+import {dummyData} from "./dummyData";
 
 const ListPatient = () => {
+  // const [data, setData] = useState();
+
+  /* useEffect(() => {
+    axios
+      .get("http://localhost:9090/open-api/doctor/appointment")
+      .then((response) => {
+        response.map((item) => {
+          item.birth = new Date(item.birth);
+          item.date = new Date(item.date);
+        });
+
+        setData(response.data);
+      });
+  }, [data]); */
+
   const columns = useMemo(
     () => [
       {
-        Header: "Data Consulta",
-        accessor: "date",
+        id: "date",
+        label: "Data Consulta",
       },
       {
-        Header: "Name",
-        accessor: "name",
+        id: "name",
+        label: "Nome",
       },
       {
-        Header: "Email",
-        accessor: "email",
+        id: "email",
+        label: "Email",
       },
       {
-        Header: "CPF",
-        accessor: "cpf",
+        id: "cpf",
+        label: "CPF",
+        disableSorting: "true",
       },
       {
-        Header: "Celular",
-        accessor: "phone",
+        id: "phone",
+        label: "Celular",
+        disableSorting: "true",
       },
       {
-        Header: "Data Nascimento",
-        accessor: "birth",
+        id: "birth",
+        label: "Data Nascimento",
       },
     ],
     []
   );
 
-  const data = useMemo(() => dummyData, []);
+  const data = useMemo(() => dummyData(), []);
 
   return (
     <div>
