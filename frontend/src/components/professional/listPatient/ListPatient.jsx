@@ -24,6 +24,10 @@ const ListPatient = () => {
   const columns = useMemo(
     () => [
       {
+        id: "daysToAppointment",
+        label: "Dias até Consulta",
+      },
+      {
         id: "date",
         label: "Data Consulta",
       },

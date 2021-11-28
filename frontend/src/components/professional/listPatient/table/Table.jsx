@@ -12,6 +12,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import SearchBar from "../../searchBar/SearchBar";
+import Report from "../../report/Report";
 
 const Table = ({columns, data}) => {
   const filterPosts = (posts, query) => {
@@ -29,11 +30,14 @@ const Table = ({columns, data}) => {
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pages[pageIndex]);
 
-  const [order, setOrder] = useState();
-  const [orderBy, setOrderBy] = useState();
+  const [order, setOrder] = useState("desc");
+  const [orderBy, setOrderBy] = useState("daysToAppointment");
 
   const [searchQuery, setSearchQuery] = useState();
   const filteredPosts = filterPosts(data, searchQuery);
+
+  const [openPopup, setOpenPopup] = useState(false);
+  const [selectedId, setSelectedId] = useState();
 
   const handleChangeRowsPerPage = (e) => {
     setRowsPerPage(parseInt(e.target.value, 10));
@@ -44,6 +48,11 @@ const Table = ({columns, data}) => {
     const isAsc = orderBy === columnId && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(columnId);
+  };
+
+  const handleClickCell = (id) => {
+    setOpenPopup(true);
+    setSelectedId(id);
   };
 
   const GetSortOrder = (order, orderBy) => {
@@ -115,7 +124,12 @@ const Table = ({columns, data}) => {
 
           <TableBody>
             {dataSlicer().map((item, index) => (
-              <TableRow key={index}>
+              <TableRow key={index} onClick={() => handleClickCell(item._id)}>
+                <TableCell>
+                  {item.daysToAppointment > 0
+                    ? item.daysToAppointment + " dias"
+                    : "Finalizado"}
+                </TableCell>
                 <TableCell>
                   {new Date(item.date).toLocaleDateString("pt-br")}
                 </TableCell>
@@ -137,6 +151,7 @@ const Table = ({columns, data}) => {
             component="div"
             page={pageIndex}
             rowsPerPageOptions={pages}
+            labelRowsPerPage="Itens por página"
             rowsPerPage={rowsPerPage}
             count={filteredPosts.length}
             onPageChange={(e, newPage) => setPageIndex(newPage)}
@@ -144,6 +159,12 @@ const Table = ({columns, data}) => {
           />
         </div>
       </Paper>
+
+      <Report
+        id={selectedId}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+      />
     </>
   );
 };
